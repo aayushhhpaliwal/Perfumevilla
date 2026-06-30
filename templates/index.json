@@ -356,6 +356,8 @@
       "name": "Big Daddy Custom Home",
       "settings": {
         "product": "",
+        "logo": "shopify://shop_images/Create_a_luxury_commercial_perfume_202606192340.jpg",
+        "hero_image": "shopify://shop_images/Create_a_premium_luxury_studio_202606192334_b3dba072-26e4-48aa-b044-d8a6dd4af65b.png",
         "video_url": "",
         "enable_preloader": true,
         "enable_particles": true,
@@ -435,11 +437,11 @@
         "announcement_stock": "Only 8 left in stock",
         "bg_color": "#080808",
         "bg_2_color": "#111111",
-        "gold_color": "#C8A15A",
-        "gold_light_color": "#E4C88A",
-        "ruby_color": "#8B1E2D",
-        "text_color": "#F8F7F3",
-        "muted_color": "#BEB9AE",
+        "gold_color": "#c8a15a",
+        "gold_light_color": "#e4c88a",
+        "ruby_color": "#8b1e2d",
+        "text_color": "#f8f7f3",
+        "muted_color": "#beb9ae",
         "card_radius": 28
       }
     }
