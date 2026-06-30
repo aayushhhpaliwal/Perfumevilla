@@ -1,0 +1,3233 @@
+{% comment %}
+  Big Daddy Luxury Perfume Homepage
+  Premium Shopify OS 2.0 section with GSAP, ScrollTrigger, Lenis, AJAX ATC, sticky cart, FAQs, testimonials, story scroll, notes timeline, comparison slider, and CRO blocks.
+  Add to: /sections/big-daddy-luxury-homepage.liquid
+{% endcomment %}
+
+{% liquid
+  assign sid = section.id
+  assign product = section.settings.product
+  assign current_variant = product.selected_or_first_available_variant
+  assign bottle_image = section.settings.bottle_image
+  assign hero_bg_image = section.settings.hero_bg_image
+  assign notes_image = section.settings.notes_image
+  assign lifestyle_image = section.settings.lifestyle_image
+  assign before_image = section.settings.before_image
+  assign after_image = section.settings.after_image
+  if bottle_image == blank and product.featured_image != blank
+    assign bottle_image = product.featured_image
+  endif
+  if hero_bg_image == blank
+    assign hero_bg_image = bottle_image
+  endif
+  if notes_image == blank
+    assign notes_image = section.settings.hero_bg_image
+  endif
+  if lifestyle_image == blank
+    assign lifestyle_image = bottle_image
+  endif
+%}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link
+  rel="preconnect"
+  href="https://fonts.gstatic.com"
+  crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+
+<section
+  id="BigDaddyLuxury-{{ sid }}"
+  class="bdp bdp-{{ sid }}"
+  data-section-id="{{ sid }}"
+  data-product-id="{{ product.id }}">
+  {% if section.settings.enable_preloader %}
+    <div class="bdp-preloader" aria-hidden="true">
+      <div class="bdp-preloader__inner">
+        <div class="bdp-preloader__logo">The Perfume Villa</div>
+        <div class="bdp-preloader__product">BIG DADDY</div>
+        <div class="bdp-preloader__bar">
+          <span></span>
+        </div>
+        <div class="bdp-preloader__percent">0%</div>
+      </div>
+    </div>
+  {% endif %}
+
+  <div class="bdp-cursor" aria-hidden="true"></div>
+
+  <div class="bdp-announcement" data-bd-anim>
+    <div class="bdp-announcement__track">
+      {% for i in (1..2) %}
+        <span>Free shipping on prepaid orders</span>
+        <span>COD available</span>
+        <span>Luxury gift-ready packaging</span>
+        <span>Limited launch offer ends in
+          <b data-countdown>00:00:00</b>
+        </span>
+      {% endfor %}
+    </div>
+  </div>
+
+  <div class="bdp-sticky-atc" data-sticky-atc>
+    <div class="bdp-sticky-atc__product">
+      {% if bottle_image != blank %}
+        <img
+          src="{{ bottle_image | image_url: width: 120 }}"
+          width="60"
+          height="60"
+          alt="{{ product.title | default: 'Big Daddy perfume bottle' | escape }}"
+          loading="lazy">
+      {% endif %}
+      <div>
+        <strong>{{ product.title | default: 'BIG DADDY Eau de Parfum' }}</strong>
+        <small>
+          <span data-sticky-price>
+            {% if product != blank %}
+              {{ current_variant.price | money }}{% else %}50ML · Premium Perfume{% endif %}
+          </span>
+        </small>
+      </div>
+    </div>
+    <button class="bdp-btn bdp-btn--gold bdp-btn--small" data-sticky-add>Buy Now</button>
+  </div>
+
+  <header class="bdp-hero" data-bd-section>
+    <div class="bdp-hero__ambient" aria-hidden="true">
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <div class="bdp-hero__smoke" aria-hidden="true"></div>
+    <div class="bdp-hero__content">
+      <p class="bdp-kicker bdp-split">The Perfume Villa</p>
+      <h1 class="bdp-hero__title bdp-split">Own The Room Before You Enter</h1>
+      <p class="bdp-hero__subtitle bdp-reveal-line">A fragrance crafted for those who lead with confidence.</p>
+      <div class="bdp-hero__actions">
+        <a
+          href="#bdp-product-buy-{{ sid }}"
+          class="bdp-btn bdp-btn--gold"
+          data-magnetic>Shop Now</a>
+        <a
+          href="#bdp-fragrance-{{ sid }}"
+          class="bdp-btn bdp-btn--ghost"
+          data-magnetic>Discover The Fragrance</a>
+      </div>
+      <div class="bdp-hero__trust" data-bd-anim>
+        <span>★★★★★ 4.9 Rating</span>
+        <span>100,000+ Happy Customers</span>
+        <span>24 Hour Long Lasting</span>
+        <span>Free Shipping</span>
+      </div>
+    </div>
+
+    <div class="bdp-hero__bottle-wrap" data-hero-bottle>
+      <div class="bdp-ruby-glow"></div>
+      <div class="bdp-light-sweep"></div>
+      {% if bottle_image != blank %}
+        <img
+          class="bdp-hero__bottle"
+          src="{{ bottle_image | image_url: width: 1200 }}"
+          srcset="{{ bottle_image | image_url: width: 500 }} 500w, {{ bottle_image | image_url: width: 800 }} 800w, {{ bottle_image | image_url: width: 1200 }} 1200w"
+          sizes="(max-width: 749px) 78vw, 44vw"
+          width="900"
+          height="900"
+          alt="{{ product.title | default: 'Big Daddy luxury perfume bottle' | escape }}">
+      {% else %}
+        <div class="bdp-bottle-fallback">
+          <small>The Perfume Villa</small>
+          <b>BIG<br>DADDY</b>
+          <em>50ML</em>
+        </div>
+      {% endif %}
+    </div>
+  </header>
+
+  <section
+    class="bdp-trust-strip"
+    aria-label="Brand trust benefits"
+    data-bd-section>
+    <div class="bdp-marquee">
+      <div class="bdp-marquee__track">
+        {% assign trust_items = 'Dermatologically Tested|Long Lasting|Premium Oils|Luxury Packaging|Free Shipping|Secure Checkout|Easy Returns|Made in India|Cruelty Free' | split: '|' %}
+        {% for loop_index in (1..2) %}
+          {% for item in trust_items %}
+            <span class="bdp-marquee__item">
+              <i></i>
+              {{ item }}</span>
+          {% endfor %}
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <section class="bdp-editorial bdp-pad" data-bd-section>
+    <div class="bdp-section-head bdp-section-head--wide">
+      <p class="bdp-kicker bdp-split">Why Big Daddy</p>
+      <h2 class="bdp-h2 bdp-split">Built like a statement. Worn like confidence.</h2>
+      <p class="bdp-muted bdp-reveal-line">Deep ruby intensity, a matte-black luxury label, and a bold masculine signature crafted to stay with you from first impression to final goodbye.</p>
+    </div>
+    <div class="bdp-feature-grid">
+      {% assign feature_titles = '24 Hours Performance|Imported French Oils|Skin Friendly Formula|Luxury Gift Packaging' | split: '|' %}
+      {% assign feature_texts = 'A long-lasting trail designed for office, evenings, parties, and special occasions.|Premium oil character with a refined projection and smooth dry-down.|Balanced formulation created for comfortable everyday wear.|Delivered with a premium unboxing experience that feels gift-ready.' | split: '|' %}
+      {% for title in feature_titles %}
+        <article class="bdp-feature-card" data-bd-card>
+          <div class="bdp-feature-card__shine"></div>
+          <div class="bdp-feature-card__icon">{{ forloop.index }}</div>
+          <h3>{{ title }}</h3>
+          <p>{{ feature_texts[forloop.index0] }}</p>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section
+    id="bdp-product-buy-{{ sid }}"
+    class="bdp-buy bdp-pad"
+    data-bd-section>
+    <div class="bdp-buy__media" data-bd-image-reveal>
+      {% if bottle_image != blank %}
+        <img
+          src="{{ bottle_image | image_url: width: 1000 }}"
+          width="800"
+          height="1000"
+          alt="{{ product.title | default: 'Big Daddy perfume product' | escape }}"
+          loading="lazy">
+      {% endif %}
+      <div class="bdp-buy__halo"></div>
+    </div>
+
+    <div class="bdp-buy__panel" data-bd-anim>
+      <p class="bdp-kicker">50ML · Eau de Parfum</p>
+      <h2 class="bdp-h2">BIG DADDY</h2>
+      <div class="bdp-rating">
+        <span>★★★★★</span>
+        <b>4.9</b>
+        <em>Verified customer rating</em>
+      </div>
+      <p class="bdp-muted">A bold masculine fragrance with fresh citrus impact, aromatic heart notes, and a warm amber-wood base that leaves a premium, confident trail.</p>
+
+      {% if product != blank %}
+        <form class="bdp-product-form" data-product-form>
+          <input
+            type="hidden"
+            name="product-id"
+            value="{{ product.id }}">
+
+          {% unless product.has_only_default_variant %}
+            <label class="bdp-field-label" for="BdpVariant-{{ sid }}">Select Variant</label>
+            <select
+              id="BdpVariant-{{ sid }}"
+              class="bdp-select"
+              name="id"
+              data-variant-select>
+              {% for variant in product.variants %}
+                <option
+                  value="{{ variant.id }}"
+                  data-price="{{ variant.price | money }}"
+                  data-compare="{{ variant.compare_at_price | money }}"
+                  data-available="{{ variant.available }}"
+                  data-inventory="{{ variant.inventory_quantity }}"
+                  {% if variant.image != blank %}
+                  data-image="{{ variant.image | image_url: width: 800 }}"
+                  {% endif %}
+                  {% if variant == current_variant %}
+                  selected{% endif %}>{{ variant.title }}</option>
+              {% endfor %}
+            </select>
+          {% else %}
+            <input
+              type="hidden"
+              name="id"
+              value="{{ current_variant.id }}"
+              data-variant-id>
+          {% endunless %}
+
+          <div class="bdp-price-row">
+            <span class="bdp-price" data-product-price>{{ current_variant.price | money }}</span>
+            {% if current_variant.compare_at_price > current_variant.price %}
+              <s data-compare-price>{{ current_variant.compare_at_price | money }}</s>
+            {% else %}
+              <s data-compare-price hidden></s>
+            {% endif %}
+            <span class="bdp-offer-badge">Limited Launch Offer</span>
+          </div>
+
+          <div class="bdp-low-stock" data-low-stock>
+            <i></i>
+            <span>Only a few bottles left in this batch.</span>
+          </div>
+
+          <div class="bdp-progress-card">
+            <div class="bdp-progress-card__top">
+              <span>Shipping Milestone</span>
+              <b>Free shipping unlocked</b>
+            </div>
+            <div class="bdp-progress">
+              <span style="width:100%"></span>
+            </div>
+          </div>
+
+          <div class="bdp-form-row">
+            <div class="bdp-qty" aria-label="Quantity selector">
+              <button type="button" data-qty-minus>-</button>
+              <input
+                type="number"
+                name="quantity"
+                value="1"
+                min="1"
+                max="10"
+                data-qty-input
+                aria-label="Quantity">
+              <button type="button" data-qty-plus>+</button>
+            </div>
+            <button
+              type="button"
+              class="bdp-wishlist"
+              data-wishlist
+              aria-label="Add to wishlist">♡ Wishlist</button>
+          </div>
+
+          <button
+            type="submit"
+            class="bdp-btn bdp-btn--gold bdp-btn--full"
+            data-add-to-cart
+            data-magnetic>Add To Cart</button>
+          <button
+            type="button"
+            class="bdp-btn bdp-btn--ghost bdp-btn--full"
+            data-buy-now
+            data-magnetic>Buy Now</button>
+
+          <div class="bdp-cod-badge">COD Available · Secure Checkout · Easy Returns</div>
+        </form>
+      {% else %}
+        <div class="bdp-empty-product">Select a product in this section settings to enable Shopify cart, variants, price, and buy buttons.</div>
+      {% endif %}
+
+      <div class="bdp-estimator">
+        <label for="Pincode-{{ sid }}">Delivery Estimate</label>
+        <div>
+          <input
+            id="Pincode-{{ sid }}"
+            inputmode="numeric"
+            maxlength="6"
+            placeholder="Enter PIN code"
+            data-pincode>
+          <button type="button" data-check-pincode>Check</button>
+        </div>
+        <small data-pincode-result>Usually delivered in 2–5 business days.</small>
+      </div>
+    </div>
+  </section>
+
+  <section
+    id="bdp-fragrance-{{ sid }}"
+    class="bdp-showcase bdp-pad"
+    data-bd-section>
+    <div class="bdp-showcase__sticky">
+      <div class="bdp-showcase__copy">
+        <p class="bdp-kicker bdp-split">Cinematic Product Showcase</p>
+        <h2 class="bdp-h2 bdp-split">Glass. Gold. Crimson. Command.</h2>
+        <p class="bdp-muted bdp-reveal-line">A premium rectangular glass bottle with a leather-textured matte black cap, gold ring, and deep ruby perfume liquid designed to look as powerful as it smells.</p>
+      </div>
+      <div class="bdp-showcase__bottle" data-showcase-bottle>
+        <div class="bdp-hotspot bdp-hotspot--top" tabindex="0">
+          <button>1</button>
+          <span>
+            <b>Top Notes</b>
+            Bergamot, pink pepper, lemon — fresh authority at first spray.</span>
+        </div>
+        <div class="bdp-hotspot bdp-hotspot--heart" tabindex="0">
+          <button>2</button>
+          <span>
+            <b>Heart Notes</b>
+            Lavender, jasmine, rose — smooth, clean, magnetic.</span>
+        </div>
+        <div class="bdp-hotspot bdp-hotspot--base" tabindex="0">
+          <button>3</button>
+          <span>
+            <b>Base Notes</b>
+            Amber, sandalwood, vanilla, musk — warm power that stays.</span>
+        </div>
+        {% if bottle_image != blank %}
+          <img
+            src="{{ bottle_image | image_url: width: 1000 }}"
+            width="700"
+            height="900"
+            alt="Big Daddy bottle rotating showcase"
+            loading="lazy">
+        {% endif %}
+        <div class="bdp-glass-reflection"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bdp-notes bdp-pad" data-bd-section>
+    <div class="bdp-section-head">
+      <p class="bdp-kicker bdp-split">Fragrance Notes</p>
+      <h2 class="bdp-h2 bdp-split">A confident scent architecture.</h2>
+    </div>
+    <div class="bdp-notes__grid">
+      <article class="bdp-note-stage" data-note-stage>
+        <span>01</span>
+        <h3>Top Notes</h3>
+        <div class="bdp-note-tags">
+          <b>Bergamot</b>
+          <b>Pink Pepper</b>
+          <b>Lemon</b>
+        </div>
+      </article>
+      <div class="bdp-note-arrow" aria-hidden="true">↓</div>
+      <article class="bdp-note-stage" data-note-stage>
+        <span>02</span>
+        <h3>Heart Notes</h3>
+        <div class="bdp-note-tags">
+          <b>Lavender</b>
+          <b>Jasmine</b>
+          <b>Rose</b>
+        </div>
+      </article>
+      <div class="bdp-note-arrow" aria-hidden="true">↓</div>
+      <article class="bdp-note-stage" data-note-stage>
+        <span>03</span>
+        <h3>Base Notes</h3>
+        <div class="bdp-note-tags">
+          <b>Amber</b>
+          <b>Sandalwood</b>
+          <b>Vanilla</b>
+          <b>Musk</b>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="bdp-story" data-bd-section>
+    <div class="bdp-story__pin">
+      <div class="bdp-story__text">
+        <p class="bdp-kicker">Scroll Story</p>
+        <h2 class="bdp-h2">From raw glass to a signature of power.</h2>
+        <p class="bdp-muted">Follow the bottle as it forms, fills, seals, engraves, and reveals the crimson signature of Big Daddy.</p>
+      </div>
+      <div class="bdp-story__visual" aria-hidden="true">
+        <div class="bdp-story__bottle">
+          <div class="bdp-story__glass"></div>
+          <div class="bdp-story__liquid"></div>
+          <div class="bdp-story__cap"></div>
+          <div class="bdp-story__ring"></div>
+          <div class="bdp-story__label">
+            <small>The Perfume Villa</small>
+            <b>BIG<br>DADDY</b>
+            <em>50ML</em>
+          </div>
+          <div class="bdp-story__shine"></div>
+          <div class="bdp-story__smoke"></div>
+        </div>
+      </div>
+      <div class="bdp-story__steps">
+        <span data-story-step>Glass forms</span>
+        <span data-story-step>Crimson fills</span>
+        <span data-story-step>Cap lands</span>
+        <span data-story-step>Gold engraves</span>
+        <span data-story-step>Signature reveals</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="bdp-love bdp-pad" data-bd-section>
+    <div class="bdp-love__row">
+      <div class="bdp-love__image" data-bd-image-reveal>
+        {% if lifestyle_image != blank %}
+          <img
+            src="{{ lifestyle_image | image_url: width: 1100 }}"
+            width="900"
+            height="900"
+            alt="Big Daddy luxury lifestyle"
+            loading="lazy">
+        {% endif %}
+      </div>
+      <div class="bdp-love__copy">
+        <p class="bdp-kicker bdp-split">Why People Love It</p>
+        <h2 class="bdp-h2 bdp-split">A masculine fragrance that feels expensive from the first spray.</h2>
+        <ul class="bdp-lux-list">
+          <li>Bold Masculine Fragrance</li>
+          <li>Premium Imported Oils</li>
+          <li>24 Hour Performance</li>
+          <li>Elegant Packaging</li>
+          <li>Perfect Gift</li>
+          <li>Luxury Experience</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="bdp-before-after bdp-pad" data-bd-section>
+    <div class="bdp-section-head bdp-section-head--wide">
+      <p class="bdp-kicker bdp-split">Before / After Experience</p>
+      <h2 class="bdp-h2 bdp-split">From ordinary presence to unforgettable aura.</h2>
+    </div>
+    <div
+      class="bdp-compare"
+      data-compare
+      style="--position:50%;">
+      <div class="bdp-compare__image bdp-compare__before">
+        {% if before_image != blank %}<img
+            src="{{ before_image | image_url: width: 1400 }}"
+            width="1200"
+            height="800"
+            alt="Before using Big Daddy"
+            loading="lazy">{% else %}
+          <div class="bdp-compare__placeholder">Before</div>
+        {% endif %}
+        <span>Before</span>
+      </div>
+      <div class="bdp-compare__image bdp-compare__after">
+        {% if after_image != blank %}<img
+            src="{{ after_image | image_url: width: 1400 }}"
+            width="1200"
+            height="800"
+            alt="After using Big Daddy"
+            loading="lazy">{% else %}
+          <div class="bdp-compare__placeholder">After</div>
+        {% endif %}
+        <span>After</span>
+      </div>
+      <input
+        type="range"
+        min="0"
+        max="100"
+        value="50"
+        aria-label="Before after comparison slider"
+        data-compare-range>
+      <div class="bdp-compare__handle"></div>
+    </div>
+  </section>
+
+  <section class="bdp-testimonials bdp-pad" data-bd-section>
+    <div class="bdp-section-head">
+      <p class="bdp-kicker bdp-split">Verified Reviews</p>
+      <h2 class="bdp-h2 bdp-split">Loved by men who like their fragrance bold.</h2>
+    </div>
+    <div class="bdp-tcarousel" data-testimonials>
+      {% assign testimonial_count = 0 %}
+      {% for block in section.blocks %}
+        {% if block.type == 'testimonial' %}
+          {% assign testimonial_count = testimonial_count | plus: 1 %}
+          <article class="bdp-tcard" {{ block.shopify_attributes }}>
+            {% if block.settings.photo != blank %}<img
+                src="{{ block.settings.photo | image_url: width: 160 }}"
+                width="74"
+                height="74"
+                alt="{{ block.settings.name | escape }}"
+                loading="lazy">{% endif %}
+            <div class="bdp-stars">★★★★★</div>
+            <p>“{{ block.settings.review }}”</p>
+            <h3>{{ block.settings.name }}</h3>
+            <small>Verified Customer</small>
+          </article>
+        {% endif %}
+      {% endfor %}
+      {% if testimonial_count == 0 %}
+        {% assign default_names = 'Arjun Mehta|Rohit Sharma|Kabir Malhotra|Aman Verma' | split: '|' %}
+        {% assign default_reviews = 'The fragrance feels premium, powerful, and long lasting. It gets compliments without being loud.|The packaging and scent both feel luxury. Perfect for evening wear and special occasions.|Strong opening, smooth dry down, and excellent performance. My new signature scent.|Big Daddy smells expensive. Warm, masculine, and very confident.' | split: '|' %}
+        {% for name in default_names %}
+          <article class="bdp-tcard">
+            <div class="bdp-avatar">{{ name | slice: 0 }}</div>
+            <div class="bdp-stars">★★★★★</div>
+            <p>“{{ default_reviews[forloop.index0] }}”</p>
+            <h3>{{ name }}</h3>
+            <small>Verified Customer</small>
+          </article>
+        {% endfor %}
+      {% endif %}
+    </div>
+    {% if product != blank %}
+      <div class="bdp-reviews-ready">
+        <div
+          class="jdgm-widget jdgm-review-widget"
+          data-product-title="{{ product.title | escape }}"
+          data-id="{{ product.id }}"></div>
+        <div
+          class="loox-rating"
+          data-id="{{ product.id }}"
+          data-rating="4.9"
+          data-raters="100000"></div>
+      </div>
+    {% endif %}
+  </section>
+
+  <section class="bdp-video bdp-pad" data-bd-section>
+    <div class="bdp-video__frame" data-video-frame>
+      {% if section.settings.video_url != blank %}
+        <video
+          muted
+          playsinline
+          autoplay
+          loop
+          preload="metadata"
+          data-scroll-video
+          poster="{% if bottle_image != blank %}{{ bottle_image | image_url: width: 1200 }}{% endif %}">
+          <source src="{{ section.settings.video_url }}" type="video/mp4">
+        </video>
+      {% elsif hero_bg_image != blank %}
+        <img
+          src="{{ hero_bg_image | image_url: width: 1600 }}"
+          width="1400"
+          height="800"
+          alt="Big Daddy cinematic perfume story"
+          loading="lazy">
+      {% endif %}
+      <div class="bdp-video__overlay">
+        <p class="bdp-kicker">Video Story</p>
+        <h2>A cinematic bottle. A confident trail.</h2>
+      </div>
+    </div>
+  </section>
+
+  <section class="bdp-usp bdp-pad" data-bd-section>
+    <div class="bdp-section-head">
+      <p class="bdp-kicker bdp-split">Premium Experience</p>
+      <h2 class="bdp-h2 bdp-split">Everything needed for confident checkout.</h2>
+    </div>
+    <div class="bdp-usp-grid">
+      {% assign usps = 'Free Shipping|COD Available|Secure Checkout|Cruelty Free|Premium Ingredients|Long Lasting|Made in India|Luxury Packaging|Gift Ready|Easy Returns|24x7 Support|Premium Quality' | split: '|' %}
+      {% for item in usps %}
+        <article class="bdp-usp-card" data-bd-card>
+          <span></span>
+          <b>{{ item }}</b>
+        </article>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="bdp-stats bdp-pad" data-bd-section>
+    <div class="bdp-stat" data-counter="100">
+      <b>0K+</b>
+      <span>Customers</span>
+    </div>
+    <div class="bdp-stat" data-counter="4.9">
+      <b>0★</b>
+      <span>Average Rating</span>
+    </div>
+    <div class="bdp-stat" data-counter="98">
+      <b>0%</b>
+      <span>Repeat Buyers</span>
+    </div>
+    <div class="bdp-stat" data-counter="50">
+      <b>0+</b>
+      <span>Cities Served</span>
+    </div>
+  </section>
+
+  <section class="bdp-cross-sell bdp-pad" data-bd-section>
+    <div class="bdp-section-head bdp-section-head--wide">
+      <p class="bdp-kicker bdp-split">Complete The Ritual</p>
+      <h2 class="bdp-h2 bdp-split">Frequently bought together.</h2>
+    </div>
+    <div class="bdp-bundle-grid">
+      {% if section.settings.upsell_1 != blank or section.settings.upsell_2 != blank %}
+        {% assign up = section.settings.upsell_1 %}
+        {% if up != blank %}
+          <article class="bdp-bundle-card" data-bd-card>
+            {% if up.featured_image != blank %}<img
+                src="{{ up.featured_image | image_url: width: 500 }}"
+                width="420"
+                height="420"
+                alt="{{ up.title | escape }}"
+                loading="lazy">{% endif %}
+            <h3>{{ up.title }}</h3>
+            <p>{{ up.price | money }}</p>
+            <button class="bdp-btn bdp-btn--ghost bdp-btn--small" data-upsell-add="{{ up.selected_or_first_available_variant.id }}">Add</button>
+          </article>
+        {% endif %}
+        {% assign up = section.settings.upsell_2 %}
+        {% if up != blank %}
+          <article class="bdp-bundle-card" data-bd-card>
+            {% if up.featured_image != blank %}<img
+                src="{{ up.featured_image | image_url: width: 500 }}"
+                width="420"
+                height="420"
+                alt="{{ up.title | escape }}"
+                loading="lazy">{% endif %}
+            <h3>{{ up.title }}</h3>
+            <p>{{ up.price | money }}</p>
+            <button class="bdp-btn bdp-btn--ghost bdp-btn--small" data-upsell-add="{{ up.selected_or_first_available_variant.id }}">Add</button>
+          </article>
+        {% endif %}
+      {% else %}
+        <article class="bdp-bundle-card" data-bd-card>
+          <h3>Luxury Gift Box</h3>
+          <p>Upgrade the unboxing experience.</p>
+          <button class="bdp-btn bdp-btn--ghost bdp-btn--small">Add Gift Wrap</button>
+        </article>
+        <article class="bdp-bundle-card" data-bd-card>
+          <h3>Travel Atomizer</h3>
+          <p>Carry your signature everywhere.</p>
+          <button class="bdp-btn bdp-btn--ghost bdp-btn--small">Coming Soon</button>
+        </article>
+      {% endif %}
+    </div>
+  </section>
+
+  <section class="bdp-instagram bdp-pad" data-bd-section>
+    <div class="bdp-section-head">
+      <p class="bdp-kicker bdp-split">Instagram Gallery</p>
+      <h2 class="bdp-h2 bdp-split">Luxury, captured in crimson and gold.</h2>
+    </div>
+    <div class="bdp-masonry">
+      {% for i in (1..6) %}
+        {% assign key = 'gallery_' | append: i %}
+        {% assign gimg = section.settings[key] %}
+        <figure class="bdp-masonry__item" data-bd-image-reveal>
+          {% if gimg != blank %}
+            <img
+              src="{{ gimg | image_url: width: 700 }}"
+              width="600"
+              height="780"
+              alt="Big Daddy Instagram gallery {{ i }}"
+              loading="lazy">
+          {% elsif bottle_image != blank %}
+            <img
+              src="{{ bottle_image | image_url: width: 700 }}"
+              width="600"
+              height="780"
+              alt="Big Daddy Instagram gallery {{ i }}"
+              loading="lazy">
+          {% endif %}
+          <figcaption>BIG DADDY / 0{{ i }}</figcaption>
+        </figure>
+      {% endfor %}
+    </div>
+  </section>
+
+  <section class="bdp-faq bdp-pad" data-bd-section>
+    <div class="bdp-section-head">
+      <p class="bdp-kicker bdp-split">FAQ</p>
+      <h2 class="bdp-h2 bdp-split">Everything before you buy.</h2>
+    </div>
+    <div class="bdp-accordion" data-faq>
+      {% assign faq_count = 0 %}
+      {% for block in section.blocks %}
+        {% if block.type == 'faq' %}
+          {% assign faq_count = faq_count | plus: 1 %}
+          <div class="bdp-acc-item" {{ block.shopify_attributes }}>
+            <button type="button">
+              <span>{{ block.settings.question }}</span>
+              <i>+</i>
+            </button>
+            <div>
+              <p>{{ block.settings.answer }}</p>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+      {% if faq_count == 0 %}
+        {% assign questions = 'How long does Big Daddy last?|Is Big Daddy suitable for daily use?|Is COD available?|Is it gift ready?' | split: '|' %}
+        {% assign answers = 'Big Daddy is designed for long-lasting performance and can stay noticeable for up to 24 hours depending on skin type, weather, and application.|Yes. It is bold but refined, making it suitable for office, evenings, dates, parties, and special occasions.|Yes, Cash on Delivery can be enabled based on your Shopify payment and shipping settings.|Yes. The bottle, label, and packaging direction are designed to feel premium and gift-ready.' | split: '|' %}
+        {% for q in questions %}
+          <div class="bdp-acc-item">
+            <button type="button">
+              <span>{{ q }}</span>
+              <i>+</i>
+            </button>
+            <div>
+              <p>{{ answers[forloop.index0] }}</p>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </section>
+
+  <section class="bdp-final bdp-pad" data-bd-section>
+    <div class="bdp-final__bottle" data-final-bottle>
+      {% if bottle_image != blank %}<img
+          src="{{ bottle_image | image_url: width: 850 }}"
+          width="600"
+          height="800"
+          alt="Big Daddy final call to action"
+          loading="lazy">{% endif %}
+    </div>
+    <div class="bdp-final__copy">
+      <p class="bdp-kicker bdp-split">The Perfume Villa</p>
+      <h2 class="bdp-h2 bdp-split">Find Your Signature Scent</h2>
+      <a
+        href="#bdp-product-buy-{{ sid }}"
+        class="bdp-btn bdp-btn--gold"
+        data-magnetic>Buy Now</a>
+    </div>
+  </section>
+
+  <footer class="bdp-footer" data-bd-section>
+    <div class="bdp-footer__brand">
+      <h2>The Perfume Villa</h2>
+      <p>Bold luxury fragrances crafted for confidence, presence, and timeless style.</p>
+    </div>
+    <form
+      class="bdp-newsletter"
+      method="post"
+      action="/contact#contact_form"
+      accept-charset="UTF-8">
+      <input
+        type="hidden"
+        name="form_type"
+        value="customer">
+      <input
+        type="hidden"
+        name="utf8"
+        value="✓">
+      <input
+        type="hidden"
+        name="contact[tags]"
+        value="newsletter,big-daddy">
+      <label for="BdpEmail-{{ sid }}">Join the private list</label>
+      <div><input
+          id="BdpEmail-{{ sid }}"
+          type="email"
+          name="contact[email]"
+          placeholder="Email address"
+          required><button type="submit">Subscribe</button>
+      </div>
+    </form>
+    <nav class="bdp-footer__links" aria-label="Footer links">
+      <a href="/search">Search</a>
+      <a href="/pages/contact">Contact</a>
+      <a href="/policies/shipping-policy">Shipping</a>
+      <a href="/policies/refund-policy">Returns</a>
+      <a href="/policies/privacy-policy">Privacy</a>
+    </nav>
+    <div class="bdp-footer__bottom">
+      <span>© {{ 'now' | date: '%Y' }} The Perfume Villa. All rights reserved.</span>
+      <span>Secure Payments · Trust Badges · Premium Quality</span>
+    </div>
+  </footer>
+
+  <div
+    class="bdp-recent-popup"
+    data-recent-popup
+    hidden>
+    <button
+      type="button"
+      aria-label="Close"
+      data-close-recent>×</button>
+    <b>Recently Purchased</b>
+    <p>Someone from Mumbai bought BIG DADDY 50ML.</p>
+  </div>
+
+  <div
+    class="bdp-email-popup"
+    data-email-popup
+    hidden>
+    <button
+      type="button"
+      aria-label="Close"
+      data-close-email>×</button>
+    <h3>Unlock The Launch Privilege</h3>
+    <p>Join the private list for exclusive fragrance drops and premium offers.</p>
+    <form
+      method="post"
+      action="/contact#contact_form"
+      accept-charset="UTF-8">
+      <input
+        type="hidden"
+        name="form_type"
+        value="customer">
+      <input
+        type="hidden"
+        name="utf8"
+        value="✓">
+      <input
+        type="hidden"
+        name="contact[tags]"
+        value="newsletter,big-daddy-popup">
+      <input
+        type="email"
+        name="contact[email]"
+        placeholder="Email address"
+        required>
+      <button type="submit">Join</button>
+    </form>
+  </div>
+</section>
+
+<style>
+  .bdp-{{ sid }} {
+    --bd-black: #080808;
+    --bd-black2: #111;
+    --bd-surface: #1B1B1B;
+    --bd-gold: #C8A15A;
+    --bd-gold2: #E4C88A;
+    --bd-gold3: #A97C2D;
+    --bd-ruby: #8B1E2D;
+    --bd-crimson: #A12234;
+    --bd-white: #F8F7F3;
+    --bd-muted: #BEB9AE;
+    --bd-border: rgba(255, 255, 255, .08);
+    --bd-card: rgba(255, 255, 255, .03);
+    position: relative;
+    background: var(--bd-black);
+    color: var(--bd-white);
+    font-family: Inter
+    , system-ui
+    , sans-serif;
+    overflow: hidden;
+    isolation: isolate;
+    scroll-behavior: auto;
+    line-height: 1.55;
+  }
+  .bdp-{{ sid }}
+  * {
+    box-sizing: border-box
+  }.bdp-{{ sid }}
+  img
+  , .bdp-{{ sid }}
+  video {
+    max-width: 100%;
+    display: block
+  }.bdp-{{ sid }}
+  a {
+    color: inherit;
+    text-decoration: none
+  }.bdp-{{ sid }}
+  button
+  , .bdp-{{ sid }}
+  input
+  , .bdp-{{ sid }}
+  select {
+    font: inherit
+  }
+  .bdp-{{ sid }}::selection {
+    background: var(--bd-gold);
+    color: #000
+  }
+  .bdp-{{ sid }}:before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(circle at 50% 0%,rgba(200,161,90,.12),transparent 34%), radial-gradient(circle at 75% 40%, rgba(139, 30, 45, 0.15), transparent 32%);
+    z-index: -2
+  }
+  .bdp-{{ sid }}:after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image: linear-gradient(rgba(255,255,255,.018) 1px,transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.018) 1px, transparent 1px);
+    background-size: 70px 70px;
+    mask-image: radial-gradient(circle at center,#000,transparent 78%);
+    pointer-events: none;
+    z-index: -1;
+    opacity: .38
+  }
+  .bdp-{{ sid }}
+  .bdp-pad {
+    padding: clamp(72px, 10vw, 160px) clamp(18px,
+  }
+  .bdp-{{ sid }}
+  .bdp-kicker {
+    font-family: Poppins
+    , sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.28em;
+    font-size: 11px;
+    color: var(--bd-gold2);
+    margin: 0 0 18px
+  }.bdp-{{ sid }}
+  .bdp-h2 {
+    font-family: "Playfair Display"
+    , serif;
+    font-size: clamp(40px, 7vw, 104px);
+    line-height: .92;
+    letter-spacing: -0.055em;
+    margin: 0;
+    color: var(--bd-white);
+    font-weight: 700
+  }.bdp-{{ sid }}
+  .bdp-muted {
+    color: var(--bd-muted);
+    font-size: clamp(15px, 1.2vw, 18px);
+    max-width: 720px;
+    margin: 24px 0 0
+  }.bdp-{{ sid }}
+  .bdp-section-head {
+    max-width: 960px;
+    margin: 0 auto clamp(38px, 6vw,;
+    text-align: center
+  }.bdp-{{ sid }}
+  .bdp-section-head--wide {
+    max-width: 1180px
+  }.bdp-{{ sid }}
+  .bdp-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 54px;
+    padding: 0 30px;
+    border-radius: 999px;
+    border: 1px solid var(--bd-border);
+    font-family: Poppins
+    , sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.35s ease
+    , border-color 0.35s ease
+    , background 0.35s ease;
+    color: var(--bd-white);
+    will-change: transform
+  }
+  .bdp-{{ sid }}.bdp-btn:before {
+    content: "";
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(115deg,transparent,rgba(255,255,255,.36),transparent);
+    transform: translateX(-120%) skewX(-18deg);
+    transition: transform 0.7s ease
+  }
+  .bdp-{{ sid }}.bdp-btn:hover:before {
+    transform: translateX(120%) skewX(-18deg)
+  }.bdp-{{ sid }}
+  .bdp-btn--gold {
+    background: linear-gradient(135deg,var(--bd-gold2),var(--bd-gold),var(--bd-gold3));
+    color: #100b03;
+    border-color: rgba(228, 200, 138, .6);
+    box-shadow: 0 18px 44px rgba(200, 161, 90, .16)
+  }.bdp-{{ sid }}
+  .bdp-btn--ghost {
+    background: rgba(255, 255, 255, .04);
+    backdrop-filter:blur(16px)
+  }
+  .bdp-{{ sid }}.bdp-btn--ghost:hover {
+    border-color: rgba(200, 161, 90, .55);
+    box-shadow: 0 0 0 1px rgba(200, 161, 90, .08)
+    , 0 24px 60px rgba(200, 161, 90, .08)
+  }.bdp-{{ sid }}
+  .bdp-btn--full {
+    width: 100%;
+    margin-top: 14px
+  }.bdp-{{ sid }}
+  .bdp-btn--small {
+    min-height: 42px;
+    padding: 0 20px;
+    font-size: 10px
+  }
+  .bdp-{{ sid }}
+  .bdp-preloader {
+    position: fixed;
+    inset: 0;
+    background: #050505;
+    z-index: 999999;
+    display: grid;
+    place-items: center
+  }.bdp-{{ sid }}
+  .bdp-preloader__inner {
+    text-align: center;
+    width: min(420px, 82vw)
+  }.bdp-{{ sid }}
+  .bdp-preloader__logo {
+    font-family: Playfair Display
+    , serif;
+    font-size: clamp(26px, 5vw, 50px);
+    letter-spacing: 0.02em;
+    color: var(--bd-white);
+    clip-path: inset(0 100% 0 0)
+  }.bdp-{{ sid }}
+  .bdp-preloader__product {
+    margin-top: 6px;
+    color: var(--bd-gold);
+    letter-spacing: 0.5em;
+    text-transform: uppercase;
+    font-size: 11px
+  }.bdp-{{ sid }}
+  .bdp-preloader__bar {
+    height: 1px;
+    background: rgba(255, 255, 255, .12);
+    margin: 34px 0 12px;
+    overflow: hidden
+  }.bdp-{{ sid }}
+  .bdp-preloader__bar span {
+    display: block;
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg,var(--bd-gold3),var(--bd-gold2));
+    box-shadow: 0 0 24px rgba(200, 161, 90, .6)
+  }.bdp-{{ sid }}
+  .bdp-preloader__percent {
+    font-family: Poppins
+    , sans-serif;
+    color: var(--bd-muted);
+    font-size: 11px;
+    letter-spacing: 0.2em
+  }
+  .bdp-{{ sid }}
+  .bdp-cursor {
+    position: fixed;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: radial-gradient(circle,rgba(200,161,90,.16),rgba(139,30,45,.08) 36%,transparent 70%);
+    pointer-events: none;
+    z-index: 50;
+    mix-blend-mode: screen;
+    transform: translate(-50%, -50%);
+    opacity: .6;
+    filter:blur(10px)
+  }
+  .bdp-{{ sid }}
+  .bdp-announcement {
+    height: 42px;
+    border-bottom: 1px solid var(--bd-border);
+    background: rgba(8, 8, 8, .76);
+    backdrop-filter:blur(16px);
+    position: relative;
+    z-index: 20;
+    overflow: hidden
+  }.bdp-{{ sid }}
+  .bdp-announcement__track {
+    display: flex;
+    gap: 34px;
+    white-space: nowrap;
+    align-items: center;
+    height: 100%;
+    animation: bdpMarquee 28s linear infinite
+  }.bdp-{{ sid }}
+  .bdp-announcement span {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--bd-muted)
+  }.bdp-{{ sid }}
+  .bdp-announcement b {
+    color: var(--bd-gold2);
+    font-weight: 700
+  }
+  .bdp-{{ sid }}
+  .bdp-hero {
+    min-height: calc(100vh - 42px);
+    position: relative;
+    display: grid;
+    place-items: center;
+    padding: clamp(80px, 8vw, 120px) 20px;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 55%,rgba(139,30,45,.18),transparent 25%), radial-gradient(circle at 50% 15%, rgba(200, 161, 90, 0.16), transparent 34%), linear-gradient(180deg, #070707, #0b0b0b 55%, #050505)
+  }.bdp-{{ sid }}
+  .bdp-hero__ambient span {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(228, 200, 138, .55);
+    filter:blur(1px);
+    animation: bdpFloat 9s infinite ease-in-out;
+    opacity: .24
+  }
+  .bdp-{{ sid }}.bdp-hero__ambient span:nth-child(1) {
+    width: 4px;
+    height: 4px;
+    top: 24%;
+    left: 17%
+  }
+  .bdp-{{ sid }}.bdp-hero__ambient span:nth-child(2) {
+    width: 7px;
+    height: 7px;
+    top: 62%;
+    left: 79%;
+    animation-delay: -2s
+  }
+  .bdp-{{ sid }}.bdp-hero__ambient span:nth-child(3) {
+    width: 3px;
+    height: 3px;
+    top: 46%;
+    left: 28%;
+    animation-delay: -5s
+  }
+  .bdp-{{ sid }}.bdp-hero__ambient span:nth-child(4) {
+    width: 5px;
+    height: 5px;
+    top: 20%;
+    left: 74%;
+    animation-delay: -7s
+  }
+  .bdp-{{ sid }}.bdp-hero__ambient span:nth-child(5) {
+    width: 6px;
+    height: 6px;
+    top: 76%;
+    left: 48%;
+    animation-delay: -3s
+  }.bdp-{{ sid }}
+  .bdp-hero__smoke {
+    position: absolute;
+    inset: auto -20% -10% -20%;
+    height: 70%;
+    background: radial-gradient(ellipse at 50% 80%,rgba(255,255,255,.11),transparent 58%);
+    filter:blur(44px);
+    opacity: .25;
+    animation: bdpSmoke 12s ease-in-out infinite alternate
+  }.bdp-{{ sid }}
+  .bdp-hero__content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    max-width: 980px;
+    margin: auto;
+    pointer-events: none
+  }.bdp-{{ sid }}
+  .bdp-hero__title {
+    font-family: "Playfair Display"
+    , serif;
+    font-weight: 800;
+    font-size: clamp(54px, 10vw, 158px);
+    line-height: .86;
+    letter-spacing: -0.075em;
+    max-width: 1120px;
+    margin: 0;
+    text-shadow: 0 22px 80px rgba(0, 0, 0, .8)
+  }.bdp-{{ sid }}
+  .bdp-hero__subtitle {
+    max-width: 560px;
+    margin: 26px auto 0;
+    color: var(--bd-muted);
+    font-size: clamp(16px, 1.35vw, 20px)
+  }.bdp-{{ sid }}
+  .bdp-hero__actions {
+    margin-top: 34px;
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    pointer-events: auto;
+    flex-wrap: wrap
+  }.bdp-{{ sid }}
+  .bdp-hero__trust {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 38px
+  }.bdp-{{ sid }}
+  .bdp-hero__trust span {
+    padding: 10px 14px;
+    border: 1px solid var(--bd-border);
+    background: rgba(255, 255, 255, .035);
+    border-radius: 999px;
+    color: var(--bd-muted);
+    font-size: 12px;
+    backdrop-filter:blur(16px)
+  }.bdp-{{ sid }}
+  .bdp-hero__bottle-wrap {
+    position: absolute;
+    z-index: 2;
+    width: min(520px, 56vw);
+    aspect-ratio: 1;
+    display: grid;
+    place-items: center;
+    perspective: 1100px;
+    transform-style: preserve-3d;
+    pointer-events: none
+  }.bdp-{{ sid }}
+  .bdp-hero__bottle {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter:drop-shadow(0 55px 70px rgba(0, 0, 0, 0.75)) drop-shadow(0 0 46px rgba(139, 30, 45, 0.22));
+    transform: translateZ(70px)
+  }.bdp-{{ sid }}
+  .bdp-ruby-glow {
+    position: absolute;
+    width: 70%;
+    height: 78%;
+    border-radius: 50%;
+    background: radial-gradient(circle,rgba(161,34,52,.36),transparent 66%);
+    filter:blur(30px);
+    transform: translateZ(-80px)
+  }.bdp-{{ sid }}
+  .bdp-light-sweep {
+    position: absolute;
+    inset: 12% 18%;
+    background: linear-gradient(110deg,transparent 35%,rgba(255,255,255,.2),transparent 60%);
+    filter:blur(4px);
+    mix-blend-mode: screen;
+    animation: bdpSweep 4.8s ease-in-out infinite;
+    opacity: .6
+  }.bdp-{{ sid }}
+  .bdp-bottle-fallback {
+    width: min(350px, 70vw);
+    aspect-ratio: .65;
+    border: 2px solid rgba(255, 255, 255, .3);
+    border-radius: 42px;
+    background: linear-gradient(90deg,rgba(255,255,255,.12),rgba(139,30,45,.65),rgba(255,255,255,.1));
+    display: grid;
+    place-items: center;
+    text-align: center;
+    box-shadow: inset 0 0 0 22px rgba(0, 0, 0, .26)
+    , 0 40px 90px #000
+  }.bdp-{{ sid }}
+  .bdp-bottle-fallback small
+  , .bdp-{{ sid }}
+  .bdp-bottle-fallback em {
+    color: var(--bd-gold2);
+    letter-spacing: 0.2em;
+    text-transform: uppercase
+  }.bdp-{{ sid }}
+  .bdp-bottle-fallback b {
+    font-family: Playfair Display
+    , serif;
+    color: var(--bd-gold);
+    font-size: 54px;
+    line-height: .8
+  }
+  .bdp-{{ sid }}
+  .bdp-trust-strip {
+    padding: 18px 0;
+    background: var(--bd-black2);
+    border-block: 1px solid var(--bd-border);
+    overflow: hidden
+  }.bdp-{{ sid }}
+  .bdp-marquee__track {
+    display: flex;
+    gap: 18px;
+    width: max-content;
+    animation: bdpMarquee 42s linear infinite
+  }.bdp-{{ sid }}
+  .bdp-marquee__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    border: 1px solid var(--bd-border);
+    background: rgba(255, 255, 255, .025);
+    border-radius: 999px;
+    padding: 11px 18px;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--bd-muted);
+    transition: 0.35s ease
+  }
+  .bdp-{{ sid }}.bdp-marquee__item:hover {
+    color: var(--bd-gold2);
+    border-color: rgba(200, 161, 90, .45);
+    transform: translateY(-2px)
+  }.bdp-{{ sid }}
+  .bdp-marquee__item i {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--bd-gold);
+    box-shadow: 0 0 18px rgba(200, 161, 90, .7)
+  }
+  .bdp-{{ sid }}
+  .bdp-feature-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 18px;
+    max-width: 1320px;
+    margin: auto
+  }.bdp-{{ sid }}
+  .bdp-feature-card
+  , .bdp-{{ sid }}
+  .bdp-usp-card
+  , .bdp-{{ sid }}
+  .bdp-bundle-card {
+    position: relative;
+    min-height: 270px;
+    padding: 28px;
+    border: 1px solid var(--bd-border);
+    border-radius: 30px;
+    background: linear-gradient(180deg,rgba(255,255,255,.052),rgba(255,255,255,.018));
+    backdrop-filter:blur(20px);
+    overflow: hidden;
+    transform-style: preserve-3d
+  }
+  .bdp-{{ sid }}.bdp-feature-card:before,
+  .bdp-{{ sid }}.bdp-usp-card:before,
+  .bdp-{{ sid }}.bdp-bundle-card:before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(200,161,90,.18),transparent 32%);
+    opacity: 0;
+    transition: 0.35s ease;
+    pointer-events: none
+  }
+  .bdp-{{ sid }}.bdp-feature-card:hover:before,
+  .bdp-{{ sid }}.bdp-usp-card:hover:before,
+  .bdp-{{ sid }}.bdp-bundle-card:hover:before {
+    opacity: 1
+  }
+  .bdp-{{ sid }}.bdp-feature-card:hover,
+  .bdp-{{ sid }}.bdp-usp-card:hover,
+  .bdp-{{ sid }}.bdp-bundle-card:hover {
+    border-color: rgba(200, 161, 90, .45);
+    box-shadow: 0 34px 80px rgba(0, 0, 0, .28)
+    , 0 0 0 1px rgba(200, 161, 90, .08)
+  }.bdp-{{ sid }}
+  .bdp-feature-card__shine {
+    position: absolute;
+    inset: -60%;
+    background: linear-gradient(110deg,transparent,rgba(255,255,255,.13),transparent);
+    transform: translateX(-30%) rotate(18deg);
+    opacity: .55
+  }.bdp-{{ sid }}
+  .bdp-feature-card__icon {
+    width: 58px;
+    height: 58px;
+    border-radius: 18px;
+    background: linear-gradient(135deg,rgba(200,161,90,.28),rgba(139,30,45,.18));
+    border: 1px solid rgba(200, 161, 90, .25);
+    display: grid;
+    place-items: center;
+    color: var(--bd-gold2);
+    font-family: Playfair Display
+    , serif;
+    font-size: 24px;
+    margin-bottom: 34px
+  }.bdp-{{ sid }}
+  .bdp-feature-card h3 {
+    font-family: Playfair Display
+    , serif;
+    font-size: 28px;
+    line-height: 1.02;
+    margin: 0 0 14px
+  }.bdp-{{ sid }}
+  .bdp-feature-card p {
+    margin: 0;
+    color: var(--bd-muted);
+    font-size: 14px
+  }
+  .bdp-{{ sid }}
+  .bdp-buy {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(380px, 520px);
+    gap: clamp(28px, 7vw, 110px);
+    align-items: center;
+    max-width: 1420px;
+    margin: auto
+  }.bdp-{{ sid }}
+  .bdp-buy__media {
+    position: relative;
+    min-height: 660px;
+    border-radius: 42px;
+    background: radial-gradient(circle at 50% 50%,rgba(139,30,45,.28),transparent 44%), linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.01));
+    border: 1px solid var(--bd-border);
+    display: grid;
+    place-items: center;
+    overflow: hidden
+  }.bdp-{{ sid }}
+  .bdp-buy__media img {
+    max-height: 620px;
+    width: 80%;
+    object-fit: contain;
+    position: relative;
+    z-index: 2;
+    filter:drop-shadow(0 40px 70px #000)
+  }.bdp-{{ sid }}
+  .bdp-buy__halo {
+    position: absolute;
+    width: 64%;
+    height: 64%;
+    border-radius: 50%;
+    background: radial-gradient(circle,rgba(200,161,90,.22),rgba(139,30,45,.12),transparent 70%);
+    filter:blur(26px)
+  }.bdp-{{ sid }}
+  .bdp-buy__panel {
+    padding: clamp(28px, 4vw, 48px);
+    border: 1px solid var(--bd-border);
+    border-radius: 38px;
+    background: linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.025));
+    box-shadow: 0 40px 100px rgba(0, 0, 0, .34);
+    backdrop-filter:blur(22px)
+  }.bdp-{{ sid }}
+  .bdp-rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 22px;
+    color: var(--bd-muted);
+    font-size: 13px
+  }.bdp-{{ sid }}
+  .bdp-rating span {
+    color: var(--bd-gold2);
+    letter-spacing: 0.08em
+  }.bdp-{{ sid }}
+  .bdp-rating b {
+    color: var(--bd-white)
+  }.bdp-{{ sid }}
+  .bdp-rating em {
+    font-style: normal
+  }.bdp-{{ sid }}
+  .bdp-product-form {
+    margin-top: 30px
+  }.bdp-{{ sid }}
+  .bdp-field-label
+  , .bdp-{{ sid }}
+  .bdp-estimator label {
+    display: block;
+    color: var(--bd-gold2);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: 10px
+  }.bdp-{{ sid }}
+  .bdp-select
+  , .bdp-{{ sid }}
+  .bdp-estimator input
+  , .bdp-{{ sid }}
+  .bdp-newsletter input
+  , .bdp-{{ sid }}
+  .bdp-email-popup input {
+    width: 100%;
+    height: 52px;
+    border: 1px solid var(--bd-border);
+    border-radius: 18px;
+    background: rgba(0, 0, 0, .34);
+    color: var(--bd-white);
+    padding: 0 16px;
+    outline: none
+  }
+  .bdp-{{ sid }}.bdp-select:focus,
+  .bdp-{{ sid }}input:focus {
+    border-color: rgba(200, 161, 90, .56);
+    box-shadow: 0 0 0 4px rgba(200, 161, 90, .08)
+  }.bdp-{{ sid }}
+  .bdp-price-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 20px;
+    flex-wrap: wrap
+  }.bdp-{{ sid }}
+  .bdp-price {
+    font-family: Playfair Display
+    , serif;
+    font-size: 36px;
+    color: var(--bd-gold2);
+    line-height: 1
+  }.bdp-{{ sid }}
+  .bdp-price-row s {
+    color: var(--bd-muted);
+    opacity: .7
+  }.bdp-{{ sid }}
+  .bdp-offer-badge {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    border: 1px solid rgba(200, 161, 90, .3);
+    border-radius: 999px;
+    color: var(--bd-gold2);
+    padding: 8px 10px;
+    background: rgba(200, 161, 90, .08)
+  }.bdp-{{ sid }}
+  .bdp-low-stock {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--bd-muted);
+    font-size: 13px;
+    margin-top: 18px
+  }.bdp-{{ sid }}
+  .bdp-low-stock i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--bd-ruby);
+    box-shadow: 0 0 18px var(--bd-crimson);
+    animation: bdpPulse 1.4s infinite
+  }.bdp-{{ sid }}
+  .bdp-progress-card {
+    margin-top: 18px;
+    border: 1px solid var(--bd-border);
+    border-radius: 20px;
+    padding: 14px;
+    background: rgba(255, 255, 255, .025)
+  }.bdp-{{ sid }}
+  .bdp-progress-card__top {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    color: var(--bd-muted);
+    font-size: 12px
+  }.bdp-{{ sid }}
+  .bdp-progress-card__top b {
+    color: var(--bd-gold2);
+    font-weight: 600
+  }.bdp-{{ sid }}
+  .bdp-progress {
+    height: 6px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .08);
+    margin-top: 10px;
+    overflow: hidden
+  }.bdp-{{ sid }}
+  .bdp-progress span {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(90deg,var(--bd-gold3),var(--bd-gold2));
+    box-shadow: 0 0 20px rgba(200, 161, 90, .7)
+  }.bdp-{{ sid }}
+  .bdp-form-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 18px
+  }.bdp-{{ sid }}
+  .bdp-qty {
+    height: 50px;
+    border: 1px solid var(--bd-border);
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: rgba(0, 0, 0, .26)
+  }.bdp-{{ sid }}
+  .bdp-qty button {
+    width: 46px;
+    height: 100%;
+    border: 0;
+    background: transparent;
+    color: var(--bd-white);
+    cursor: pointer
+  }.bdp-{{ sid }}
+  .bdp-qty input {
+    width: 52px;
+    border: 0;
+    background: transparent;
+    color: var(--bd-white);
+    text-align: center;
+    outline: none
+  }.bdp-{{ sid }}
+  .bdp-wishlist {
+    flex: 1;
+    border: 1px solid var(--bd-border);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .03);
+    color: var(--bd-muted);
+    cursor: pointer
+  }.bdp-{{ sid }}
+  .bdp-wishlist.is-active {
+    color: var(--bd-gold2);
+    border-color: rgba(200, 161, 90, .45)
+  }.bdp-{{ sid }}
+  .bdp-cod-badge {
+    margin-top: 14px;
+    text-align: center;
+    color: var(--bd-muted);
+    font-size: 12px
+  }.bdp-{{ sid }}
+  .bdp-empty-product {
+    padding: 18px;
+    border: 1px solid rgba(200, 161, 90, .28);
+    background: rgba(200, 161, 90, .06);
+    border-radius: 18px;
+    color: var(--bd-gold2);
+    margin-top: 26px
+  }.bdp-{{ sid }}
+  .bdp-estimator {
+    margin-top: 24px
+  }.bdp-{{ sid }}
+  .bdp-estimator div {
+    display: flex;
+    gap: 10px
+  }.bdp-{{ sid }}
+  .bdp-estimator button {
+    height: 52px;
+    padding: 0 20px;
+    border: 1px solid rgba(200, 161, 90, .4);
+    border-radius: 18px;
+    background: rgba(200, 161, 90, .1);
+    color: var(--bd-gold2);
+    cursor: pointer
+  }.bdp-{{ sid }}
+  .bdp-estimator small {
+    display: block;
+    margin-top: 9px;
+    color: var(--bd-muted)
+  }
+  .bdp-{{ sid }}
+  .bdp-showcase {
+    min-height: 150vh
+  }.bdp-{{ sid }}
+  .bdp-showcase__sticky {
+    position: sticky;
+    top: 0;
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    align-items: center;
+    gap: 40px;
+    max-width: 1440px;
+    margin: auto
+  }.bdp-{{ sid }}
+  .bdp-showcase__copy {
+    max-width: 610px
+  }.bdp-{{ sid }}
+  .bdp-showcase__bottle {
+    position: relative;
+    min-height: 720px;
+    display: grid;
+    place-items: center;
+    perspective: 1000px
+  }.bdp-{{ sid }}
+  .bdp-showcase__bottle img {
+    max-height: 690px;
+    width: auto;
+    filter:drop-shadow(0 50px 80px rgba(0, 0, 0, 0.8));
+    transform-style: preserve-3d
+  }.bdp-{{ sid }}
+  .bdp-glass-reflection {
+    position: absolute;
+    width: 48%;
+    height: 80%;
+    background: linear-gradient(90deg,transparent,rgba(255,255,255,.18),transparent);
+    filter:blur(10px);
+    transform: skewX(-14deg);
+    mix-blend-mode: screen;
+    opacity: .45
+  }.bdp-{{ sid }}
+  .bdp-hotspot {
+    position: absolute;
+    z-index: 4
+  }.bdp-{{ sid }}
+  .bdp-hotspot button {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid rgba(200, 161, 90, .6);
+    background: rgba(8, 8, 8, .66);
+    color: var(--bd-gold2);
+    cursor: pointer;
+    box-shadow: 0 0 0 8px rgba(200, 161, 90, .08)
+    , 0 0 24px rgba(200, 161, 90, .22);
+    animation: bdpPulseRing 2.4s infinite
+  }.bdp-{{ sid }}
+  .bdp-hotspot span {
+    position: absolute;
+    min-width: 230px;
+    padding: 16px;
+    border-radius: 20px;
+    border: 1px solid rgba(200, 161, 90, .22);
+    background: rgba(8, 8, 8, .78);
+    backdrop-filter:blur(20px);
+    color: var(--bd-muted);
+    font-size: 13px;
+    opacity: 0;
+    transform: translateY(10px) scale(0.96);
+    transition: 0.35s ease;
+    pointer-events: none
+  }.bdp-{{ sid }}
+  .bdp-hotspot span b {
+    display: block;
+    color: var(--bd-gold2);
+    font-family: Playfair Display
+    , serif;
+    font-size: 22px;
+    margin-bottom: 4px
+  }
+  .bdp-{{ sid }}.bdp-hotspot:hover span,
+  .bdp-{{ sid }}.bdp-hotspot:focus-within span {
+    opacity: 1;
+    transform: none
+  }.bdp-{{ sid }}
+  .bdp-hotspot--top {
+    top: 15%;
+    left: 51%
+  }.bdp-{{ sid }}
+  .bdp-hotspot--top span {
+    left: 56px;
+    top: -18px
+  }.bdp-{{ sid }}
+  .bdp-hotspot--heart {
+    top: 48%;
+    left: 19%
+  }.bdp-{{ sid }}
+  .bdp-hotspot--heart span {
+    right: 56px;
+    top: -28px
+  }.bdp-{{ sid }}
+  .bdp-hotspot--base {
+    bottom: 20%;
+    right: 18%
+  }.bdp-{{ sid }}
+  .bdp-hotspot--base span {
+    left: 56px;
+    bottom: -18px
+  }
+  .bdp-{{ sid }}
+  .bdp-notes__grid {
+    max-width: 1120px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr auto 1fr;
+    align-items: stretch;
+    gap: 18px
+  }.bdp-{{ sid }}
+  .bdp-note-stage {
+    border: 1px solid var(--bd-border);
+    border-radius: 34px;
+    padding: 34px;
+    background: linear-gradient(180deg,rgba(255,255,255,.045),rgba(255,255,255,.016));
+    min-height: 340px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden
+  }.bdp-{{ sid }}
+  .bdp-note-stage span {
+    font-family: Playfair Display
+    , serif;
+    color: var(--bd-gold);
+    font-size: 64px;
+    line-height: 1;
+    opacity: .35
+  }.bdp-{{ sid }}
+  .bdp-note-stage h3 {
+    font-family: Playfair Display
+    , serif;
+    font-size: 34px;
+    line-height: 1;
+    margin: 0
+  }.bdp-{{ sid }}
+  .bdp-note-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px
+  }.bdp-{{ sid }}
+  .bdp-note-tags b {
+    font-size: 12px;
+    color: var(--bd-muted);
+    font-weight: 500;
+    border: 1px solid var(--bd-border);
+    border-radius: 999px;
+    padding: 9px 12px;
+    background: rgba(255, 255, 255, .03)
+  }.bdp-{{ sid }}
+  .bdp-note-arrow {
+    display: grid;
+    place-items: center;
+    color: var(--bd-gold2);
+    font-size: 38px;
+    opacity: .7
+  }
+  .bdp-{{ sid }}
+  .bdp-story {
+    height: 420vh;
+    position: relative;
+    background: linear-gradient(180deg,#080808,#0d0b0b 40%,#050505)
+  }.bdp-{{ sid }}
+  .bdp-story__pin {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 0.8fr 1fr 0.55fr;
+    align-items: center;
+    gap: 28px;
+    padding: clamp(28px, 5vw, 72px);
+    overflow: hidden
+  }.bdp-{{ sid }}
+  .bdp-story__text {
+    max-width: 560px
+  }.bdp-{{ sid }}
+  .bdp-story__visual {
+    display: grid;
+    place-items: center;
+    min-height: 70vh
+  }.bdp-{{ sid }}
+  .bdp-story__bottle {
+    position: relative;
+    width: min(360px, 56vw);
+    aspect-ratio: .68;
+    perspective: 1000px;
+    transform-style: preserve-3d
+  }.bdp-{{ sid }}
+  .bdp-story__glass {
+    position: absolute;
+    inset: 20% 6% 0;
+    border: 2px solid rgba(255, 255, 255, .36);
+    border-radius: 42px;
+    background: linear-gradient(90deg,rgba(255,255,255,.12),transparent 15%,transparent 82%,rgba(255,255,255,.12));
+    box-shadow: inset 0 0 40px rgba(255, 255, 255, .08)
+    , 0 50px 90px rgba(0, 0, 0, .6);
+    clip-path: inset(100% 0 0 0)
+  }.bdp-{{ sid }}
+  .bdp-story__liquid {
+    position: absolute;
+    left: 11%;
+    right: 11%;
+    bottom: 5%;
+    height: 0;
+    border-radius: 0 0 34px 34px;
+    background: linear-gradient(180deg,var(--bd-crimson),#57101b);
+    box-shadow: 0 0 50px rgba(139, 30, 45, .55);
+    overflow: hidden
+  }.bdp-{{ sid }}
+  .bdp-story__cap {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 42%;
+    height: 22%;
+    transform: translate(-50%, -80px);
+    border-radius: 18px;
+    background: linear-gradient(90deg,#060606,#232323,#050505);
+    border: 1px solid rgba(255, 255, 255, .12);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08)
+  }.bdp-{{ sid }}
+  .bdp-story__ring {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    width: 44%;
+    height: 12px;
+    transform: translateX(-50%) scaleX(0);
+    background: linear-gradient(90deg,var(--bd-gold3),var(--bd-gold2),var(--bd-gold3));
+    border-radius: 999px
+  }.bdp-{{ sid }}
+  .bdp-story__label {
+    position: absolute;
+    left: 18%;
+    right: 18%;
+    top: 38%;
+    height: 42%;
+    border-radius: 22px;
+    background: #050505;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    padding: 20px;
+    opacity: 0;
+    transform: scale(0.9)
+  }.bdp-{{ sid }}
+  .bdp-story__label small {
+    color: var(--bd-gold2);
+    font-size: 10px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase
+  }.bdp-{{ sid }}
+  .bdp-story__label b {
+    font-family: Playfair Display
+    , serif;
+    color: var(--bd-gold);
+    font-size: clamp(32px, 5vw, 60px);
+    line-height: .78
+  }.bdp-{{ sid }}
+  .bdp-story__label em {
+    font-style: normal;
+    color: var(--bd-gold2);
+    font-size: 12px
+  }.bdp-{{ sid }}
+  .bdp-story__shine {
+    position: absolute;
+    inset: 16% -15% 0;
+    background: linear-gradient(105deg,transparent,rgba(255,255,255,.45),transparent);
+    transform: translateX(-130%) skewX(-18deg);
+    filter:blur(4px);
+    mix-blend-mode: screen
+  }.bdp-{{ sid }}
+  .bdp-story__smoke {
+    position: absolute;
+    inset: -25% -60%;
+    background: radial-gradient(ellipse at 50% 50%,rgba(255,255,255,.14),transparent 58%);
+    filter:blur(34px);
+    opacity: 0
+  }.bdp-{{ sid }}
+  .bdp-story__steps {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: flex-start
+  }.bdp-{{ sid }}
+  .bdp-story__steps span {
+    border: 1px solid var(--bd-border);
+    border-radius: 999px;
+    padding: 10px 14px;
+    color: var(--bd-muted);
+    font-size: 12px;
+    background: rgba(255, 255, 255, .025);
+    opacity: .4
+  }.bdp-{{ sid }}
+  .bdp-story__steps span.is-active {
+    opacity: 1;
+    color: var(--bd-gold2);
+    border-color: rgba(200, 161, 90, .45)
+  }
+  .bdp-{{ sid }}
+  .bdp-love__row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(28px, 7vw, 110px);
+    align-items: center;
+    max-width: 1380px;
+    margin: auto
+  }.bdp-{{ sid }}
+  .bdp-love__image {
+    border-radius: 42px;
+    overflow: hidden;
+    border: 1px solid var(--bd-border);
+    min-height: 620px;
+    background: var(--bd-surface)
+  }.bdp-{{ sid }}
+  .bdp-love__image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.14)
+  }.bdp-{{ sid }}
+  .bdp-lux-list {
+    list-style: none;
+    margin: 36px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 14px
+  }.bdp-{{ sid }}
+  .bdp-lux-list li {
+    position: relative;
+    padding: 18px 18px 18px 54px;
+    border: 1px solid var(--bd-border);
+    border-radius: 18px;
+    background: rgba(255, 255, 255, .025);
+    color: var(--bd-muted);
+    overflow: hidden
+  }
+  .bdp-{{ sid }}.bdp-lux-list li:before {
+    content: "";
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    transform: translateY(-50%);
+    background: var(--bd-gold);
+    box-shadow: 0 0 20px rgba(200, 161, 90, .66)
+  }
+  .bdp-{{ sid }}
+  .bdp-compare {
+    position: relative;
+    max-width: 1200px;
+    margin: auto;
+    border-radius: 40px;
+    overflow: hidden;
+    border: 1px solid var(--bd-border);
+    height: clamp(420px, 58vw, 760px);
+    cursor: ew-resize
+  }.bdp-{{ sid }}
+  .bdp-compare__image {
+    position: absolute;
+    inset: 0
+  }.bdp-{{ sid }}
+  .bdp-compare__image img
+  , .bdp-{{ sid }}
+  .bdp-compare__placeholder {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background: linear-gradient(135deg,#151515,#2b1016);
+    display: grid;
+    place-items: center;
+    color: var(--bd-gold2);
+    font-family: Playfair Display
+    , serif;
+    font-size: 60px
+  }.bdp-{{ sid }}
+  .bdp-compare__before {
+    clip-path: inset(0 calc(100% - var(--position)) 0 0)
+  }.bdp-{{ sid }}
+  .bdp-compare__after {
+    clip-path: inset(0 0 0 var(--position))
+  }.bdp-{{ sid }}
+  .bdp-compare span {
+    position: absolute;
+    top: 22px;
+    padding: 9px 13px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, .48);
+    border: 1px solid var(--bd-border);
+    color: var(--bd-gold2);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.14em
+  }.bdp-{{ sid }}
+  .bdp-compare__before span {
+    left: 22px
+  }.bdp-{{ sid }}
+  .bdp-compare__after span {
+    right: 22px
+  }.bdp-{{ sid }}
+  .bdp-compare input {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: ew-resize;
+    z-index: 5
+  }.bdp-{{ sid }}
+  .bdp-compare__handle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: var(--position);
+    width: 2px;
+    background: linear-gradient(var(--bd-gold2),var(--bd-gold3));
+    z-index: 4;
+    transform: translateX(-50%);
+    box-shadow: 0 0 28px rgba(200, 161, 90, .6)
+  }
+  .bdp-{{ sid }}.bdp-compare__handle:after {
+    content: "↔";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: linear-gradient(135deg,var(--bd-gold2),var(--bd-gold3));
+    color: #090909;
+    display: grid;
+    place-items: center;
+    transform: translate(-50%, -50%);
+    font-weight: 800;
+    box-shadow: 0 18px 40px rgba(0, 0, 0, .4)
+  }
+  .bdp-{{ sid }}
+  .bdp-tcarousel {
+    position: relative;
+    display: flex;
+    gap: 18px;
+    max-width: 1320px;
+    margin: auto;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    padding: 18px 0 34px;
+    perspective: 1100px;
+    scrollbar-width: none
+  }.bdp-{{ sid }}
+  .bdp-tcarousel::-webkit-scrollbar {
+    display: none
+  }.bdp-{{ sid }}
+  .bdp-tcard {
+    min-width: min(410px, 84vw);
+    scroll-snap-align: center;
+    border: 1px solid var(--bd-border);
+    border-radius: 30px;
+    background: linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
+    padding: 28px;
+    transition: 0.5s cubic-bezier(0.2,.8,0.2,1);
+    transform-style: preserve-3d
+  }
+  .bdp-{{ sid }}.bdp-tcard:hover {
+    transform: translateY(-12px) rotateX(4deg) rotateY(-4deg);
+    border-color: rgba(200, 161, 90, .4)
+  }.bdp-{{ sid }}
+  .bdp-tcard img
+  , .bdp-{{ sid }}
+  .bdp-avatar {
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: linear-gradient(135deg,var(--bd-gold3),var(--bd-ruby));
+    display: grid;
+    place-items: center;
+    font-family: Playfair Display
+    , serif;
+    font-size: 34px;
+    color: var(--bd-white);
+    margin-bottom: 24px
+  }.bdp-{{ sid }}
+  .bdp-stars {
+    color: var(--bd-gold2);
+    letter-spacing: 0.1em;
+    font-size: 13px;
+    margin-bottom: 14px
+  }.bdp-{{ sid }}
+  .bdp-tcard p {
+    color: var(--bd-muted);
+    font-size: 16px;
+    margin: 0 0 22px
+  }.bdp-{{ sid }}
+  .bdp-tcard h3 {
+    margin: 0;
+    font-family: Playfair Display
+    , serif;
+    font-size: 24px
+  }.bdp-{{ sid }}
+  .bdp-tcard small {
+    color: var(--bd-muted)
+  }.bdp-{{ sid }}
+  .bdp-reviews-ready {
+    max-width: 1100px;
+    margin: 32px auto 0
+  }
+  .bdp-{{ sid }}
+  .bdp-video__frame {
+    position: relative;
+    min-height: clamp(480px, 66vw, 820px);
+    border-radius: 46px;
+    overflow: hidden;
+    border: 1px solid var(--bd-border);
+    max-width: 1420px;
+    margin: auto;
+    background: #111
+  }.bdp-{{ sid }}
+  .bdp-video__frame video
+  , .bdp-{{ sid }}
+  .bdp-video__frame img {
+    width: 100%;
+    height: 100%;
+    min-height: inherit;
+    object-fit: cover;
+    filter:saturate(0.9) contrast(1.08)
+  }.bdp-{{ sid }}
+  .bdp-video__overlay {
+    position: absolute;
+    inset: auto 0 0;
+    padding: clamp(28px, 6vw, 72px);
+    background: linear-gradient(transparent,rgba(0,0,0,.82))
+  }.bdp-{{ sid }}
+  .bdp-video__overlay h2 {
+    font-family: Playfair Display
+    , serif;
+    font-size: clamp(42px, 7vw, 100px);
+    line-height: .92;
+    max-width: 820px;
+    margin: 0
+  }
+  .bdp-{{ sid }}
+  .bdp-usp-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    max-width: 1320px;
+    margin: auto
+  }.bdp-{{ sid }}
+  .bdp-usp-card {
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between
+  }.bdp-{{ sid }}
+  .bdp-usp-card span {
+    width: 38px;
+    height: 38px;
+    border-radius: 14px;
+    background: radial-gradient(circle,var(--bd-gold2),var(--bd-gold3));
+    box-shadow: 0 0 34px rgba(200, 161, 90, .24)
+  }.bdp-{{ sid }}
+  .bdp-usp-card b {
+    font-family: Playfair Display
+    , serif;
+    font-size: 24px;
+    font-weight: 600
+  }
+  .bdp-{{ sid }}
+  .bdp-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    max-width: 1320px;
+    margin: auto
+  }.bdp-{{ sid }}
+  .bdp-stat {
+    text-align: center;
+    border: 1px solid var(--bd-border);
+    border-radius: 34px;
+    background: rgba(255, 255, 255, .026);
+    padding: 42px 22px
+  }.bdp-{{ sid }}
+  .bdp-stat b {
+    font-family: Playfair Display
+    , serif;
+    font-size: clamp(52px, 7vw, 96px);
+    line-height: 1;
+    color: var(--bd-gold2);
+    display: block
+  }.bdp-{{ sid }}
+  .bdp-stat span {
+    color: var(--bd-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 11px
+  }
+  .bdp-{{ sid }}
+  .bdp-bundle-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    max-width: 960px;
+    margin: auto
+  }.bdp-{{ sid }}
+  .bdp-bundle-card {
+    min-height: 300px;
+    text-align: center
+  }.bdp-{{ sid }}
+  .bdp-bundle-card img {
+    height: 220px;
+    width: 100%;
+    object-fit: contain;
+    margin-bottom: 16px;
+    filter:drop-shadow(0 26px 42px #000)
+  }.bdp-{{ sid }}
+  .bdp-bundle-card h3 {
+    font-family: Playfair Display
+    , serif;
+    font-size: 28px;
+    margin: 0 0 8px
+  }.bdp-{{ sid }}
+  .bdp-bundle-card p {
+    color: var(--bd-muted);
+    margin: 0 0 18px
+  }
+  .bdp-{{ sid }}
+  .bdp-masonry {
+    columns: 3 270px;
+    column-gap: 18px;
+    max-width: 1320px;
+    margin: auto
+  }.bdp-{{ sid }}
+  .bdp-masonry__item {
+    break-inside: avoid;
+    position: relative;
+    margin: 0 0 18px;
+    border-radius: 30px;
+    overflow: hidden;
+    border: 1px solid var(--bd-border);
+    background: #111
+  }
+  .bdp-{{ sid }}.bdp-masonry__item:nth-child(2n) {
+    margin-top: 42px
+  }.bdp-{{ sid }}
+  .bdp-masonry__item img {
+    width: 100%;
+    height: auto;
+    min-height: 380px;
+    object-fit: cover;
+    transition: 1s cubic-bezier(0.2,.8,0.2,1);
+    filter:saturate(0.92)
+  }
+  .bdp-{{ sid }}.bdp-masonry__item:hover img {
+    transform: scale(1.08)
+  }.bdp-{{ sid }}
+  .bdp-masonry__item figcaption {
+    position: absolute;
+    left: 16px;
+    bottom: 16px;
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, .52);
+    border: 1px solid var(--bd-border);
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    color: var(--bd-gold2)
+  }
+  .bdp-{{ sid }}
+  .bdp-accordion {
+    max-width: 980px;
+    margin: auto
+  }.bdp-{{ sid }}
+  .bdp-acc-item {
+    border-bottom: 1px solid var(--bd-border)
+  }.bdp-{{ sid }}
+  .bdp-acc-item button {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    align-items: center;
+    padding: 28px 0;
+    border: 0;
+    background: transparent;
+    color: var(--bd-white);
+    cursor: pointer;
+    text-align: left
+  }.bdp-{{ sid }}
+  .bdp-acc-item button span {
+    font-family: Playfair Display
+    , serif;
+    font-size: clamp(24px, 3vw, 38px);
+    line-height: 1.05
+  }.bdp-{{ sid }}
+  .bdp-acc-item i {
+    font-style: normal;
+    color: var(--bd-gold2);
+    font-size: 26px;
+    transition: 0.35s ease
+  }.bdp-{{ sid }}
+  .bdp-acc-item.is-open i {
+    transform: rotate(45deg)
+  }.bdp-{{ sid }}
+  .bdp-acc-item > div {
+    height: 0;
+    overflow: hidden
+  }.bdp-{{ sid }}
+  .bdp-acc-item p {
+    margin: 0 0 28px;
+    color: var(--bd-muted);
+    font-size: 16px;
+    max-width: 760px
+  }
+  .bdp-{{ sid }}
+  .bdp-final {
+    position: relative;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    text-align: center;
+    background: radial-gradient(circle at 50% 42%,rgba(139,30,45,.25),transparent 34%), radial-gradient(circle at 50% 30%, rgba(200, 161, 90, 0.13), transparent 30%);
+    overflow: hidden
+  }.bdp-{{ sid }}
+  .bdp-final__bottle {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    opacity: .48
+  }.bdp-{{ sid }}
+  .bdp-final__bottle img {
+    max-height: 78vh;
+    width: auto;
+    filter:drop-shadow(0 60px 100px #000)
+  }.bdp-{{ sid }}
+  .bdp-final__copy {
+    position: relative;
+    z-index: 2
+  }.bdp-{{ sid }}
+  .bdp-final__copy .bdp-h2 {
+    font-size: clamp(58px, 11vw, 158px);
+    max-width: 1050px;
+    margin-bottom: 34px;
+    text-shadow: 0 30px 80px #000
+  }
+  .bdp-{{ sid }}
+  .bdp-footer {
+    padding: 70px clamp(18px, 5vw, 72px);
+    border-top: 1px solid var(--bd-border);
+    background: #050505;
+    display: grid;
+    grid-template-columns: 1fr minmax(280px, 450px);
+    gap: 36px
+  }.bdp-{{ sid }}
+  .bdp-footer__brand h2 {
+    font-family: Playfair Display
+    , serif;
+    font-size: 44px;
+    margin: 0 0 12px
+  }.bdp-{{ sid }}
+  .bdp-footer__brand p {
+    color: var(--bd-muted);
+    max-width: 540px
+  }.bdp-{{ sid }}
+  .bdp-newsletter label {
+    display: block;
+    color: var(--bd-gold2);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    margin-bottom: 10px
+  }.bdp-{{ sid }}
+  .bdp-newsletter div {
+    display: flex;
+    gap: 10px
+  }.bdp-{{ sid }}
+  .bdp-newsletter button
+  , .bdp-{{ sid }}
+  .bdp-email-popup button[type="submit"] {
+    border: 0;
+    border-radius: 18px;
+    padding: 0 18px;
+    background: linear-gradient(135deg,var(--bd-gold2),var(--bd-gold3));
+    color: #090909;
+    font-weight: 800;
+    cursor: pointer
+  }.bdp-{{ sid }}
+  .bdp-footer__links {
+    grid-column: 1/-1;
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap
+  }.bdp-{{ sid }}
+  .bdp-footer__links a {
+    color: var(--bd-muted);
+    font-size: 13px
+  }
+  .bdp-{{ sid }}.bdp-footer__links a:hover {
+    color: var(--bd-gold2)
+  }.bdp-{{ sid }}
+  .bdp-footer__bottom {
+    grid-column: 1/-1;
+    border-top: 1px solid var(--bd-border);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    flex-wrap: wrap;
+    color: var(--bd-muted);
+    font-size: 12px
+  }
+  .bdp-{{ sid }}
+  .bdp-sticky-atc {
+    position: fixed;
+    left: 50%;
+    bottom: 18px;
+    transform: translate(-50%, 140%);
+    z-index: 1000;
+    width: min(720px, calc(100vw - 28px));
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 12px 12px 12px 14px;
+    border: 1px solid rgba(200, 161, 90, .24);
+    border-radius: 24px;
+    background: rgba(10, 10, 10, .72);
+    backdrop-filter:blur(24px);
+    box-shadow: 0 20px 70px rgba(0, 0, 0, .45);
+    transition: transform 0.5s cubic-bezier(0.2,.8,0.2,1)
+  }.bdp-{{ sid }}
+  .bdp-sticky-atc.is-visible {
+    transform: translate(-50%, 0)
+  }.bdp-{{ sid }}
+  .bdp-sticky-atc__product {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 0
+  }.bdp-{{ sid }}
+  .bdp-sticky-atc__product img {
+    width: 54px;
+    height: 54px;
+    border-radius: 14px;
+    object-fit: cover;
+    background: #111
+  }.bdp-{{ sid }}
+  .bdp-sticky-atc__product strong {
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis
+  }.bdp-{{ sid }}
+  .bdp-sticky-atc__product small {
+    color: var(--bd-gold2)
+  }
+  .bdp-{{ sid }}
+  .bdp-recent-popup
+  , .bdp-{{ sid }}
+  .bdp-email-popup {
+    position: fixed;
+    z-index: 1002;
+    border: 1px solid rgba(200, 161, 90, .25);
+    background: rgba(10, 10, 10, .82);
+    backdrop-filter:blur(24px);
+    box-shadow: 0 24px 80px rgba(0, 0, 0, .45);
+    border-radius: 24px;
+    color: var(--bd-white)
+  }.bdp-{{ sid }}
+  .bdp-recent-popup {
+    left: 18px;
+    bottom: 18px;
+    width: min(320px, calc(100vw - 36px));
+    padding: 20px
+  }.bdp-{{ sid }}
+  .bdp-recent-popup p {
+    margin: 6px 0 0;
+    color: var(--bd-muted);
+    font-size: 13px
+  }.bdp-{{ sid }}
+  .bdp-recent-popup button
+  , .bdp-{{ sid }}
+  .bdp-email-popup > button {
+    position: absolute;
+    right: 12px;
+    top: 10px;
+    width: 30px;
+    height: 30px;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .06);
+    color: var(--bd-white);
+    cursor: pointer
+  }.bdp-{{ sid }}
+  .bdp-email-popup {
+    right: 18px;
+    bottom: 18px;
+    width: min(390px, calc(100vw - 36px));
+    padding: 28px
+  }.bdp-{{ sid }}
+  .bdp-email-popup h3 {
+    font-family: Playfair Display
+    , serif;
+    font-size: 32px;
+    line-height: 1;
+    margin: 0 0 10px
+  }.bdp-{{ sid }}
+  .bdp-email-popup p {
+    color: var(--bd-muted);
+    margin: 0 0 18px
+  }.bdp-{{ sid }}
+  .bdp-email-popup form {
+    display: flex;
+    gap: 10px
+  }.bdp-{{ sid }}
+  .bdp-email-popup input {
+    height: 48px
+  }.bdp-{{ sid }}
+  .bdp-email-popup button[type="submit"] {
+    height: 48px
+  }.bdp-{{ sid }}
+  [hidden] {
+    display: none !important
+  }
+  .bdp-{{ sid }}
+  .bdp-word
+  , .bdp-{{ sid }}
+  .bdp-char {
+    display: inline-block
+  }.bdp-{{ sid }}
+  .bdp-word {
+    white-space: nowrap;
+    overflow: hidden;
+    vertical-align: top
+  }.bdp-{{ sid }}
+  .bdp-reveal-line {
+    will-change: clip-path
+    , transform
+    , filter
+    , opacity
+  }.bdp-{{ sid }}
+  [data-bd-image-reveal] {
+    clip-path: inset(0 0 100% 0);
+    will-change: clip-path
+    , transform
+  }.bdp-{{ sid }}
+  [data-bd-card] {
+    will-change: transform
+    , opacity
+    , filter
+  }
+  @keyframes bdpMarquee {
+    to {
+      transform: translateX(-50%)
+    }
+  }
+  @keyframes bdpFloat {
+    0,
+    100% {
+      transform: translate3d(0, 0, 0)
+    }
+    50% {
+      transform: translate3d(22px, -28px, 0)
+    }
+  }
+  @keyframes bdpSmoke {
+    from {
+      transform: translateX(-4%) scale(1)
+    }
+    to {
+      transform: translateX(4%) scale(1.08)
+    }
+  }
+  @keyframes bdpSweep {
+    0,
+    100% {
+      transform: translateX(-55%) skewX(-18deg);
+      opacity: 0
+    }
+    40%,
+    60% {
+      opacity: .55
+    }
+    100% {
+      transform: translateX(70%) skewX(-18deg)
+    }
+  }
+  @keyframes bdpPulse {
+    50% {
+      transform: scale(1.35);
+      opacity: .62
+    }
+  }
+  @keyframes bdpPulseRing {
+    0% {
+      box-shadow: 0 0 0 0 rgba(200, 161, 90, .24)
+      , 0 0 24px rgba(200, 161, 90, .2)
+    }
+    100% {
+      box-shadow: 0 0 0 16px rgba(200, 161, 90, 0)
+      , 0 0 24px rgba(200, 161, 90, .2)
+    }
+  }
+  @media (max-width: 989px) {
+    .bdp-{{ sid }} .bdp-hero__bottle-wrap {
+      width: min(520px, 78vw);
+      opacity: .72
+    }.bdp-{{ sid }}
+    .bdp-hero__title {
+      font-size: clamp(54px, 16vw, 110px)
+    }.bdp-{{ sid }}
+    .bdp-feature-grid
+    , .bdp-{{ sid }}
+    .bdp-usp-grid
+    , .bdp-{{ sid }}
+    .bdp-stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr))
+    }.bdp-{{ sid }}
+    .bdp-buy
+    , .bdp-{{ sid }}
+    .bdp-showcase__sticky
+    , .bdp-{{ sid }}
+    .bdp-love__row
+    , .bdp-{{ sid }}
+    .bdp-story__pin {
+      grid-template-columns: 1fr
+    }.bdp-{{ sid }}
+    .bdp-showcase {
+      min-height: auto
+    }.bdp-{{ sid }}
+    .bdp-showcase__sticky {
+      position: relative;
+      min-height: auto
+    }.bdp-{{ sid }}
+    .bdp-showcase__bottle {
+      min-height: 620px
+    }.bdp-{{ sid }}
+    .bdp-notes__grid {
+      grid-template-columns: 1fr
+    }.bdp-{{ sid }}
+    .bdp-note-arrow {
+      transform: rotate(0)
+    }.bdp-{{ sid }}
+    .bdp-story {
+      height: auto
+    }.bdp-{{ sid }}
+    .bdp-story__pin {
+      position: relative;
+      height: auto;
+      min-height: 100vh
+    }.bdp-{{ sid }}
+    .bdp-story__steps {
+      flex-direction: row;
+      flex-wrap: wrap
+    }.bdp-{{ sid }}
+    .bdp-footer {
+      grid-template-columns: 1fr
+    }.bdp-{{ sid }}
+    .bdp-cursor {
+      display: none
+    }
+  }
+  @media (max-width: 640px) {
+    .bdp-{{ sid }} .bdp-pad {
+      padding: 64px 16px
+    }.bdp-{{ sid }}
+    .bdp-hero {
+      padding-inline: 16px;
+      min-height: 100 svh
+    }.bdp-{{ sid }}
+    .bdp-hero__content {
+      text-align: left;
+      width: 100%;
+      padding-top: 32vh
+    }.bdp-{{ sid }}
+    .bdp-hero__actions {
+      justify-content: flex-start
+    }.bdp-{{ sid }}
+    .bdp-hero__trust {
+      justify-content: flex-start
+    }.bdp-{{ sid }}
+    .bdp-hero__bottle-wrap {
+      top: 7vh;
+      width: 78vw
+    }.bdp-{{ sid }}
+    .bdp-btn {
+      min-height: 50px;
+      padding: 0 22px
+    }.bdp-{{ sid }}
+    .bdp-feature-grid
+    , .bdp-{{ sid }}
+    .bdp-usp-grid
+    , .bdp-{{ sid }}
+    .bdp-stats
+    , .bdp-{{ sid }}
+    .bdp-bundle-grid {
+      grid-template-columns: 1fr
+    }.bdp-{{ sid }}
+    .bdp-buy__media {
+      min-height: 440px
+    }.bdp-{{ sid }}
+    .bdp-buy__panel {
+      border-radius: 28px;
+      padding: 24px
+    }.bdp-{{ sid }}
+    .bdp-showcase__bottle {
+      min-height: 520px
+    }.bdp-{{ sid }}
+    .bdp-hotspot span {
+      min-width: 190px
+    }.bdp-{{ sid }}
+    .bdp-hotspot--heart {
+      left: 3%
+    }.bdp-{{ sid }}
+    .bdp-hotspot--base {
+      right: 4%
+    }.bdp-{{ sid }}
+    .bdp-love__image {
+      min-height: 420px
+    }.bdp-{{ sid }}
+    .bdp-footer__bottom {
+      display: block
+    }.bdp-{{ sid }}
+    .bdp-newsletter div
+    , .bdp-{{ sid }}
+    .bdp-email-popup form {
+      flex-direction: column
+    }.bdp-{{ sid }}
+    .bdp-newsletter button
+    , .bdp-{{ sid }}
+    .bdp-email-popup button[type="submit"] {
+      height: 48px
+    }.bdp-{{ sid }}
+    .bdp-sticky-atc {
+      border-radius: 20px
+    }.bdp-{{ sid }}
+    .bdp-sticky-atc__product img {
+      display: none
+    }.bdp-{{ sid }}
+    .bdp-sticky-atc .bdp-btn {
+      min-width: 110px;
+      padding: 0 14px
+    }.bdp-{{ sid }}
+    .bdp-email-popup {
+      right: 12px;
+      left: 12px;
+      bottom: 12px;
+      width: auto
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bdp-{{ sid }}* {
+      animation: none !important;
+      transition: none !important;
+      scroll-behavior: auto !important
+    }.bdp-{{ sid }}
+    .bdp-cursor {
+      display: none
+    }
+  }
+</style>
+
+<script>
+  (() => {
+  const root = document.getElementById('BigDaddyLuxury-{{ sid }}');
+  if (!root || root.dataset.bdpReady === 'true') return;
+  root.dataset.bdpReady = 'true';
+
+  const moneyFallback = (v) => v || '';
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const loadScript = (src) => new Promise((resolve, reject) => {
+    if ([...document.scripts].some(s => s.src === src)) return resolve();
+    const s = document.createElement('script'); s.src = src; s.async = true; s.onload = resolve; s.onerror = reject; document.head.appendChild(s);
+  });
+
+  function splitText(){
+    root.querySelectorAll('.bdp-split').forEach(el => {
+      if (el.dataset.splitDone) return;
+      const text = el.textContent.trim();
+      el.textContent = '';
+      text.split(' ').forEach((word, wi, arr) => {
+        const w = document.createElement('span'); w.className = 'bdp-word';
+        [...word].forEach(ch => { const c = document.createElement('span'); c.className = 'bdp-char'; c.textContent = ch; w.appendChild(c); });
+        el.appendChild(w); if (wi < arr.length - 1) el.appendChild(document.createTextNode(' '));
+      });
+      el.dataset.splitDone = 'true';
+    });
+  }
+
+  function initGsap(){
+    if (!window.gsap || !window.ScrollTrigger) { initNonGsap(); return; }
+    const gsap = window.gsap;
+    gsap.registerPlugin(window.ScrollTrigger);
+    if (window.Flip) gsap.registerPlugin(window.Flip);
+    splitText();
+
+    if (window.Lenis && !window.__bdpLenis && !prefersReduced) {
+      window.__bdpLenis = new Lenis({ smoothWheel:true, lerp:.08, wheelMultiplier:.85 });
+      window.__bdpLenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((time) => window.__bdpLenis.raf(time * 1000));
+      gsap.ticker.lagSmoothing(0);
+    }
+
+    const preloader = root.querySelector('.bdp-preloader');
+    if (preloader) {
+      const percent = preloader.querySelector('.bdp-preloader__percent');
+      const obj = { value: 0 };
+      const tl = gsap.timeline({ defaults:{ ease:'power3.out' }, onComplete(){ preloader.remove(); } });
+      tl.to(preloader.querySelector('.bdp-preloader__logo'), { clipPath:'inset(0 0% 0 0)', duration:.9 })
+        .to(preloader.querySelector('.bdp-preloader__bar span'), { width:'100%', duration:1.1, ease:'expo.inOut', onUpdate(){ obj.value = Math.round(this.progress() * 100); percent.textContent = obj.value + '%'; } }, '-=.2')
+        .to(preloader, { opacity:0, filter:'blur(18px)', duration:.75 }, '+=.2');
+    }
+
+    const cursor = root.querySelector('.bdp-cursor');
+    if (cursor && !prefersReduced) {
+      window.addEventListener('pointermove', e => gsap.to(cursor, { x:e.clientX, y:e.clientY, duration:.7, ease:'power3.out' }), { passive:true });
+    }
+
+    root.querySelectorAll('.bdp-char').forEach(c => gsap.set(c, { yPercent:110, rotateX:-70, transformOrigin:'50% 100%', opacity:0 }));
+    root.querySelectorAll('.bdp-split').forEach(el => {
+      gsap.to(el.querySelectorAll('.bdp-char'), { yPercent:0, rotateX:0, opacity:1, duration:1.15, stagger:.018, ease:'expo.out', scrollTrigger:{ trigger:el, start:'top 86%' } });
+    });
+
+    root.querySelectorAll('.bdp-reveal-line').forEach(el => {
+      gsap.fromTo(el, { y:34, clipPath:'inset(0 0 100% 0)', filter:'blur(12px)', opacity:0 }, { y:0, clipPath:'inset(0 0 0% 0)', filter:'blur(0px)', opacity:1, duration:1.05, ease:'power4.out', scrollTrigger:{ trigger:el, start:'top 88%' } });
+    });
+
+    root.querySelectorAll('[data-bd-anim]').forEach(el => {
+      gsap.fromTo(el, { y:46, rotateX:-9, filter:'blur(14px)', opacity:0 }, { y:0, rotateX:0, filter:'blur(0px)', opacity:1, duration:1.1, ease:'power4.out', scrollTrigger:{ trigger:el, start:'top 88%' } });
+    });
+
+    root.querySelectorAll('[data-bd-card]').forEach((card, idx) => {
+      gsap.fromTo(card, { y:90, rotateX:-16, scale:.96, filter:'blur(14px)', opacity:0 }, { y:0, rotateX:0, scale:1, filter:'blur(0px)', opacity:1, duration:1, delay:(idx%4)*.06, ease:'power4.out', scrollTrigger:{ trigger:card, start:'top 90%' } });
+      card.addEventListener('pointermove', e => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', ((e.clientX-r.left)/r.width*100)+'%');
+        card.style.setProperty('--my', ((e.clientY-r.top)/r.height*100)+'%');
+      });
+    });
+
+    root.querySelectorAll('[data-bd-image-reveal]').forEach(el => {
+      gsap.to(el, { clipPath:'inset(0 0 0% 0)', duration:1.15, ease:'expo.out', scrollTrigger:{ trigger:el, start:'top 84%' } });
+      const img = el.querySelector('img'); if (img) gsap.to(img, { scale:1, duration:1.6, ease:'expo.out', scrollTrigger:{ trigger:el, start:'top 84%' } });
+    });
+
+    const heroBottle = root.querySelector('[data-hero-bottle]');
+    if (heroBottle && !prefersReduced) {
+      gsap.to(heroBottle, { y:-36, rotateY:12, rotateX:-4, duration:4, yoyo:true, repeat:-1, ease:'sine.inOut' });
+      root.querySelector('.bdp-hero')?.addEventListener('pointermove', e => {
+        const x = (e.clientX / window.innerWidth - .5) * 22;
+        const y = (e.clientY / window.innerHeight - .5) * -16;
+        gsap.to(heroBottle, { rotateY:x, rotateX:y, x:x*1.7, y:y*1.2, duration:.8, ease:'power3.out' });
+      }, { passive:true });
+      gsap.to(heroBottle, { scale:.82, opacity:.55, scrollTrigger:{ trigger:root.querySelector('.bdp-hero'), start:'top top', end:'bottom top', scrub:1 } });
+    }
+
+    const showcaseBottle = root.querySelector('[data-showcase-bottle] img');
+    if (showcaseBottle) {
+      gsap.to(showcaseBottle, { rotateY:28, rotateX:5, scale:1.08, scrollTrigger:{ trigger:root.querySelector('.bdp-showcase'), start:'top top', end:'bottom bottom', scrub:1 } });
+      gsap.to(root.querySelector('.bdp-glass-reflection'), { x:260, opacity:.8, scrollTrigger:{ trigger:root.querySelector('.bdp-showcase'), start:'top top', end:'bottom bottom', scrub:1 } });
+    }
+
+    const story = root.querySelector('.bdp-story');
+    if (story && window.innerWidth > 989 && !prefersReduced) {
+      const steps = story.querySelectorAll('[data-story-step]');
+      const stl = gsap.timeline({ scrollTrigger:{ trigger:story, start:'top top', end:'bottom bottom', scrub:1 } });
+      stl.to(story.querySelector('.bdp-story__glass'), { clipPath:'inset(0% 0 0 0)', duration:1 })
+         .to(steps[0], { className:'+=is-active', duration:.05 }, '<')
+         .to(story.querySelector('.bdp-story__liquid'), { height:'54%', duration:1.2, ease:'sine.inOut' })
+         .to(steps[1], { className:'+=is-active', duration:.05 }, '<')
+         .to(story.querySelector('.bdp-story__cap'), { y:0, duration:.8, ease:'bounce.out' })
+         .to(story.querySelector('.bdp-story__ring'), { scaleX:1, duration:.55 }, '<+.2')
+         .to(steps[2], { className:'+=is-active', duration:.05 }, '<')
+         .to(story.querySelector('.bdp-story__label'), { opacity:1, scale:1, duration:.8, ease:'back.out(1.4)' })
+         .to(steps[3], { className:'+=is-active', duration:.05 }, '<')
+         .to(story.querySelector('.bdp-story__shine'), { x:'260%', duration:1.1, ease:'power2.inOut' })
+         .to(story.querySelector('.bdp-story__smoke'), { opacity:.45, duration:.8 }, '<')
+         .to(steps[4], { className:'+=is-active', duration:.05 }, '<');
+    } else {
+      root.querySelectorAll('.bdp-story__glass').forEach(el => el.style.clipPath = 'inset(0 0 0 0)');
+      root.querySelectorAll('.bdp-story__liquid').forEach(el => el.style.height = '54%');
+      root.querySelectorAll('.bdp-story__cap').forEach(el => el.style.transform = 'translate(-50%,0)');
+      root.querySelectorAll('.bdp-story__ring').forEach(el => el.style.transform = 'translateX(-50%) scaleX(1)');
+      root.querySelectorAll('.bdp-story__label').forEach(el => { el.style.opacity = '1'; el.style.transform = 'scale(1)'; });
+    }
+
+    root.querySelectorAll('[data-note-stage]').forEach((stage, i) => {
+      gsap.fromTo(stage.querySelectorAll('span,h3,b'), { y:28, opacity:0, filter:'blur(10px)' }, { y:0, opacity:1, filter:'blur(0px)', stagger:.08, duration:.8, ease:'power4.out', scrollTrigger:{ trigger:stage, start:'top 80%' } });
+    });
+
+    root.querySelectorAll('.bdp-stat').forEach(stat => {
+      const target = parseFloat(stat.dataset.counter || '0');
+      const out = stat.querySelector('b');
+      const suffix = out.textContent.includes('K') ? 'K+' : out.textContent.includes('%') ? '%' : out.textContent.includes('★') ? '★' : '+';
+      gsap.fromTo(stat, { y:50, opacity:0, rotateX:-12 }, { y:0, opacity:1, rotateX:0, duration:.9, ease:'power4.out', scrollTrigger:{ trigger:stat, start:'top 86%' } });
+      gsap.fromTo({ n:0 }, { n:0 }, { n:target, duration:1.4, ease:'power2.out', scrollTrigger:{ trigger:stat, start:'top 86%', once:true }, onUpdate(){ out.textContent = (target % 1 ? this.targets()[0].n.toFixed(1) : Math.round(this.targets()[0].n)) + suffix; } });
+    });
+
+    root.querySelectorAll('[data-magnetic]').forEach(btn => {
+      btn.addEventListener('pointermove', e => {
+        const r = btn.getBoundingClientRect();
+        gsap.to(btn, { x:(e.clientX-r.left-r.width/2)*.18, y:(e.clientY-r.top-r.height/2)*.28, duration:.35, ease:'power3.out' });
+      });
+      btn.addEventListener('pointerleave', () => gsap.to(btn, { x:0, y:0, duration:.55, ease:'elastic.out(1,.35)' }));
+    });
+
+    const finalBottle = root.querySelector('[data-final-bottle] img');
+    if (finalBottle) gsap.to(finalBottle, { y:-38, rotateY:10, duration:4.6, repeat:-1, yoyo:true, ease:'sine.inOut' });
+
+    ScrollTrigger.create({ trigger:root.querySelector('.bdp-buy'), start:'bottom bottom', endTrigger:root, end:'bottom bottom', onEnter:()=>root.querySelector('[data-sticky-atc]')?.classList.add('is-visible'), onLeaveBack:()=>root.querySelector('[data-sticky-atc]')?.classList.remove('is-visible') });
+  }
+
+  function initNonGsap(){
+    root.querySelectorAll('[data-bd-image-reveal]').forEach(el => el.style.clipPath = 'inset(0 0 0 0)');
+    root.querySelectorAll('.bdp-preloader').forEach(el => el.remove());
+  }
+
+  function initUi(){
+    const compare = root.querySelector('[data-compare]');
+    if (compare) compare.querySelector('[data-compare-range]')?.addEventListener('input', e => compare.style.setProperty('--position', e.target.value + '%'));
+
+    const form = root.querySelector('[data-product-form]');
+    const variantSelect = root.querySelector('[data-variant-select]');
+    const price = root.querySelector('[data-product-price]');
+    const stickyPrice = root.querySelector('[data-sticky-price]');
+    const comparePrice = root.querySelector('[data-compare-price]');
+    const qtyInput = root.querySelector('[data-qty-input]');
+    const lowStock = root.querySelector('[data-low-stock] span');
+    const getVariantId = () => variantSelect ? variantSelect.value : root.querySelector('[data-variant-id]')?.value;
+    const getQty = () => Math.max(1, parseInt(qtyInput?.value || '1', 10));
+
+    variantSelect?.addEventListener('change', () => {
+      const opt = variantSelect.selectedOptions[0];
+      if (price) price.textContent = moneyFallback(opt.dataset.price);
+      if (stickyPrice) stickyPrice.textContent = moneyFallback(opt.dataset.price);
+      if (comparePrice) {
+        if (opt.dataset.compare && opt.dataset.compare !== '') { comparePrice.hidden = false; comparePrice.textContent = opt.dataset.compare; } else { comparePrice.hidden = true; }
+      }
+      if (lowStock) {
+        const inv = parseInt(opt.dataset.inventory || '0', 10);
+        lowStock.textContent = inv > 0 && inv <= 8 ? `Only ${inv} bottles left in this batch.` : 'Only a few bottles left in this batch.';
+      }
+      if (opt.dataset.available === 'false') root.querySelector('[data-add-to-cart]').textContent = 'Sold Out'; else root.querySelector('[data-add-to-cart]').textContent = 'Add To Cart';
+    });
+
+    root.querySelector('[data-qty-minus]')?.addEventListener('click', () => { qtyInput.value = Math.max(1, getQty() - 1); });
+    root.querySelector('[data-qty-plus]')?.addEventListener('click', () => { qtyInput.value = Math.min(10, getQty() + 1); });
+
+    async function addToCart(variantId, quantity, redirect){
+      if (!variantId) return;
+      const buttons = root.querySelectorAll('[data-add-to-cart], [data-sticky-add], [data-buy-now]');
+      buttons.forEach(b => { b.disabled = true; b.dataset.oldText = b.textContent; b.textContent = 'Adding...'; });
+      try {
+        await fetch('{{ routes.cart_add_url }}.js', { method:'POST', headers:{ 'Content-Type':'application/json', 'Accept':'application/json' }, body:JSON.stringify({ id:Number(variantId), quantity:Number(quantity || 1) }) });
+        document.dispatchEvent(new CustomEvent('cart:refresh'));
+        document.dispatchEvent(new CustomEvent('cart-drawer:open'));
+        if (window.theme?.cartDrawer?.open) window.theme.cartDrawer.open();
+        const drawer = document.querySelector('cart-drawer');
+        if (drawer && typeof drawer.open === 'function') drawer.open();
+        if (redirect) window.location.href = '/checkout';
+        buttons.forEach(b => { b.textContent = redirect ? 'Redirecting...' : 'Added'; });
+        setTimeout(() => buttons.forEach(b => { b.disabled = false; b.textContent = b.dataset.oldText || 'Add To Cart'; }), 1100);
+      } catch(e) {
+        console.error(e); buttons.forEach(b => { b.disabled = false; b.textContent = 'Try Again'; });
+        setTimeout(() => buttons.forEach(b => { b.textContent = b.dataset.oldText || 'Add To Cart'; }), 1400);
+      }
+    }
+
+    form?.addEventListener('submit', e => { e.preventDefault(); addToCart(getVariantId(), getQty(), false); });
+    root.querySelector('[data-buy-now]')?.addEventListener('click', () => addToCart(getVariantId(), getQty(), true));
+    root.querySelector('[data-sticky-add]')?.addEventListener('click', () => addToCart(getVariantId(), getQty(), true));
+    root.querySelectorAll('[data-upsell-add]').forEach(btn => btn.addEventListener('click', () => addToCart(btn.dataset.upsellAdd, 1, false)));
+
+    const wish = root.querySelector('[data-wishlist]');
+    if (wish) {
+      const key = 'bdp_wishlist_{{ product.id | default: 'big-daddy' }}';
+      if (localStorage.getItem(key)) wish.classList.add('is-active');
+      wish.addEventListener('click', () => { wish.classList.toggle('is-active'); wish.classList.contains('is-active') ? localStorage.setItem(key,'1') : localStorage.removeItem(key); wish.textContent = wish.classList.contains('is-active') ? '♥ Wishlisted' : '♡ Wishlist'; });
+    }
+
+    root.querySelector('[data-check-pincode]')?.addEventListener('click', () => {
+      const pin = root.querySelector('[data-pincode]')?.value.trim() || '';
+      const out = root.querySelector('[data-pincode-result]');
+      if (!/^\d{6}$/.test(pin)) { out.textContent = 'Please enter a valid 6-digit PIN code.'; out.style.color = '#E4C88A'; return; }
+      const days = ['2–3', '3–5', '4–6'][parseInt(pin.slice(-1),10) % 3];
+      out.textContent = `Estimated delivery: ${days} business days. COD availability may vary by location.`;
+      out.style.color = '#BEB9AE';
+    });
+
+    root.querySelectorAll('.bdp-acc-item button').forEach(btn => btn.addEventListener('click', () => {
+      const item = btn.closest('.bdp-acc-item'); const panel = item.querySelector('div'); const open = item.classList.contains('is-open');
+      root.querySelectorAll('.bdp-acc-item.is-open').forEach(i => { if (i !== item) { i.classList.remove('is-open'); if (window.gsap) gsap.to(i.querySelector('div'), { height:0, duration:.38, ease:'power3.inOut' }); else i.querySelector('div').style.height = '0'; } });
+      item.classList.toggle('is-open', !open);
+      if (window.gsap) gsap.to(panel, { height:open ? 0 : 'auto', duration:.45, ease:'power3.inOut' }); else panel.style.height = open ? '0' : 'auto';
+    }));
+
+    const carousel = root.querySelector('[data-testimonials]');
+    if (carousel) setInterval(() => { if (document.hidden || carousel.matches(':hover')) return; const next = carousel.scrollLeft + carousel.clientWidth * .75; carousel.scrollTo({ left: next >= carousel.scrollWidth - carousel.clientWidth ? 0 : next, behavior:'smooth' }); }, 3600);
+
+    function tickCountdown(){
+      const now = new Date(); const end = new Date(); end.setHours(23,59,59,999);
+      const diff = Math.max(0, end - now); const h = String(Math.floor(diff/36e5)).padStart(2,'0'); const m = String(Math.floor(diff%36e5/6e4)).padStart(2,'0'); const s = String(Math.floor(diff%6e4/1000)).padStart(2,'0');
+      root.querySelectorAll('[data-countdown]').forEach(el => el.textContent = `${h}:${m}:${s}`);
+    }
+    tickCountdown(); setInterval(tickCountdown, 1000);
+
+    const recent = root.querySelector('[data-recent-popup]');
+    setTimeout(() => { if (recent && !sessionStorage.getItem('bdp_recent_closed')) recent.hidden = false; }, 6500);
+    root.querySelector('[data-close-recent]')?.addEventListener('click', () => { recent.hidden = true; sessionStorage.setItem('bdp_recent_closed','1'); });
+
+    const email = root.querySelector('[data-email-popup]');
+    setTimeout(() => { if (email && !localStorage.getItem('bdp_email_closed')) email.hidden = false; }, 11000);
+    root.querySelector('[data-close-email]')?.addEventListener('click', () => { email.hidden = true; localStorage.setItem('bdp_email_closed','1'); });
+  }
+
+  initUi();
+  if (prefersReduced) { initNonGsap(); return; }
+  Promise.all([
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js'),
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js'),
+    loadScript('https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js'),
+    loadScript('https://unpkg.com/lenis@1.1.14/dist/lenis.min.js')
+  ]).then(initGsap).catch(initNonGsap);
+  })();
+</script>
+
+{% schema %}
+  {
+    "name": "Big Daddy Luxury Home",
+    "tag": "section",
+    "class": "section-big-daddy-luxury-home",
+    "settings": [
+      {
+        "type": "product",
+        "id": "product",
+        "label": "Main Shopify product"
+      },
+      {
+        "type": "image_picker",
+        "id": "bottle_image",
+        "label": "Main bottle image"
+      },
+      {
+        "type": "image_picker",
+        "id": "hero_bg_image",
+        "label": "Hero / video fallback image"
+      },
+      {
+        "type": "image_picker",
+        "id": "notes_image",
+        "label": "Fragrance notes image"
+      }, {
+        "type": "image_picker",
+        "id": "lifestyle_image",
+        "label": "Lifestyle image"
+      }, {
+        "type": "image_picker",
+        "id": "before_image",
+        "label": "Before image"
+      }, {
+        "type": "image_picker",
+        "id": "after_image",
+        "label": "After image"
+      }, {
+        "type": "text",
+        "id": "video_url",
+        "label": "MP4 video URL",
+        "info": "Upload an MP4 in Shopify Files and paste the URL here."
+      }, {
+        "type": "product",
+        "id": "upsell_1",
+        "label": "Upsell product 1"
+      }, {
+        "type": "product",
+        "id": "upsell_2",
+        "label": "Upsell product 2"
+      }, {
+        "type": "checkbox",
+        "id": "enable_preloader",
+        "label": "Enable luxury preloader",
+        "default": true
+      }, {
+        "type": "header",
+        "content": "Instagram gallery"
+      }, {
+        "type": "image_picker",
+        "id": "gallery_1",
+        "label": "Gallery image 1"
+      }, {
+        "type": "image_picker",
+        "id": "gallery_2",
+        "label": "Gallery image 2"
+      }, {
+        "type": "image_picker",
+        "id": "gallery_3",
+        "label": "Gallery image 3"
+      }, {
+        "type": "image_picker",
+        "id": "gallery_4",
+        "label": "Gallery image 4"
+      }, {
+        "type": "image_picker",
+        "id": "gallery_5",
+        "label": "Gallery image 5"
+      }, {
+        "type": "image_picker",
+        "id": "gallery_6",
+        "label": "Gallery image 6"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "testimonial",
+        "name": "Testimonial",
+        "settings": [
+          {
+            "type": "image_picker",
+            "id": "photo",
+            "label": "Customer photo"
+          }, {
+            "type": "text",
+            "id": "name",
+            "label": "Customer name",
+            "default": "Arjun Mehta"
+          }, {
+            "type": "textarea",
+            "id": "review",
+            "label": "Review",
+            "default": "Big Daddy smells premium, masculine, and very long lasting. The bottle also feels gift-worthy."
+          }
+        ]
+      }, {
+        "type": "faq",
+        "name": "FAQ",
+        "settings": [
+          {
+            "type": "text",
+            "id": "question",
+            "label": "Question",
+            "default": "How long does Big Daddy last?"
+          }, {
+            "type": "textarea",
+            "id": "answer",
+            "label": "Answer",
+            "default": "Big Daddy is designed for long-lasting performance and can stay noticeable for up to 24 hours depending on skin type, weather, and application."
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Big Daddy Luxury Home",
+        "blocks": [
+          {
+            "type": "testimonial"
+          }, {
+            "type": "testimonial",
+            "settings": {
+              "name": "Rohit Sharma",
+              "review": "The opening is bold and the dry-down feels expensive. Perfect perfume for evenings."
+            }
+          }, {
+            "type": "faq"
+          }, {
+            "type": "faq",
+            "settings": {
+              "question": "Is COD available?",
+              "answer": "Yes, COD can be offered when enabled in your Shopify payment and shipping settings."
+            }
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
