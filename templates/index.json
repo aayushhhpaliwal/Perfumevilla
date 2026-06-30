@@ -116,6 +116,7 @@
         "faq_CJbbi6",
         "faq_hEAjpF"
       ],
+      "disabled": true,
       "name": "Big Daddy Luxury Home",
       "settings": {
         "product": "",
@@ -125,11 +126,328 @@
         "upsell_2": "",
         "enable_preloader": true
       }
+    },
+    "big_daddy_customizable_homepage_PPezNC": {
+      "type": "big-daddy-customizable-homepage",
+      "blocks": {
+        "feature_CFXy4P": {
+          "type": "feature",
+          "settings": {
+            "icon": "01",
+            "title": "24 Hours Performance",
+            "text": "A long-lasting trail designed for office, evenings, parties, and special occasions."
+          }
+        },
+        "feature_GjMfCT": {
+          "type": "feature",
+          "settings": {
+            "icon": "02",
+            "title": "Imported French Oils",
+            "text": "Premium oil character with refined projection and a smooth dry-down."
+          }
+        },
+        "feature_zHD4Tb": {
+          "type": "feature",
+          "settings": {
+            "icon": "03",
+            "title": "Skin Friendly Formula",
+            "text": "Balanced formulation created for comfortable everyday wear."
+          }
+        },
+        "feature_XJ3jVj": {
+          "type": "feature",
+          "settings": {
+            "icon": "04",
+            "title": "Luxury Gift Packaging",
+            "text": "Delivered with a premium unboxing experience that feels gift-ready."
+          }
+        },
+        "hotspot_j3jKhi": {
+          "type": "hotspot",
+          "settings": {
+            "title": "Top Notes",
+            "text": "Bergamot, pink pepper, and lemon."
+          }
+        },
+        "hotspot_gBzAtp": {
+          "type": "hotspot",
+          "settings": {
+            "title": "Heart Notes",
+            "text": "Lavender, jasmine, and rose."
+          }
+        },
+        "hotspot_yADbth": {
+          "type": "hotspot",
+          "settings": {
+            "title": "Base Notes",
+            "text": "Amber, sandalwood, vanilla, and musk."
+          }
+        },
+        "note_XCeTHm": {
+          "type": "note",
+          "settings": {
+            "title": "Top Notes",
+            "tags": "Bergamot|Pink Pepper|Lemon"
+          }
+        },
+        "note_mDCitE": {
+          "type": "note",
+          "settings": {
+            "title": "Heart Notes",
+            "tags": "Lavender|Jasmine|Rose"
+          }
+        },
+        "note_h99fy7": {
+          "type": "note",
+          "settings": {
+            "title": "Base Notes",
+            "tags": "Amber|Sandalwood|Vanilla|Musk"
+          }
+        },
+        "testimonial_h7X6Ew": {
+          "type": "testimonial",
+          "settings": {
+            "rating": "★★★★★",
+            "review": "Big Daddy smells premium, masculine, and very long lasting. The bottle also feels gift-worthy.",
+            "name": "Arjun Mehta",
+            "meta": "Verified Customer"
+          }
+        },
+        "testimonial_qTNMDm": {
+          "type": "testimonial",
+          "settings": {
+            "rating": "★★★★★",
+            "review": "The opening is bold and the dry-down feels expensive. Perfect perfume for evenings.",
+            "name": "Rohit Sharma",
+            "meta": "Verified Customer"
+          }
+        },
+        "usp_gAATpK": {
+          "type": "usp",
+          "settings": {
+            "icon": "↗",
+            "title": "Free Shipping",
+            "text": "Premium doorstep delivery experience."
+          }
+        },
+        "usp_3L4yLi": {
+          "type": "usp",
+          "settings": {
+            "icon": "COD",
+            "title": "COD Available",
+            "text": "Pay comfortably at delivery."
+          }
+        },
+        "usp_eUEzNn": {
+          "type": "usp",
+          "settings": {
+            "icon": "✓",
+            "title": "Secure Checkout",
+            "text": "Encrypted payment flow."
+          }
+        },
+        "usp_y6nDFg": {
+          "type": "usp",
+          "settings": {
+            "icon": "24",
+            "title": "Long Lasting",
+            "text": "Designed for all-day confidence."
+          }
+        },
+        "stat_MD7e6x": {
+          "type": "stat",
+          "settings": {
+            "value": "100K+",
+            "label": "Customers"
+          }
+        },
+        "stat_8rdTLM": {
+          "type": "stat",
+          "settings": {
+            "value": "4.9",
+            "label": "Average Rating"
+          }
+        },
+        "stat_Wyhc6U": {
+          "type": "stat",
+          "settings": {
+            "value": "98%",
+            "label": "Repeat Buyers"
+          }
+        },
+        "stat_chFU9Q": {
+          "type": "stat",
+          "settings": {
+            "value": "50+",
+            "label": "Cities Served"
+          }
+        },
+        "gallery_LgRUNU": {
+          "type": "gallery",
+          "settings": {
+            "caption": "Night ritual - Ruby glow",
+            "alt": "BIG DADDY luxury perfume product shot"
+          }
+        },
+        "gallery_M6kUmM": {
+          "type": "gallery",
+          "settings": {
+            "caption": "Fresh top notes - Deep base",
+            "alt": "BIG DADDY luxury perfume product shot"
+          }
+        },
+        "gallery_8f6EY4": {
+          "type": "gallery",
+          "settings": {
+            "caption": "Clean studio - Gold typography",
+            "alt": "BIG DADDY luxury perfume product shot"
+          }
+        },
+        "faq_ka7zxi": {
+          "type": "faq",
+          "settings": {
+            "question": "How long does BIG DADDY last?",
+            "answer": "BIG DADDY is designed for long-lasting performance and can stay noticeable for up to 24 hours depending on skin type, weather, and application."
+          }
+        },
+        "faq_JJ6Cwc": {
+          "type": "faq",
+          "settings": {
+            "question": "Is it suitable for daily wear?",
+            "answer": "Yes. It has a bold masculine character but remains polished, making it suitable for daily use, office wear, evenings, and special occasions."
+          }
+        },
+        "faq_dFD8cA": {
+          "type": "faq",
+          "settings": {
+            "question": "What are the main fragrance notes?",
+            "answer": "The fragrance opens with bergamot, pink pepper, and lemon, moves into lavender, jasmine, and rose, and settles into amber, sandalwood, vanilla, and musk."
+          }
+        }
+      },
+      "block_order": [
+        "feature_CFXy4P",
+        "feature_GjMfCT",
+        "feature_zHD4Tb",
+        "feature_XJ3jVj",
+        "hotspot_j3jKhi",
+        "hotspot_gBzAtp",
+        "hotspot_yADbth",
+        "note_XCeTHm",
+        "note_mDCitE",
+        "note_h99fy7",
+        "testimonial_h7X6Ew",
+        "testimonial_qTNMDm",
+        "usp_gAATpK",
+        "usp_3L4yLi",
+        "usp_eUEzNn",
+        "usp_y6nDFg",
+        "stat_MD7e6x",
+        "stat_8rdTLM",
+        "stat_Wyhc6U",
+        "stat_chFU9Q",
+        "gallery_LgRUNU",
+        "gallery_M6kUmM",
+        "gallery_8f6EY4",
+        "faq_ka7zxi",
+        "faq_JJ6Cwc",
+        "faq_dFD8cA"
+      ],
+      "name": "Big Daddy Custom Home",
+      "settings": {
+        "product": "",
+        "video_url": "",
+        "enable_preloader": true,
+        "enable_particles": true,
+        "show_sticky_atc": true,
+        "show_announcement": true,
+        "brand_name": "The Perfume Villa",
+        "brand_mark": "TPV",
+        "brand_subtitle": "Luxury Perfumes",
+        "product_name": "BIG DADDY",
+        "nav_1": "Fragrance",
+        "nav_2": "Notes",
+        "nav_3": "Reviews",
+        "nav_4": "FAQ",
+        "hero_eyebrow": "The Perfume Villa",
+        "hero_heading": "Own The Room",
+        "hero_heading_outline": "Before You Enter",
+        "hero_text": "A bold masculine premium 50ML fragrance crafted with ruby depth, gold elegance, and long-lasting confidence.",
+        "primary_label": "Shop Now",
+        "primary_link": "",
+        "secondary_label": "Discover The Notes",
+        "secondary_link": "",
+        "hero_stat_number": "24H",
+        "hero_stat_text": "Long-lasting confidence with a refined amber-wood trail.",
+        "trust_items": "4.9 Rating|100K+ Customers|COD Available|Free Shipping",
+        "marquee_items": "Premium Oils|Luxury Packaging|Long Lasting|Secure Checkout|Made in India|Cruelty Free|Easy Returns|Gift Ready",
+        "hero_image_alt": "BIG DADDY 50ML luxury perfume bottle",
+        "features_eyebrow": "Why Big Daddy",
+        "features_heading": "Built like a statement. Worn like confidence.",
+        "features_text": "Deep ruby intensity, matte-black luxury attitude, and a bold masculine signature crafted to stay with you.",
+        "showcase_image_alt": "BIG DADDY perfume bottle on clean premium studio background",
+        "showcase_left_label": "Opening",
+        "showcase_left_heading": "Fresh Impact",
+        "showcase_left_text": "Citrus brightness and pink pepper spark create a confident first impression.",
+        "showcase_left_label_2": "Bottle",
+        "showcase_left_heading_2": "Ruby Depth",
+        "showcase_left_text_2": "A premium visual character with dark luxury, gold detail, and rich crimson energy.",
+        "showcase_right_label": "Dry Down",
+        "showcase_right_heading": "Warm Power",
+        "showcase_right_text": "Amber, sandalwood, vanilla, and musk settle into a memorable premium trail.",
+        "showcase_right_label_2": "Occasion",
+        "showcase_right_heading_2": "All-Day Presence",
+        "showcase_right_text_2": "Designed for office, evenings, dates, parties, and signature daily wear.",
+        "notes_eyebrow": "Fragrance Notes",
+        "notes_heading": "A confident scent architecture.",
+        "notes_text": "Fresh top notes move into a refined aromatic heart and settle into a warm amber-wood base.",
+        "notes_image_alt": "BIG DADDY perfume with fragrance ingredients",
+        "story_eyebrow": "Scroll Story",
+        "story_heading": "From raw glass to a signature of power.",
+        "story_text": "A visual product story inspired by glass, crimson liquid, gold detail, and a bold masculine finish.",
+        "love_eyebrow": "Why People Love It",
+        "love_heading": "A masculine fragrance that feels expensive from the first spray.",
+        "love_items": "Bold masculine fragrance|Premium imported oils|24 hour performance|Elegant packaging|Perfect gift|Luxury experience",
+        "compare_eyebrow": "Before / After Experience",
+        "compare_heading": "From ordinary presence to unforgettable aura.",
+        "compare_text": "Use the slider to compare a clean product visual with the cinematic dark luxury mood.",
+        "compare_before_alt": "Clean studio perfume visual",
+        "compare_after_alt": "Luxury dark cinematic perfume visual",
+        "reviews_eyebrow": "Verified Reviews",
+        "reviews_heading": "Loved by men who like their fragrance bold.",
+        "video_heading": "A cinematic ritual in every spray.",
+        "video_text": "Use this block for an autoplay muted product video: bottle closeups, ruby liquid reflections, smoke, gold shimmer, and slow luxury camera motion.",
+        "usp_eyebrow": "Premium USP Grid",
+        "usp_heading": "Everything built for trust.",
+        "gallery_eyebrow": "Instagram Gallery",
+        "gallery_heading": "Made for premium shelf presence.",
+        "faq_eyebrow": "FAQ",
+        "faq_heading": "Everything before you buy.",
+        "faq_text": "A conversion-friendly accordion with clean answers and premium spacing.",
+        "final_eyebrow": "The Perfume Villa",
+        "final_heading": "Find Your Signature Scent",
+        "final_text": "A luxury masculine fragrance created to make your presence felt before the first word is spoken.",
+        "add_to_cart_label": "Add to Cart",
+        "buy_now_label": "Buy Now",
+        "sticky_subtitle": "50ML long lasting luxury perfume",
+        "announcement_heading": "Private Offer Live",
+        "announcement_text": "Free shipping above Rs.499 and a premium BIG DADDY experience packed for gifting.",
+        "announcement_stock": "Only 8 left in stock",
+        "bg_color": "#080808",
+        "bg_2_color": "#111111",
+        "gold_color": "#C8A15A",
+        "gold_light_color": "#E4C88A",
+        "ruby_color": "#8B1E2D",
+        "text_color": "#F8F7F3",
+        "muted_color": "#BEB9AE",
+        "card_radius": 28
+      }
     }
   },
   "order": [
     "image_banner",
     "featured_collection",
-    "big_daddy_luxury_homepage_NYqCHr"
+    "big_daddy_luxury_homepage_NYqCHr",
+    "big_daddy_customizable_homepage_PPezNC"
   ]
 }
