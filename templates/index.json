@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "image_banner": {
@@ -26,36 +35,37 @@
         "heading",
         "button"
       ],
+      "disabled": true,
       "settings": {
         "image_overlay_opacity": 40,
         "image_height": "large",
-        "desktop_content_position": "bottom-center",
-        "show_text_box": false,
         "image_behavior": "none",
+        "desktop_content_position": "bottom-center",
         "desktop_content_alignment": "center",
+        "show_text_box": false,
         "color_scheme": "scheme-3",
-        "mobile_content_alignment": "center",
         "stack_images_on_mobile": false,
+        "mobile_content_alignment": "center",
         "show_text_below": false
       }
     },
     "featured_collection": {
       "type": "featured-collection",
+      "disabled": true,
       "settings": {
+        "collection": "all",
+        "products_to_show": 8,
         "title": "Featured products",
         "heading_size": "h2",
         "description": "",
         "show_description": false,
         "description_style": "body",
-        "collection": "all",
-        "products_to_show": 8,
         "columns_desktop": 4,
-        "color_scheme": "scheme-1",
+        "enable_desktop_slider": false,
         "full_width": false,
         "show_view_all": true,
         "view_all_style": "solid",
-        "enable_desktop_slider": false,
-        "swipe_on_mobile": false,
+        "color_scheme": "scheme-1",
         "image_ratio": "adapt",
         "image_shape": "default",
         "show_secondary_image": true,
@@ -63,13 +73,63 @@
         "show_rating": false,
         "quick_add": "none",
         "columns_mobile": "2",
+        "swipe_on_mobile": false,
         "padding_top": 44,
         "padding_bottom": 36
+      }
+    },
+    "big_daddy_luxury_homepage_NYqCHr": {
+      "type": "big-daddy-luxury-homepage",
+      "blocks": {
+        "testimonial_j6rQQH": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Arjun Mehta",
+            "review": "Big Daddy smells premium, masculine, and very long lasting. The bottle also feels gift-worthy."
+          }
+        },
+        "testimonial_Exa3MB": {
+          "type": "testimonial",
+          "settings": {
+            "name": "Rohit Sharma",
+            "review": "The opening is bold and the dry-down feels expensive. Perfect perfume for evenings."
+          }
+        },
+        "faq_CJbbi6": {
+          "type": "faq",
+          "settings": {
+            "question": "How long does Big Daddy last?",
+            "answer": "Big Daddy is designed for long-lasting performance and can stay noticeable for up to 24 hours depending on skin type, weather, and application."
+          }
+        },
+        "faq_hEAjpF": {
+          "type": "faq",
+          "settings": {
+            "question": "Is COD available?",
+            "answer": "Yes, COD can be offered when enabled in your Shopify payment and shipping settings."
+          }
+        }
+      },
+      "block_order": [
+        "testimonial_j6rQQH",
+        "testimonial_Exa3MB",
+        "faq_CJbbi6",
+        "faq_hEAjpF"
+      ],
+      "name": "Big Daddy Luxury Home",
+      "settings": {
+        "product": "",
+        "bottle_image": "shopify://shop_images/Create_a_luxury_commercial_perfume_202606192340.jpg",
+        "video_url": "",
+        "upsell_1": "",
+        "upsell_2": "",
+        "enable_preloader": true
       }
     }
   },
   "order": [
     "image_banner",
-    "featured_collection"
+    "featured_collection",
+    "big_daddy_luxury_homepage_NYqCHr"
   ]
 }
