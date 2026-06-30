@@ -568,7 +568,7 @@
           preload="metadata"
           data-scroll-video
           poster="{% if bottle_image != blank %}{{ bottle_image | image_url: width: 1200 }}{% endif %}">
-          <source src="{{ section.settings.video_url }}" type="video/mp4">
+          <source src="{{ section.settings.video_url | escape }}" type="video/mp4">
         </video>
       {% elsif hero_bg_image != blank %}
         <img
@@ -922,7 +922,7 @@
   }
   .bdp-{{ sid }}
   .bdp-pad {
-    padding: clamp(72px, 10vw, 160px) clamp(18px,
+    padding: clamp(72px, 10vw, 160px) clamp(18px, 4vw, 64px);
   }
   .bdp-{{ sid }}
   .bdp-kicker {
@@ -952,8 +952,8 @@
   }.bdp-{{ sid }}
   .bdp-section-head {
     max-width: 960px;
-    margin: 0 auto clamp(38px, 6vw,;
-    text-align: center
+    margin: 0 auto clamp(38px, 6vw, 88px);
+    text-align: center;
   }.bdp-{{ sid }}
   .bdp-section-head--wide {
     max-width: 1180px
