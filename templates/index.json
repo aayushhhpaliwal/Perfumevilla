@@ -134,7 +134,7 @@
           "type": "feature",
           "settings": {
             "icon": "01",
-            "title": "24 Hours Performance",
+            "title": "12 Hours Performance",
             "text": "A long-lasting trail designed for office, evenings, parties, and special occasions."
           }
         },
@@ -355,14 +355,11 @@
       ],
       "name": "Big Daddy Custom Home",
       "settings": {
-        "product": "",
+        "product": "big-daddy",
         "logo": "shopify://shop_images/Create_a_luxury_commercial_perfume_202606192340.jpg",
         "hero_image": "shopify://shop_images/Create_a_premium_luxury_studio_202606192334_b3dba072-26e4-48aa-b044-d8a6dd4af65b.png",
         "video_url": "",
-        "enable_preloader": true,
-        "enable_particles": true,
         "show_sticky_atc": true,
-        "show_announcement": true,
         "brand_name": "The Perfume Villa",
         "brand_mark": "TPV",
         "brand_subtitle": "Luxury Perfumes",
@@ -432,9 +429,6 @@
         "add_to_cart_label": "Add to Cart",
         "buy_now_label": "Buy Now",
         "sticky_subtitle": "50ML long lasting luxury perfume",
-        "announcement_heading": "Private Offer Live",
-        "announcement_text": "Free shipping above Rs.499 and a premium BIG DADDY experience packed for gifting.",
-        "announcement_stock": "Only 8 left in stock",
         "bg_color": "#080808",
         "bg_2_color": "#111111",
         "gold_color": "#c8a15a",
