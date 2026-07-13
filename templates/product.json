@@ -49,6 +49,54 @@
           "type": "description",
           "settings": {}
         },
+        "perfume_benefits": {
+          "type": "icon-with-text",
+          "settings": {
+            "layout": "horizontal",
+            "icon_1": "perfume",
+            "heading_1": "Premium perfume oils",
+            "icon_2": "stopwatch",
+            "heading_2": "Long-lasting trail",
+            "icon_3": "box",
+            "heading_3": "Gift-ready packaging"
+          }
+        },
+        "scent_profile": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Scent profile",
+            "icon": "perfume",
+            "content": "<p>A bold perfume crafted for a confident signature. It opens with a fresh, attention-grabbing impression, settles into a refined aromatic heart, and leaves a warm, memorable base trail.</p>",
+            "page": ""
+          }
+        },
+        "fragrance_notes": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Fragrance notes",
+            "icon": "leaf",
+            "content": "<p><strong>Top:</strong> fresh citrus and spicy brightness.<br><strong>Heart:</strong> aromatic florals and smooth masculine depth.<br><strong>Base:</strong> amber, woods, musk, and soft warmth.</p>",
+            "page": ""
+          }
+        },
+        "performance": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Performance and occasion",
+            "icon": "stopwatch",
+            "content": "<p>Designed for daily wear, evenings, parties, gifting, and special occasions. Apply on pulse points for better projection and a longer-lasting fragrance experience.</p>",
+            "page": ""
+          }
+        },
+        "how_to_use": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "How to use",
+            "icon": "question_mark",
+            "content": "<p>Spray from 10-15 cm away on the neck, wrists, and behind the ears. Do not rub after spraying, as rubbing can flatten the fragrance notes. Store in a cool, dry place away from direct sunlight.</p>",
+            "page": ""
+          }
+        },
         "share": {
           "type": "share",
           "settings": {
@@ -64,6 +112,11 @@
         "quantity_selector",
         "buy_buttons",
         "description",
+        "perfume_benefits",
+        "scent_profile",
+        "fragrance_notes",
+        "performance",
+        "how_to_use",
         "share"
       ],
       "settings": {
