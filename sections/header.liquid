@@ -98,6 +98,117 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  .section-header {
+    z-index: 90;
+  }
+
+  .header-wrapper {
+    border: 0;
+    background: rgba(8, 8, 8, .82);
+    color: #fffaf0;
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    box-shadow: 0 16px 42px rgba(0, 0, 0, .18);
+  }
+
+  .header-wrapper--border-bottom {
+    border-bottom: 1px solid rgba(200, 161, 90, .24);
+  }
+
+  .header {
+    min-height: 74px;
+    column-gap: clamp(16px, 2.4vw, 34px);
+  }
+
+  .header__heading-logo-wrapper {
+    filter: drop-shadow(0 10px 26px rgba(200, 161, 90, .16));
+  }
+
+  .header__heading-link .h2 {
+    color: #fffaf0;
+    font-size: clamp(20px, 2vw, 28px);
+    font-weight: 800;
+    letter-spacing: .02em;
+  }
+
+  .header__inline-menu {
+    justify-self: center;
+  }
+
+  .list-menu--inline {
+    gap: 6px;
+  }
+
+  .list-menu__item,
+  .header__menu-item {
+    color: rgba(255, 250, 240, .78);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    transition: color .25s ease, background .25s ease;
+  }
+
+  .header__menu-item {
+    border-radius: 999px;
+    padding: 12px 16px;
+  }
+
+  .header__menu-item:hover,
+  .header__active-menu-item {
+    color: #e4c88a;
+    text-decoration: none;
+  }
+
+  .header__menu-item:hover {
+    background: rgba(255, 255, 255, .055);
+  }
+
+  .header__icons {
+    gap: 6px;
+  }
+
+  .header__icon {
+    width: 44px;
+    height: 44px;
+    border: 1px solid rgba(200, 161, 90, .2);
+    border-radius: 50%;
+    color: #fffaf0;
+    background: rgba(255, 255, 255, .035);
+    transition: border-color .25s ease, color .25s ease, background .25s ease, transform .25s ease;
+  }
+
+  .header__icon:hover {
+    border-color: rgba(228, 200, 138, .52);
+    color: #e4c88a;
+    background: rgba(200, 161, 90, .1);
+    transform: translateY(-1px);
+  }
+
+  .cart-count-bubble {
+    background: linear-gradient(135deg, #e4c88a, #c8a15a);
+    color: #120d07;
+    font-weight: 800;
+  }
+
+  .shopify-section-header-sticky .header-wrapper,
+  .scrolled-past-header .header-wrapper {
+    background: rgba(8, 8, 8, .9);
+  }
+
+  @media screen and (max-width: 749px) {
+    .header {
+      min-height: 66px;
+      padding-left: 1.6rem;
+      padding-right: 1.6rem;
+    }
+
+    .header__icon {
+      width: 40px;
+      height: 40px;
+    }
+  }
 {%- endstyle -%}
 
 <script src="{{ 'cart-notification.js' | asset_url }}" defer="defer"></script>

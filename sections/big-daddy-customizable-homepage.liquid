@@ -705,6 +705,65 @@
     .bdc-{{ sid }} .bdc-sticky-product { display: none; }
     .bdc-{{ sid }} .bdc-sticky-inner .bdc-btn { width: 100%; }
   }
+
+  .bdc-{{ sid }} {
+    --bdc-display: clamp(46px, 6.2vw, 84px);
+    --bdc-heading: clamp(34px, 4.6vw, 58px);
+    --bdc-subheading: clamp(22px, 2.4vw, 30px);
+    --bdc-body: 16px;
+    --bdc-small: 13px;
+  }
+  .bdc-{{ sid }} .bdc-hero-title,
+  .bdc-{{ sid }} .bdc-final-content h2 {
+    font-size: var(--bdc-display);
+    line-height: .96;
+    letter-spacing: -.035em;
+  }
+  .bdc-{{ sid }} .bdc-section-title,
+  .bdc-{{ sid }} .bdc-video-content h2 {
+    font-size: var(--bdc-heading);
+    line-height: 1.04;
+    letter-spacing: -.025em;
+  }
+  .bdc-{{ sid }} .bdc-feature-card h3,
+  .bdc-{{ sid }} .bdc-spec-card h3,
+  .bdc-{{ sid }} .bdc-usp-card h3,
+  .bdc-{{ sid }} .bdc-note-content h3,
+  .bdc-{{ sid }} .bdc-testimonial h3 {
+    font-size: var(--bdc-subheading);
+    line-height: 1.12;
+    letter-spacing: -.015em;
+  }
+  .bdc-{{ sid }} .bdc-section-copy,
+  .bdc-{{ sid }} .bdc-hero-copy > p:not(.bdc-eyebrow),
+  .bdc-{{ sid }} .bdc-final-content p:not(.bdc-eyebrow),
+  .bdc-{{ sid }} .bdc-video-content p,
+  .bdc-{{ sid }} .bdc-testimonial p,
+  .bdc-{{ sid }} .bdc-love-item p {
+    font-size: var(--bdc-body);
+    line-height: 1.75;
+  }
+  .bdc-{{ sid }} .bdc-eyebrow,
+  .bdc-{{ sid }} .bdc-marquee-item,
+  .bdc-{{ sid }} .bdc-trust-bar span,
+  .bdc-{{ sid }} .bdc-feature-card p,
+  .bdc-{{ sid }} .bdc-spec-card p,
+  .bdc-{{ sid }} .bdc-usp-card p,
+  .bdc-{{ sid }} .bdc-note-tags span,
+  .bdc-{{ sid }} .bdc-gallery-item figcaption {
+    font-size: var(--bdc-small);
+  }
+  .bdc-{{ sid }} .bdc-stat strong {
+    font-size: clamp(38px, 4.8vw, 64px);
+  }
+  @media (max-width: 640px) {
+    .bdc-{{ sid }} {
+      --bdc-display: clamp(40px, 12vw, 58px);
+      --bdc-heading: clamp(30px, 9vw, 42px);
+      --bdc-subheading: 22px;
+      --bdc-body: 15px;
+    }
+  }
   @media (prefers-reduced-motion: reduce) {
     .bdc-{{ sid }} *, .bdc-{{ sid }} *:before, .bdc-{{ sid }} *:after { animation: none !important; transition-duration: .01ms !important; }
   }
