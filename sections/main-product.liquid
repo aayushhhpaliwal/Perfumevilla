@@ -56,72 +56,6 @@
       color: var(--tpv-ink);
     }
 
-    #MainProduct-{{ section.id }} .page-width {
-      max-width: 1240px;
-    }
-
-    #MainProduct-{{ section.id }} .product {
-      align-items: start;
-      gap: clamp(28px, 4.5vw, 64px);
-    }
-
-    #MainProduct-{{ section.id }} .product__media-wrapper,
-    #MainProduct-{{ section.id }} .product__info-container {
-      border: 1px solid var(--tpv-border);
-      border-radius: 18px;
-      background: var(--tpv-card);
-      box-shadow: var(--tpv-shadow);
-    }
-
-    #MainProduct-{{ section.id }} .product__media-wrapper {
-      position: relative;
-      overflow: hidden;
-      padding: clamp(14px, 2vw, 24px);
-    }
-
-    #MainProduct-{{ section.id }} .product__media-wrapper:before {
-      content: "";
-      position: absolute;
-      inset: 8%;
-      border-radius: 50%;
-      background: radial-gradient(circle, rgba(200, 161, 90, .22), rgba(139, 30, 45, .08), transparent 68%);
-      pointer-events: none;
-    }
-
-    #MainProduct-{{ section.id }} media-gallery,
-    #MainProduct-{{ section.id }} .product__media-list {
-      position: relative;
-      z-index: 1;
-    }
-
-    #MainProduct-{{ section.id }} .product__media,
-    #MainProduct-{{ section.id }} .product-media-container {
-      border: 0;
-      border-radius: 14px;
-      background: rgba(255, 250, 240, .62);
-    }
-
-    #MainProduct-{{ section.id }} .product__media img {
-      object-fit: contain;
-      filter: drop-shadow(0 22px 34px rgba(96, 73, 42, .16));
-    }
-
-    #MainProduct-{{ section.id }} .thumbnail {
-      border-radius: 12px;
-      border-color: var(--tpv-border);
-      background: rgba(255, 250, 240, .72);
-    }
-
-    #MainProduct-{{ section.id }} .thumbnail[aria-current],
-    #MainProduct-{{ section.id }} .thumbnail:hover {
-      border-color: rgba(200, 161, 90, .65);
-      box-shadow: 0 0 0 2px rgba(200, 161, 90, .18);
-    }
-
-    #MainProduct-{{ section.id }} .product__info-container {
-      padding: clamp(24px, 3vw, 38px);
-    }
-
     #MainProduct-{{ section.id }} .product__text,
     #MainProduct-{{ section.id }} .caption-with-letter-spacing {
       color: var(--tpv-gold-2);
@@ -236,48 +170,6 @@
       font-weight: 800;
     }
 
-    #MainProduct-{{ section.id }} .tpv-product-trust {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 12px;
-      margin-top: clamp(22px, 3vw, 34px);
-    }
-
-    #MainProduct-{{ section.id }} .tpv-product-trust span {
-      min-height: 54px;
-      display: grid;
-      place-items: center;
-      text-align: center;
-      border: 1px solid var(--tpv-border);
-      border-radius: 999px;
-      background: rgba(255, 255, 255, .5);
-      color: var(--tpv-muted);
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    @media screen and (max-width: 989px) {
-      #MainProduct-{{ section.id }} .product__info-container {
-        padding: 22px;
-      }
-
-      #MainProduct-{{ section.id }} .tpv-product-trust {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media screen and (max-width: 549px) {
-      #MainProduct-{{ section.id }} .product__media-wrapper,
-      #MainProduct-{{ section.id }} .product__info-container {
-        border-radius: 14px;
-      }
-
-      #MainProduct-{{ section.id }} .tpv-product-trust {
-        grid-template-columns: 1fr;
-      }
-    }
   {%- endstyle -%}
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
@@ -937,13 +829,6 @@
             </a>
           </section>
         </div>
-      </div>
-
-      <div class="tpv-product-trust" aria-label="Product purchase benefits">
-        <span>Premium Oils</span>
-        <span>COD Available</span>
-        <span>Secure Checkout</span>
-        <span>Gift Ready</span>
       </div>
 
       {% render 'product-media-modal', variant_images: variant_images %}
