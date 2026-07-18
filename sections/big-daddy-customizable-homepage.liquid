@@ -27,6 +27,18 @@
   if compare_after_image == blank
     assign compare_after_image = hero_image
   endif
+
+  assign current_compare_at_price = 0
+  assign current_discount_percent = section.settings.offer_discount_percent
+
+  if current_variant != blank
+    if current_variant.compare_at_price > current_variant.price
+      assign current_compare_at_price = current_variant.compare_at_price
+      assign current_discount_amount = current_variant.compare_at_price | minus: current_variant.price
+      assign current_discount_percent = current_discount_amount | times: 100.0 | divided_by: current_variant.compare_at_price | round
+    endif
+  endif
+
   assign primary_href = section.settings.primary_link
   assign secondary_href = section.settings.secondary_link
   if primary_href == blank
@@ -386,6 +398,49 @@
         <p class="bdc-eyebrow" data-bdc-reveal>{{ section.settings.final_eyebrow }}</p>
         <h2 data-bdc-reveal>{{ section.settings.final_heading }}</h2>
         <p data-bdc-reveal>{{ section.settings.final_text }}</p>
+
+        {% if product != blank %}
+          <div class="bdc-final-commerce" data-bdc-reveal>
+            <div class="bdc-price-row bdc-price-row--final">
+              <span class="bdc-current-price" data-bdc-current-price>{{ current_variant.price | money }}</span>
+              <span
+                class="bdc-compare-price{% unless current_compare_at_price > current_variant.price %} is-hidden{% endunless %}"
+                data-bdc-compare-price
+              >
+                {% if current_compare_at_price > current_variant.price %}{{ current_compare_at_price | money }}{% endif %}
+              </span>
+              <span class="bdc-discount-badge{% if current_discount_percent <= 0 %} is-hidden{% endif %}" data-bdc-discount-badge>
+                {{ current_discount_percent }}% OFF
+              </span>
+            </div>
+
+            {% if section.settings.show_offer_box and section.settings.discount_code != blank %}
+              <div class="bdc-offer-box">
+                <div class="bdc-offer-copy">
+                  {% if section.settings.offer_label != blank %}
+                    <span class="bdc-offer-label">{{ section.settings.offer_label }}</span>
+                  {% endif %}
+                  <strong>{{ section.settings.offer_discount_percent }}% OFF — {{ section.settings.offer_limit_text }}</strong>
+                  <small>{{ section.settings.discount_code_prefix }} <b>{{ section.settings.discount_code }}</b></small>
+                </div>
+
+                <button
+                  type="button"
+                  class="bdc-copy-code"
+                  data-bdc-copy-code
+                  data-code="{{ section.settings.discount_code | escape }}"
+                  data-copy-label="{{ section.settings.copy_code_label | escape }}"
+                  data-copied-label="{{ section.settings.copied_code_label | escape }}"
+                  aria-label="Copy discount code {{ section.settings.discount_code | escape }}"
+                >
+                  <span class="bdc-copy-code-value">{{ section.settings.discount_code }}</span>
+                  <span class="bdc-copy-code-action" data-bdc-copy-action>{{ section.settings.copy_code_label }}</span>
+                </button>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+
         <div class="bdc-buttons">
           {% if product != blank %}
             <button class="bdc-btn bdc-btn-primary" type="button" data-bdc-buy-now>{{ section.settings.buy_now_label }}</button>
@@ -413,14 +468,44 @@
         {% unless product.has_only_default_variant %}
           <select class="bdc-select" data-bdc-variant aria-label="Variant">
             {% for variant in product.variants %}
-              <option value="{{ variant.id }}" data-price="{{ variant.price | money }}" {% if variant == current_variant %}selected{% endif %}>{{ variant.title }}</option>
+              {% liquid
+                assign variant_discount_percent = section.settings.offer_discount_percent
+                assign variant_compare_at = 0
+                if variant.compare_at_price > variant.price
+                  assign variant_compare_at = variant.compare_at_price
+                  assign variant_discount_amount = variant.compare_at_price | minus: variant.price
+                  assign variant_discount_percent = variant_discount_amount | times: 100.0 | divided_by: variant.compare_at_price | round
+                endif
+              %}
+              <option
+                value="{{ variant.id }}"
+                data-price="{{ variant.price | money | escape }}"
+                data-compare-price="{% if variant_compare_at > variant.price %}{{ variant_compare_at | money | escape }}{% endif %}"
+                data-discount-percent="{{ variant_discount_percent }}"
+                {% if variant == current_variant %}selected{% endif %}
+              >
+                {{ variant.title }}
+              </option>
             {% endfor %}
           </select>
         {% else %}
           <input type="hidden" value="{{ current_variant.id }}" data-bdc-variant-id>
         {% endunless %}
         <input class="bdc-qty" type="number" min="1" max="10" value="1" data-bdc-qty aria-label="Quantity">
-        <div class="bdc-sticky-price" data-bdc-price>{{ current_variant.price | money }}</div>
+
+        <div class="bdc-sticky-price-group">
+          <span class="bdc-sticky-current" data-bdc-current-price>{{ current_variant.price | money }}</span>
+          <span
+            class="bdc-sticky-compare{% unless current_compare_at_price > current_variant.price %} is-hidden{% endunless %}"
+            data-bdc-compare-price
+          >
+            {% if current_compare_at_price > current_variant.price %}{{ current_compare_at_price | money }}{% endif %}
+          </span>
+          <span class="bdc-sticky-discount{% if current_discount_percent <= 0 %} is-hidden{% endif %}" data-bdc-discount-badge>
+            {{ current_discount_percent }}% OFF
+          </span>
+        </div>
+
         <button class="bdc-btn bdc-btn-primary" type="button" data-bdc-add>{{ section.settings.add_to_cart_label }}</button>
       </div>
     </aside>
@@ -658,9 +743,27 @@
   .bdc-{{ sid }} .bdc-final-content p:not(.bdc-eyebrow) { color: var(--readable-muted); max-width: 620px; margin: 24px auto 0; line-height: 1.8; }
   .bdc-{{ sid }} .bdc-final-content .bdc-buttons { justify-content: center; }
 
+  .bdc-{{ sid }} .is-hidden { display: none !important; }
+  .bdc-{{ sid }} .bdc-final-commerce { width: min(650px,100%); margin: 30px auto 0; }
+  .bdc-{{ sid }} .bdc-price-row { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px 14px; }
+  .bdc-{{ sid }} .bdc-current-price { color: var(--white); font-size: clamp(28px,4vw,42px); font-weight: 800; line-height: 1; }
+  .bdc-{{ sid }} .bdc-compare-price { color: var(--muted); font-size: 18px; text-decoration: line-through; text-decoration-thickness: 1px; }
+  .bdc-{{ sid }} .bdc-discount-badge { display: inline-flex; align-items: center; min-height: 30px; padding: 5px 12px; border-radius: 999px; background: var(--ruby); color: #fff; font-size: 12px; font-weight: 800; letter-spacing: .06em; white-space: nowrap; }
+  .bdc-{{ sid }} .bdc-offer-box { display: grid; grid-template-columns: minmax(0,1fr) auto; align-items: center; gap: 18px; margin-top: 20px; padding: 16px 18px; border: 1px dashed rgba(111,82,36,.38); border-radius: 16px; background: rgba(255,255,255,.48); text-align: left; box-shadow: 0 12px 28px rgba(96,73,42,.08); }
+  .bdc-{{ sid }} .bdc-offer-copy { min-width: 0; }
+  .bdc-{{ sid }} .bdc-offer-label { display: block; margin-bottom: 4px; color: var(--ruby); font-size: 10px; font-weight: 800; letter-spacing: .16em; text-transform: uppercase; }
+  .bdc-{{ sid }} .bdc-offer-copy strong { display: block; color: var(--white); font-size: 16px; line-height: 1.35; }
+  .bdc-{{ sid }} .bdc-offer-copy small { display: block; margin-top: 5px; color: var(--readable-muted); font-size: 12px; }
+  .bdc-{{ sid }} .bdc-offer-copy small b { color: var(--ruby); letter-spacing: .08em; }
+  .bdc-{{ sid }} .bdc-copy-code { min-width: 142px; display: inline-grid; grid-template-columns: 1fr; gap: 2px; padding: 10px 15px; border: 1px solid rgba(111,82,36,.24); border-radius: 12px; background: var(--bg-2); color: var(--white); cursor: pointer; text-align: center; transition: transform .25s var(--ease), border-color .25s var(--ease), background .25s var(--ease); }
+  .bdc-{{ sid }} .bdc-copy-code:hover { transform: translateY(-2px); border-color: var(--gold); }
+  .bdc-{{ sid }} .bdc-copy-code-value { font-size: 15px; font-weight: 800; letter-spacing: .12em; }
+  .bdc-{{ sid }} .bdc-copy-code-action { color: var(--gold-light); font-size: 10px; font-weight: 700; text-transform: uppercase; }
+  .bdc-{{ sid }} .bdc-copy-code.is-copied { background: var(--white); color: var(--bg-2); }
+
   .bdc-{{ sid }} .bdc-sticky-atc { position: fixed; left: 50%; bottom: 18px; transform: translate(-50%,120%); width: min(1060px,calc(100% - 24px)); z-index: 80; transition: transform .45s var(--ease); }
   .bdc-{{ sid }} .bdc-sticky-atc.is-visible { transform: translate(-50%,0); }
-  .bdc-{{ sid }} .bdc-sticky-inner { display: grid; grid-template-columns: 1fr minmax(160px,220px) 80px auto auto; gap: 12px; align-items: center; border: 1px solid var(--border); border-radius: 999px; padding: 10px; background: rgba(255,250,240,.94); box-shadow: 0 14px 36px rgba(96,73,42,.14); }
+  .bdc-{{ sid }} .bdc-sticky-inner { display: grid; grid-template-columns: minmax(220px,1fr) minmax(150px,200px) 76px minmax(118px,auto) auto; gap: 12px; align-items: center; border: 1px solid var(--border); border-radius: 999px; padding: 10px; background: rgba(255,250,240,.94); box-shadow: 0 14px 36px rgba(96,73,42,.14); }
   .bdc-{{ sid }} .bdc-sticky-product { display: flex; gap: 12px; align-items: center; min-width: 0; }
   .bdc-{{ sid }} .bdc-sticky-thumb { width: 54px; height: 54px; border-radius: 50%; overflow: hidden; background: var(--bg); flex: 0 0 auto; }
   .bdc-{{ sid }} .bdc-sticky-thumb img { width: 100%; height: 100%; object-fit: contain; }
@@ -668,7 +771,10 @@
   .bdc-{{ sid }} .bdc-sticky-product span { color: var(--readable-muted); font-size: 12px; }
   .bdc-{{ sid }} .bdc-select, .bdc-{{ sid }} .bdc-qty { min-height: 48px; border-radius: 999px; border: 1px solid var(--border); background: var(--bg-2); padding: 0 14px; color: var(--white); }
   .bdc-{{ sid }} .bdc-qty { width: 80px; }
-  .bdc-{{ sid }} .bdc-sticky-price { color: var(--gold-light); font-weight: 700; white-space: nowrap; }
+  .bdc-{{ sid }} .bdc-sticky-price-group { min-width: 118px; display: grid; grid-template-columns: auto auto; align-items: center; justify-content: start; gap: 1px 8px; white-space: nowrap; }
+  .bdc-{{ sid }} .bdc-sticky-current { color: var(--gold-dark); font-size: 16px; font-weight: 800; line-height: 1.1; }
+  .bdc-{{ sid }} .bdc-sticky-compare { color: var(--muted); font-size: 11px; line-height: 1.1; text-decoration: line-through; }
+  .bdc-{{ sid }} .bdc-sticky-discount { grid-column: 1 / -1; width: fit-content; margin-top: 3px; padding: 3px 7px; border-radius: 999px; background: var(--ruby); color: #fff; font-size: 9px; font-weight: 800; letter-spacing: .04em; }
 
   .bdc-{{ sid }} [data-bdc-reveal] { opacity: 1; transform: none; filter: none; }
   .bdc-{{ sid }}.bdc-js [data-bdc-reveal] { opacity: 0; transform: translateY(34px); transition: opacity .75s var(--ease), transform .75s var(--ease), filter .75s var(--ease); filter: blur(8px); }
@@ -687,8 +793,9 @@
     .bdc-{{ sid }} .bdc-mini-card { justify-self: center; margin: 0; }
     .bdc-{{ sid }} .bdc-feature-grid, .bdc-{{ sid }} .bdc-usp-grid, .bdc-{{ sid }} .bdc-stats-grid { grid-template-columns: repeat(2,1fr); }
     .bdc-{{ sid }} .bdc-intro-row { display: block; }
-    .bdc-{{ sid }} .bdc-sticky-inner { grid-template-columns: 1fr auto; border-radius: 28px; }
-    .bdc-{{ sid }} .bdc-select, .bdc-{{ sid }} .bdc-qty, .bdc-{{ sid }} .bdc-sticky-price { display: none; }
+    .bdc-{{ sid }} .bdc-sticky-inner { grid-template-columns: minmax(0,1fr) auto auto; border-radius: 28px; }
+    .bdc-{{ sid }} .bdc-select, .bdc-{{ sid }} .bdc-qty { display: none; }
+    .bdc-{{ sid }} .bdc-offer-box { grid-template-columns: 1fr auto; }
   }
   @media (max-width: 640px) {
     .bdc-{{ sid }} .bdc-container, .bdc-{{ sid }} .bdc-hero-shell { width: min(100% - 28px, 1180px); }
@@ -701,9 +808,12 @@
     .bdc-{{ sid }} .bdc-before-after { height: 80vh; min-height: 380px; }
     .bdc-{{ sid }} .bdc-before-after img { height: 100%; min-height: 0; }
     .bdc-{{ sid }} .bdc-video-frame { height: 520px; border-radius: 28px; }
-    .bdc-{{ sid }} .bdc-sticky-inner { grid-template-columns: 1fr; border-radius: 24px; }
+    .bdc-{{ sid }} .bdc-offer-box { grid-template-columns: 1fr; text-align: center; }
+    .bdc-{{ sid }} .bdc-copy-code { width: 100%; min-width: 0; }
+    .bdc-{{ sid }} .bdc-sticky-inner { grid-template-columns: minmax(0,1fr) auto; border-radius: 22px; padding: 9px; }
     .bdc-{{ sid }} .bdc-sticky-product { display: none; }
-    .bdc-{{ sid }} .bdc-sticky-inner .bdc-btn { width: 100%; }
+    .bdc-{{ sid }} .bdc-sticky-price-group { min-width: 0; }
+    .bdc-{{ sid }} .bdc-sticky-inner .bdc-btn { width: auto; min-height: 50px; padding-inline: 20px; }
   }
 
   .bdc-{{ sid }} {
@@ -851,10 +961,68 @@
     }
 
     const variantSelect = root.querySelector('[data-bdc-variant]');
-    const price = root.querySelector('[data-bdc-price]');
+    const currentPriceElements = root.querySelectorAll('[data-bdc-current-price]');
+    const comparePriceElements = root.querySelectorAll('[data-bdc-compare-price]');
+    const discountBadgeElements = root.querySelectorAll('[data-bdc-discount-badge]');
+
+    const updateDisplayedPricing = (selectedOption) => {
+      if (!selectedOption) return;
+
+      const currentPrice = selectedOption.dataset.price || '';
+      const comparePrice = selectedOption.dataset.comparePrice || '';
+      const discountPercent = Number(selectedOption.dataset.discountPercent || 0);
+
+      currentPriceElements.forEach(element => {
+        if (currentPrice) element.textContent = currentPrice;
+      });
+
+      comparePriceElements.forEach(element => {
+        element.textContent = comparePrice;
+        element.classList.toggle('is-hidden', !comparePrice);
+      });
+
+      discountBadgeElements.forEach(element => {
+        element.textContent = discountPercent > 0 ? `${discountPercent}% OFF` : '';
+        element.classList.toggle('is-hidden', discountPercent <= 0);
+      });
+    };
+
     variantSelect?.addEventListener('change', () => {
-      const selected = variantSelect.selectedOptions[0];
-      if (price && selected?.dataset.price) price.textContent = selected.dataset.price;
+      updateDisplayedPricing(variantSelect.selectedOptions[0]);
+    });
+
+    root.querySelectorAll('[data-bdc-copy-code]').forEach(button => {
+      button.addEventListener('click', async () => {
+        const code = button.dataset.code || '';
+        const actionLabel = button.querySelector('[data-bdc-copy-action]');
+        if (!code) return;
+
+        try {
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(code);
+          } else {
+            const temporaryInput = document.createElement('textarea');
+            temporaryInput.value = code;
+            temporaryInput.setAttribute('readonly', '');
+            temporaryInput.style.position = 'fixed';
+            temporaryInput.style.opacity = '0';
+            document.body.appendChild(temporaryInput);
+            temporaryInput.select();
+            document.execCommand('copy');
+            temporaryInput.remove();
+          }
+
+          button.classList.add('is-copied');
+          if (actionLabel) actionLabel.textContent = button.dataset.copiedLabel || 'Copied!';
+
+          window.setTimeout(() => {
+            button.classList.remove('is-copied');
+            if (actionLabel) actionLabel.textContent = button.dataset.copyLabel || 'Copy code';
+          }, 1600);
+        } catch (copyError) {
+          console.error('Discount code copy failed:', copyError);
+        }
+      });
     });
 
     const getVariantId = () => variantSelect ? variantSelect.value : root.querySelector('[data-bdc-variant-id]')?.value || '{{ current_variant.id }}';
@@ -916,6 +1084,15 @@
     { "type": "image_picker", "id": "video_fallback_image", "label": "Video fallback image" },
     { "type": "text", "id": "video_url", "label": "MP4 video URL", "info": "Upload an MP4 in Shopify Files and paste its URL here." },
     { "type": "checkbox", "id": "show_sticky_atc", "label": "Show sticky add to cart", "default": true },
+    { "type": "header", "content": "Offer and pricing" },
+    { "type": "checkbox", "id": "show_offer_box", "label": "Show discount code box", "default": true },
+    { "type": "text", "id": "offer_label", "label": "Offer label", "default": "Limited Launch Offer" },
+    { "type": "text", "id": "offer_limit_text", "label": "Offer limit text", "default": "First 100 Customers Only" },
+    { "type": "range", "id": "offer_discount_percent", "label": "Offer discount percentage", "min": 1, "max": 90, "step": 1, "unit": "%", "default": 50 },
+    { "type": "text", "id": "discount_code", "label": "Discount code", "default": "FIRST100" },
+    { "type": "text", "id": "discount_code_prefix", "label": "Discount code prefix", "default": "Use code at checkout:" },
+    { "type": "text", "id": "copy_code_label", "label": "Copy button label", "default": "Copy code" },
+    { "type": "text", "id": "copied_code_label", "label": "Copied confirmation", "default": "Copied!" },
     { "type": "header", "content": "Brand and navigation" },
     { "type": "text", "id": "brand_name", "label": "Brand name", "default": "The Perfume Villa" },
     { "type": "text", "id": "brand_mark", "label": "Brand mark fallback", "default": "TPV" },
