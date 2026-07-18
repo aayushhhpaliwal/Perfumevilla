@@ -20,16 +20,24 @@
             "text": "Welcome to our store",
             "link": ""
           }
+        },
+        "announcement_3pVzHj": {
+          "type": "announcement",
+          "settings": {
+            "text": "Flat 50% OFF | First 100 Customers | Shop Now",
+            "link": ""
+          }
         }
       },
       "block_order": [
-        "announcement-bar-0"
+        "announcement-bar-0",
+        "announcement_3pVzHj"
       ],
       "disabled": true,
       "settings": {
-        "auto_rotate": false,
+        "auto_rotate": true,
         "change_slides_speed": 5,
-        "color_scheme": "scheme-1",
+        "color_scheme": "scheme-5",
         "show_line_separator": true,
         "show_social": false,
         "enable_country_selector": false,
