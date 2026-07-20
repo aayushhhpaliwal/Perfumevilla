@@ -355,7 +355,8 @@
         "faq_dFD8cA"
       ],
       "custom_css": [
-        "section.bdc-stats {display: none;}"
+        "section.bdc-stats {display: none;}",
+        "section.bdc-gallery.bdc-padded {display: none;}"
       ],
       "name": "Big Daddy Custom Home",
       "settings": {
