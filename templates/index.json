@@ -457,12 +457,42 @@
         "muted_color": "#beb9ae",
         "card_radius": 28
       }
+    },
+    "178491848692022992": {
+      "type": "apps",
+      "blocks": {
+        "instafeed_app_block_kdH3ri": {
+          "type": "shopify://apps/instafeed/blocks/app-block/c447db20-095d-4a10-9725-b5977662c9d5",
+          "settings": {
+            "title": "@theperfumevilla_official",
+            "title_color": "",
+            "title_size_v2": 0,
+            "alignment": "center",
+            "instafeed_margin_top": 0,
+            "instafeed_margin_bottom": 0,
+            "instafeed_margin_sides": 0,
+            "show_instagram_link": false,
+            "link_alignment": "left",
+            "link_color": "#000000",
+            "background_color": "#F5EFE3",
+            "feed_id": "",
+            "html_area": ""
+          }
+        }
+      },
+      "block_order": [
+        "instafeed_app_block_kdH3ri"
+      ],
+      "settings": {
+        "include_margins": true
+      }
     }
   },
   "order": [
     "image_banner",
     "featured_collection",
     "big_daddy_luxury_homepage_NYqCHr",
-    "big_daddy_customizable_homepage_PPezNC"
+    "big_daddy_customizable_homepage_PPezNC",
+    "178491848692022992"
   ]
 }
