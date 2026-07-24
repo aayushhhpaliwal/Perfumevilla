@@ -111,7 +111,7 @@
     "brand_image": "shopify://shop_images/logo.png",
     "brand_image_width": 100,
     "social_facebook_link": "",
-    "social_instagram_link": "",
+    "social_instagram_link": "https://www.instagram.com/theperfumevilla_official?igsh=NzU0ZHY4NDk0MHpn&utm_source=qr",
     "social_youtube_link": "",
     "social_tiktok_link": "",
     "social_twitter_link": "",
@@ -190,7 +190,7 @@
       },
       "scheme-5": {
         "settings": {
-          "background": "#A93433",
+          "background": "#a93433",
           "background_gradient": "",
           "text": "#ffffff",
           "button": "#ffffff",
