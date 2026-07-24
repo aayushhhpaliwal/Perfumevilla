@@ -357,6 +357,7 @@
       "custom_css": [
         "section.bdc-stats {display: none;}",
         "section.bdc-gallery.bdc-padded {display: none;}",
+        ".bdc-offer-box {display: none !important;}",
         "@media (max-width: 749px) {img.bdc-final-product {display: none; }}"
       ],
       "name": "Big Daddy Custom Home",
