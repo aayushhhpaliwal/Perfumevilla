@@ -231,7 +231,7 @@
           <div class="bdc-story-stage">
             <span class="bdc-story-glass"></span>
             <span class="bdc-story-liquid" data-bdc-story-liquid></span>
-            <span class="bdc-story-cap"></span>
+            <span class="bdc-story-cap" data-bdc-story-cap></span>
             <span class="bdc-story-label">{{ section.settings.product_name }}</span>
           </div>
         </div>
@@ -1046,11 +1046,13 @@
 
     const story = root.querySelector('[data-bdc-story]');
     const storyLiquid = root.querySelector('[data-bdc-story-liquid]');
+    const storyCap = root.querySelector('[data-bdc-story-cap]');
     if (story && storyLiquid && window.gsap && window.ScrollTrigger) {
       gsap.registerPlugin(ScrollTrigger);
 
       if (prefersReduced) {
         gsap.set(storyLiquid, { scaleY: 1 });
+        gsap.set(storyCap, { yPercent: 0, rotation: 0, opacity: 1 });
       } else {
         gsap.fromTo(storyLiquid,
           { scaleY: 0 },
@@ -1060,12 +1062,32 @@
             scrollTrigger: {
               trigger: story,
               start: 'top 80%',
-              end: 'bottom 20%',
-              scrub: 1,
+              end: 'center 32%',
+              scrub: .55,
               invalidateOnRefresh: true
             }
           }
         );
+
+        if (storyCap) {
+          gsap.fromTo(storyCap,
+            { yPercent: -180, xPercent: 35, rotation: 16, opacity: 0 },
+            {
+              yPercent: 0,
+              xPercent: 0,
+              rotation: 0,
+              opacity: 1,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: story,
+                start: 'top 88%',
+                end: 'top 48%',
+                scrub: .55,
+                invalidateOnRefresh: true
+              }
+            }
+          );
+        }
       }
     }
 
