@@ -220,7 +220,7 @@
       </div>
     </section>
 
-    <section class="bdc-story">
+    <section class="bdc-story" data-bdc-story>
       <div class="bdc-container bdc-story-wrap">
         <div>
           <p class="bdc-eyebrow" data-bdc-reveal>{{ section.settings.story_eyebrow }}</p>
@@ -230,7 +230,7 @@
         <div class="bdc-story-visual" aria-hidden="true">
           <div class="bdc-story-stage">
             <span class="bdc-story-glass"></span>
-            <span class="bdc-story-liquid"></span>
+            <span class="bdc-story-liquid" data-bdc-story-liquid></span>
             <span class="bdc-story-cap"></span>
             <span class="bdc-story-label">{{ section.settings.product_name }}</span>
           </div>
@@ -683,7 +683,7 @@
   .bdc-{{ sid }} .bdc-story-stage { width: min(360px,75vw); aspect-ratio: .72; position: relative; }
   .bdc-{{ sid }} .bdc-story-stage span { position: absolute; display: block; }
   .bdc-{{ sid }} .bdc-story-glass { inset: 18% 11% 6%; border-radius: 32px; border: 1px solid rgba(255,255,255,.18); background: linear-gradient(135deg,rgba(255,255,255,.18),rgba(255,255,255,.03)); box-shadow: 0 40px 80px rgba(0,0,0,.5); }
-  .bdc-{{ sid }} .bdc-story-liquid { left: 16%; right: 16%; bottom: 8%; height: 54%; border-radius: 0 0 28px 28px; background: linear-gradient(180deg, var(--crimson), var(--ruby)); opacity: .8; }
+  .bdc-{{ sid }} .bdc-story-liquid { left: 16%; right: 16%; bottom: 8%; height: 72%; border-radius: 24px 24px 28px 28px; background: linear-gradient(180deg, #e1293f 0%, var(--crimson) 45%, var(--ruby) 100%); box-shadow: inset 0 12px 24px rgba(255,255,255,.16), 0 0 46px rgba(139,30,45,.3); opacity: .92; transform: scaleY(1); transform-origin: 50% 100%; will-change: transform; }
   .bdc-{{ sid }} .bdc-story-cap { left: 28%; right: 28%; top: 2%; height: 20%; border-radius: 18px; background: var(--white); border: 1px solid var(--border); }
   .bdc-{{ sid }} .bdc-story-label { left: 24%; right: 24%; top: 52%; border: 1px solid var(--border); padding: 18px; text-align: center; color: var(--gold-light); background: var(--bg-2); }
 
@@ -1029,9 +1029,12 @@
   }
   @media (prefers-reduced-motion: reduce) {
     .bdc-{{ sid }} *, .bdc-{{ sid }} *:before, .bdc-{{ sid }} *:after { animation: none !important; transition-duration: .01ms !important; }
+    .bdc-{{ sid }} .bdc-story-liquid { transform: scaleY(1); }
   }
 </style>
 
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script>
   (() => {
     const root = document.getElementById('BigDaddyCustom-{{ sid }}');
@@ -1040,6 +1043,31 @@
     root.classList.add('bdc-js');
     const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+
+    const story = root.querySelector('[data-bdc-story]');
+    const storyLiquid = root.querySelector('[data-bdc-story-liquid]');
+    if (story && storyLiquid && window.gsap && window.ScrollTrigger) {
+      gsap.registerPlugin(ScrollTrigger);
+
+      if (prefersReduced) {
+        gsap.set(storyLiquid, { scaleY: 1 });
+      } else {
+        gsap.fromTo(storyLiquid,
+          { scaleY: 0 },
+          {
+            scaleY: 1,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: story,
+              start: 'top 80%',
+              end: 'bottom 20%',
+              scrub: 1,
+              invalidateOnRefresh: true
+            }
+          }
+        );
+      }
+    }
 
     const stickyAtc = root.querySelector('[data-bdc-sticky-atc]');
     const onScroll = () => {
