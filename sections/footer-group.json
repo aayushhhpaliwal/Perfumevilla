@@ -17,14 +17,14 @@
         "link_list_EBeeAy": {
           "type": "link_list",
           "settings": {
-            "heading": "Quick links",
+            "heading": "Shop Now",
             "menu": "main-menu"
           }
         },
         "link_list_aANmpe": {
           "type": "link_list",
           "settings": {
-            "heading": "Quick links",
+            "heading": "Policy",
             "menu": "footer"
           }
         },
