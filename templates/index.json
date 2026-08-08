@@ -150,7 +150,7 @@
           "type": "feature",
           "settings": {
             "icon": "03",
-            "title": "Skin Friendly Formula",
+            "title": "Rich Sweetness",
             "text": "Balanced formulation created for comfortable everyday wear."
           }
         },
@@ -474,7 +474,7 @@
             "show_instagram_link": false,
             "link_alignment": "left",
             "link_color": "#000000",
-            "background_color": "#F5EFE3",
+            "background_color": "#f5efe3",
             "feed_id": "",
             "html_area": ""
           }
