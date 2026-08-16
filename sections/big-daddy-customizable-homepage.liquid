@@ -229,10 +229,16 @@
         </div>
         <div class="bdc-story-visual" aria-hidden="true">
           <div class="bdc-story-stage">
-            <span class="bdc-story-glass"></span>
-            <span class="bdc-story-liquid" data-bdc-story-liquid></span>
-            <span class="bdc-story-cap" data-bdc-story-cap></span>
-            <span class="bdc-story-label">{{ section.settings.product_name }}</span>
+            <span class="bdc-story-liquid-mask">
+              <span class="bdc-story-liquid" data-bdc-story-liquid></span>
+            </span>
+            <img
+              class="bdc-story-bottle"
+              src="https://cdn.shopify.com/s/files/1/0734/0290/8783/files/999d617a-a06a-4407-b5a0-56d2d12ff24c-removebg-preview.png?v=1786877583"
+              width="391"
+              height="638"
+              alt=""
+              loading="lazy">
           </div>
         </div>
       </div>
@@ -680,48 +686,27 @@
   .bdc-{{ sid }} .bdc-story { min-height: auto; padding: clamp(54px, 7vw, 88px) 0; background: var(--bg-2); overflow: hidden; }
   .bdc-{{ sid }} .bdc-story-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; min-height: 520px; }
   .bdc-{{ sid }} .bdc-story-visual { position: relative; min-height: 560px; display: grid; place-items: center; }
-  .bdc-{{ sid }} .bdc-story-stage { width: min(360px,75vw); aspect-ratio: .72; position: relative; }
-  .bdc-{{ sid }} .bdc-story-stage span { position: absolute; display: block; }
-  .bdc-{{ sid }} .bdc-story-glass { inset: 18% 11% 6%; border-radius: 32px; border: 1px solid rgba(255,255,255,.18); background: linear-gradient(135deg,rgba(255,255,255,.18),rgba(255,255,255,.03)); box-shadow: 0 40px 80px rgba(0,0,0,.5); }
-  .bdc-{{ sid }} .bdc-story-liquid { left: 16%; right: 16%; bottom: 8%; height: 72%; border-radius: 24px 24px 28px 28px; background: linear-gradient(180deg, #e1293f 0%, var(--crimson) 45%, var(--ruby) 100%); box-shadow: inset 0 12px 24px rgba(255,255,255,.16), 0 0 46px rgba(139,30,45,.3); opacity: .92; transform: scaleY(1); transform-origin: 50% 100%; will-change: transform; }
-  .bdc-{{ sid }} .bdc-story-cap {
-    left: 29%;
-    right: 29%;
-    top: 3%;
-    height: 18%;
-    z-index: 4;
-    border: 1px solid rgba(255,255,255,.2);
-    border-radius: 50% / 14%;
-    background:
-      linear-gradient(90deg, #171717 0%, #393939 18%, #0b0b0b 50%, #323232 82%, #111 100%);
-    box-shadow:
-      inset 0 8px 10px rgba(255,255,255,.08),
-      inset 0 -8px 10px rgba(0,0,0,.65),
-      0 14px 22px rgba(0,0,0,.4);
-  }
-  .bdc-{{ sid }} .bdc-story-cap::before {
-    content: "";
+  .bdc-{{ sid }} .bdc-story-stage { width: min(345px,66vw); aspect-ratio: 391 / 638; position: relative; isolation: isolate; }
+  .bdc-{{ sid }} .bdc-story-bottle { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 38px 48px rgba(0,0,0,.58)); }
+  .bdc-{{ sid }} .bdc-story-liquid-mask {
     position: absolute;
-    left: -1px;
-    right: -1px;
-    top: -2px;
-    height: 24%;
-    border-radius: 50%;
-    border: 1px solid rgba(255,255,255,.24);
-    background: radial-gradient(ellipse at 45% 35%, #555 0%, #242424 42%, #080808 100%);
+    inset: 0;
+    z-index: 1;
+    display: block;
+    overflow: hidden;
+    clip-path: polygon(37% 34%,63% 34%,78% 35%,88% 38%,91% 43%,92% 85%,89% 91%,81% 94%,19% 94%,11% 91%,8% 85%,8% 43%,11% 38%,22% 35%);
   }
-  .bdc-{{ sid }} .bdc-story-cap::after {
-    content: "";
+  .bdc-{{ sid }} .bdc-story-liquid {
     position: absolute;
-    left: 3%;
-    right: 3%;
-    bottom: -2px;
-    height: 15%;
-    border-radius: 50%;
-    background: linear-gradient(180deg, #090909, #242424);
-    box-shadow: 0 2px 0 rgba(200,161,90,.45);
+    inset: 0;
+    display: block;
+    background: linear-gradient(180deg,#e7354b 0%,var(--crimson) 42%,#741522 100%);
+    box-shadow: inset 0 12px 24px rgba(255,255,255,.2),0 0 46px rgba(139,30,45,.38);
+    opacity: .9;
+    transform: scaleY(1);
+    transform-origin: 50% 94%;
+    will-change: transform;
   }
-  .bdc-{{ sid }} .bdc-story-label { left: 24%; right: 24%; top: 52%; border: 1px solid var(--border); padding: 18px; text-align: center; color: var(--gold-light); background: var(--bg-2); }
 
   .bdc-{{ sid }} .bdc-love-grid { display: grid; grid-template-columns: .9fr 1fr .9fr; gap: 24px; margin-top: 54px; align-items: center; }
   .bdc-{{ sid }} .bdc-love-media { border-radius: 18px; overflow: hidden; min-height: 500px; background: rgba(255,255,255,.4); }
@@ -1082,13 +1067,11 @@
 
     const story = root.querySelector('[data-bdc-story]');
     const storyLiquid = root.querySelector('[data-bdc-story-liquid]');
-    const storyCap = root.querySelector('[data-bdc-story-cap]');
     if (story && storyLiquid && window.gsap && window.ScrollTrigger) {
       gsap.registerPlugin(ScrollTrigger);
 
       if (prefersReduced) {
         gsap.set(storyLiquid, { scaleY: 1 });
-        gsap.set(storyCap, { yPercent: 0, rotation: 0, opacity: 1 });
       } else {
         gsap.fromTo(storyLiquid,
           { scaleY: 0 },
@@ -1104,26 +1087,6 @@
             }
           }
         );
-
-        if (storyCap) {
-          gsap.fromTo(storyCap,
-            { yPercent: -180, xPercent: 35, rotation: 16, opacity: 0 },
-            {
-              yPercent: 0,
-              xPercent: 0,
-              rotation: 0,
-              opacity: 1,
-              ease: 'power2.out',
-              scrollTrigger: {
-                trigger: story,
-                start: 'top 88%',
-                end: 'top 48%',
-                scrub: .55,
-                invalidateOnRefresh: true
-              }
-            }
-          );
-        }
       }
     }
 
