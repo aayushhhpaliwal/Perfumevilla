@@ -148,6 +148,11 @@
         "type": "shopify://apps/instafeed/blocks/head-block/c447db20-095d-4a10-9725-b5977662c9d5",
         "disabled": false,
         "settings": {}
+      },
+      "12695309257651622986": {
+        "type": "shopify://apps/sectionhub/blocks/app-embed/9b74df56-d9a0-4a6f-8248-1a8825110996",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {

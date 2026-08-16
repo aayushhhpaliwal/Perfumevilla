@@ -127,6 +127,73 @@
         "enable_preloader": true
       }
     },
+    "sh_hero_slideshow_w84RNa": {
+      "type": "sh-hero-slideshow",
+      "blocks": {
+        "image_slide_r4WbnR": {
+          "type": "image_slide",
+          "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_Jul_30_2026_12_06_13_AM_2.png",
+            "mob_image": "shopify://shop_images/dbbcb243-f809-4471-ad70-03077c7ec23f.png",
+            "heading": "",
+            "subheading": "",
+            "button_label": "",
+            "button_link": "/",
+            "btn_outline": false,
+            "outline_btn_text_color": "#121212",
+            "border_radius": 0,
+            "button_size": 16,
+            "desktop_content_position": "middle-center",
+            "desktop_content_alignment": "center",
+            "show_text_box": false,
+            "mobile_content_position": "middle",
+            "mobile_content_alignment": "center",
+            "heading_font_size": 36,
+            "content_font_size": 18,
+            "opacity": 0,
+            "overlay_color": "#121212",
+            "box_bg_color": "#ffffff",
+            "heading_color": "#121212",
+            "content_color": "#121212",
+            "btn_bg_color": "#121212",
+            "btn_text_color": "#ffffff",
+            "btn_border_color": "#121212",
+            "btn_hover_bg_color": "#ffffff",
+            "btn_hover_text_color": "#121212",
+            "btn_hover_border_color": "#121212",
+            "outline_btn_shadow_color": "transparent"
+          }
+        }
+      },
+      "block_order": [
+        "image_slide_r4WbnR"
+      ],
+      "name": "SH: Hero slideshow",
+      "settings": {
+        "slide_height": "adapt",
+        "auto_rotate": false,
+        "change_slides_speed": 5,
+        "show_arrows": true,
+        "show_pagination": true,
+        "pagination_type": "dots",
+        "show_text_below_mob": true,
+        "sec_bg_color": "#ffffff",
+        "dots_color": "#121212",
+        "arrow_color": "#121212",
+        "arrow_bg_color": "#ffffff",
+        "arrow_border_color": "#121212",
+        "hover_arrow_color": "#ffffff",
+        "hover_arrow_bg_color": "#121212",
+        "hover_arrow_border_color": "#ffffff",
+        "arrow_size": 16,
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "mob_padding_top": 0,
+        "mob_padding_bottom": 0,
+        "full_width": true,
+        "section_max_width": "1280"
+      }
+    },
     "big_daddy_customizable_homepage_PPezNC": {
       "type": "big-daddy-customizable-homepage",
       "blocks": {
@@ -492,6 +559,7 @@
     "image_banner",
     "featured_collection",
     "big_daddy_luxury_homepage_NYqCHr",
+    "sh_hero_slideshow_w84RNa",
     "big_daddy_customizable_homepage_PPezNC",
     "178491848692022992"
   ]
