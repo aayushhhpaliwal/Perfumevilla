@@ -698,13 +698,16 @@
   }
   .bdc-{{ sid }} .bdc-story-liquid {
     position: absolute;
-    inset: 0;
+    top: 34%;
+    right: 0;
+    bottom: 6%;
+    left: 0;
     display: block;
     background: linear-gradient(180deg,#e7354b 0%,var(--crimson) 42%,#741522 100%);
     box-shadow: inset 0 12px 24px rgba(255,255,255,.2),0 0 46px rgba(139,30,45,.38);
     opacity: .9;
     transform: scaleY(1);
-    transform-origin: 50% 94%;
+    transform-origin: 50% 100%;
     will-change: transform;
   }
 
@@ -1080,8 +1083,8 @@
             ease: 'none',
             scrollTrigger: {
               trigger: story,
-              start: 'top 80%',
-              end: 'center 32%',
+              start: 'top 78%',
+              end: 'bottom 30%',
               scrub: .55,
               invalidateOnRefresh: true
             }
