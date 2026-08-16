@@ -88,7 +88,10 @@
                 sizes="(max-width: 749px) 84vw, 440px"
                 width="900"
                 height="900"
-                alt="{{ section.settings.hero_image_alt | escape }}">
+                alt="{{ section.settings.hero_image_alt | escape }}"
+                loading="eager"
+                fetchpriority="high"
+                decoding="async">
             {% else %}
               <div class="bdc-image-fallback">
                 <small>{{ section.settings.brand_name }}</small>
@@ -174,10 +177,13 @@
             <img
               class="bdc-showcase-bottle"
               src="{{ studio_image | image_url: width: 1100 }}"
+              srcset="{{ studio_image | image_url: width: 480 }} 480w, {{ studio_image | image_url: width: 760 }} 760w, {{ studio_image | image_url: width: 1100 }} 1100w"
+              sizes="(max-width: 989px) 90vw, 520px"
               width="900"
               height="900"
               alt="{{ section.settings.showcase_image_alt | escape }}"
-              loading="lazy">
+              loading="lazy"
+              decoding="async">
           {% endif %}
           {% for block in section.blocks %}
             {% if block.type == 'hotspot' %}
@@ -212,10 +218,13 @@
           {% if notes_image != blank %}
             <img
               src="{{ notes_image | image_url: width: 1100 }}"
+              srcset="{{ notes_image | image_url: width: 480 }} 480w, {{ notes_image | image_url: width: 760 }} 760w, {{ notes_image | image_url: width: 1100 }} 1100w"
+              sizes="(max-width: 989px) 100vw, 50vw"
               width="900"
               height="1100"
               alt="{{ section.settings.notes_image_alt | escape }}"
-              loading="lazy">
+              loading="lazy"
+              decoding="async">
           {% endif %}
         </div>
         <div>
@@ -265,7 +274,8 @@
               width="391"
               height="638"
               alt=""
-              loading="lazy">
+              loading="lazy"
+              decoding="async">
           </div>
         </div>
       </div>
@@ -279,10 +289,13 @@
           <div class="bdc-love-media" data-bdc-reveal>
             {% if hero_image != blank %}<img
                 src="{{ hero_image | image_url: width: 900 }}"
+                srcset="{{ hero_image | image_url: width: 420 }} 420w, {{ hero_image | image_url: width: 680 }} 680w, {{ hero_image | image_url: width: 900 }} 900w"
+                sizes="(max-width: 989px) 100vw, 33vw"
                 width="800"
                 height="800"
                 alt="{{ section.settings.hero_image_alt | escape }}"
-                loading="lazy">{% endif %}
+                loading="lazy"
+                decoding="async">{% endif %}
           </div>
           <div class="bdc-love-list">
             {% assign love_items = section.settings.love_items | split: '|' %}
@@ -296,10 +309,13 @@
           <div class="bdc-love-media" data-bdc-reveal>
             {% if notes_image != blank %}<img
                 src="{{ notes_image | image_url: width: 900 }}"
+                srcset="{{ notes_image | image_url: width: 420 }} 420w, {{ notes_image | image_url: width: 680 }} 680w, {{ notes_image | image_url: width: 900 }} 900w"
+                sizes="(max-width: 989px) 100vw, 33vw"
                 width="800"
                 height="800"
                 alt="{{ section.settings.notes_image_alt | escape }}"
-                loading="lazy">{% endif %}
+                loading="lazy"
+                decoding="async">{% endif %}
           </div>
         </div>
       </div>
@@ -314,22 +330,39 @@
           </div>
           <p class="bdc-section-copy" data-bdc-reveal>{{ section.settings.compare_text }}</p>
         </div>
-        <div class="bdc-before-after" data-bdc-before-after>
+        <div
+          class="bdc-before-after"
+          data-bdc-before-after
+          role="slider"
+          tabindex="0"
+          aria-label="Before and after image comparison"
+          aria-orientation="horizontal"
+          aria-valuemin="3"
+          aria-valuemax="97"
+          aria-valuenow="50">
           {% if compare_before_image != blank %}<img
               src="{{ compare_before_image | image_url: width: 1400 }}"
+              srcset="{{ compare_before_image | image_url: width: 640 }} 640w, {{ compare_before_image | image_url: width: 1000 }} 1000w, {{ compare_before_image | image_url: width: 1400 }} 1400w"
+              sizes="(max-width: 1180px) 100vw, 1180px"
               width="1400"
               height="800"
               alt="{{ section.settings.compare_before_alt | escape }}"
-              loading="lazy">{% endif %}
+              loading="lazy"
+              decoding="async">{% endif %}
           {% if compare_after_image != blank %}<img
               class="bdc-ba-after"
               src="{{ compare_after_image | image_url: width: 1400 }}"
+              srcset="{{ compare_after_image | image_url: width: 640 }} 640w, {{ compare_after_image | image_url: width: 1000 }} 1000w, {{ compare_after_image | image_url: width: 1400 }} 1400w"
+              sizes="(max-width: 1180px) 100vw, 1180px"
               width="1400"
               height="800"
               alt="{{ section.settings.compare_after_alt | escape }}"
-              loading="lazy">{% endif %}
+              loading="lazy"
+              decoding="async">{% endif %}
           <span class="bdc-ba-line"></span>
           <span class="bdc-ba-handle">Drag</span>
+          <span class="bdc-ba-label bdc-ba-label--before">Before</span>
+          <span class="bdc-ba-label bdc-ba-label--after">After</span>
         </div>
       </div>
     </section>
@@ -365,7 +398,7 @@
           {% endif %}>
           {% if section.settings.video_url != blank %}
             <video
-              autoplay
+              data-bdc-video
               muted
               loop
               playsinline
@@ -436,10 +469,13 @@
                 {% if block.settings.image != blank %}
                   <img
                     src="{{ block.settings.image | image_url: width: 900 }}"
+                    srcset="{{ block.settings.image | image_url: width: 400 }} 400w, {{ block.settings.image | image_url: width: 700 }} 700w, {{ block.settings.image | image_url: width: 900 }} 900w"
+                    sizes="(max-width: 640px) 100vw, 33vw"
                     width="700"
                     height="900"
                     alt="{{ block.settings.alt | escape }}"
-                    loading="lazy">
+                    loading="lazy"
+                    decoding="async">
                 {% endif %}
                 <figcaption>{{ block.settings.caption }}</figcaption>
               </figure>
@@ -460,11 +496,20 @@
           {% for block in section.blocks %}
             {% if block.type == 'faq' %}
               <article class="bdc-faq-item {% if forloop.first %}is-active{% endif %}" {{ block.shopify_attributes }}>
-                <button type="button" class="bdc-faq-q">
+                <button
+                  type="button"
+                  class="bdc-faq-q"
+                  id="bdcFaqQuestion-{{ sid }}-{{ block.id }}"
+                  aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+                  aria-controls="bdcFaqAnswer-{{ sid }}-{{ block.id }}">
                   <span>{{ block.settings.question }}</span>
-                  <span>+</span>
+                  <span aria-hidden="true">+</span>
                 </button>
-                <div class="bdc-faq-a">
+                <div
+                  class="bdc-faq-a"
+                  id="bdcFaqAnswer-{{ sid }}-{{ block.id }}"
+                  role="region"
+                  aria-labelledby="bdcFaqQuestion-{{ sid }}-{{ block.id }}">
                   <p>{{ block.settings.answer }}</p>
                 </div>
               </article>
@@ -481,10 +526,13 @@
           <img
             class="bdc-final-product"
             src="{{ studio_image | image_url: width: 800 }}"
+            srcset="{{ studio_image | image_url: width: 400 }} 400w, {{ studio_image | image_url: width: 600 }} 600w, {{ studio_image | image_url: width: 800 }} 800w"
+            sizes="(max-width: 640px) 70vw, 300px"
             width="700"
             height="700"
             alt="{{ section.settings.showcase_image_alt | escape }}"
-            loading="lazy">
+            loading="lazy"
+            decoding="async">
         {% endif %}
         <p class="bdc-eyebrow" data-bdc-reveal>{{ section.settings.final_eyebrow }}</p>
         <h2 data-bdc-reveal>{{ section.settings.final_heading }}</h2>
@@ -558,7 +606,9 @@
                 src="{{ studio_image | image_url: width: 160 }}"
                 width="72"
                 height="72"
-                alt="{{ product.title | escape }}">{% endif %}
+                alt="{{ product.title | escape }}"
+                loading="lazy"
+                decoding="async">{% endif %}
           </div>
           <div>
             <b>{{ product.title }}</b>
@@ -658,6 +708,8 @@
     background: linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 48%, var(--bg) 100%);
     color: var(--white);
     line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
   .bdc-{{ sid }}
   * {
@@ -705,14 +757,14 @@
     align-items: center;
     margin: 0;
   }
-  .bdc-{{ sid }}.bdc-eyebrow:before,
-  .bdc-{{ sid }}.bdc-eyebrow:after {
+  .bdc-{{ sid }} .bdc-eyebrow:before,
+  .bdc-{{ sid }} .bdc-eyebrow:after {
     content: "";
     height: 1px;
     width: 34px;
     background: linear-gradient(90deg, transparent, var(--gold));
   }
-  .bdc-{{ sid }}.bdc-eyebrow:after {
+  .bdc-{{ sid }} .bdc-eyebrow:after {
     background: linear-gradient(90deg, var(--gold), transparent);
   }
   .bdc-{{ sid }}
@@ -723,6 +775,8 @@
     margin: 18px 0 0;
     color: var(--white);
     text-shadow: none;
+    max-width: 18ch;
+    text-wrap: balance;
   }
   .bdc-{{ sid }}
   .bdc-section-copy {
@@ -731,6 +785,7 @@
     line-height: 1.85;
     max-width: 660px;
     margin: 24px 0 0;
+    text-wrap: pretty;
   }
   .bdc-{{ sid }}
   .bdc-glass {
@@ -757,8 +812,12 @@
     , border-color 0.35s var(--ease)
     , background 0.35s var(--ease);
   }
-  .bdc-{{ sid }}.bdc-btn:hover {
+  .bdc-{{ sid }} .bdc-btn:hover {
     transform: translateY(-3px);
+  }
+  .bdc-{{ sid }} :is(a,button,input,select,[role="slider"]):focus-visible {
+    outline: 3px solid rgba(143,109,51,.42);
+    outline-offset: 4px;
   }
   .bdc-{{ sid }}
   .bdc-btn-primary {
@@ -766,11 +825,20 @@
     color: var(--bg-2);
     box-shadow: 0 12px 28px rgba(37, 30, 22, .12);
   }
+  .bdc-{{ sid }} .bdc-btn-primary:hover {
+    background: var(--gold-dark);
+    color: #fff;
+    box-shadow: 0 16px 34px rgba(111,82,36,.24);
+  }
   .bdc-{{ sid }}
   .bdc-btn-ghost {
     background: transparent;
     border: 1px solid var(--border);
     color: var(--white);
+  }
+  .bdc-{{ sid }} .bdc-btn-ghost:hover {
+    background: rgba(255,255,255,.58);
+    border-color: rgba(111,82,36,.28);
   }
   .bdc-{{ sid }}
   .bdc-buttons {
@@ -850,7 +918,7 @@
 
   .bdc-{{ sid }}
   .bdc-hero {
-    min-height: 92 svh;
+    min-height: 92svh;
     position: relative;
     overflow: hidden;
     display: grid;
@@ -876,6 +944,7 @@
     margin: 0;
     color: var(--white);
     text-shadow: none;
+    text-wrap: balance;
   }
   .bdc-{{ sid }}
   .bdc-hero-title span {
@@ -884,7 +953,7 @@
     -webkit-text-stroke: 0;
     text-shadow: none;
   }
-  .bdc-{{ sid }}.bdc-hero-copy > p:not(.bdc-eyebrow) {
+  .bdc-{{ sid }} .bdc-hero-copy > p:not(.bdc-eyebrow) {
     margin-top: 28px;
     color: var(--readable-muted);
     font-size: 18px;
@@ -1007,7 +1076,7 @@
     color: var(--readable-muted);
     white-space: nowrap;
   }
-  .bdc-{{ sid }}.bdc-trust-bar span:last-child {
+  .bdc-{{ sid }} .bdc-trust-bar span:last-child {
     border-right: 0;
   }
 
@@ -1080,7 +1149,7 @@
     justify-content: space-between;
     transition: 0.45s var(--ease);
   }
-  .bdc-{{ sid }}.bdc-feature-card:hover {
+  .bdc-{{ sid }} .bdc-feature-card:hover {
     transform: translateY(-10px);
     border-color: rgba(200, 161, 90, .42);
   }
@@ -1226,8 +1295,8 @@
     font-size: 13px;
     line-height: 1.5;
   }
-  .bdc-{{ sid }}.bdc-hotspot:hover span,
-  .bdc-{{ sid }}.bdc-hotspot:focus-within span {
+  .bdc-{{ sid }} .bdc-hotspot:hover span,
+  .bdc-{{ sid }} .bdc-hotspot:focus-within span {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
   }
@@ -1436,6 +1505,7 @@
 
   .bdc-{{ sid }}
   .bdc-before-after {
+    --bdc-ba-position: 50%;
     position: relative;
     border-radius: 18px;
     overflow: hidden;
@@ -1445,6 +1515,8 @@
     background: var(--bg-2);
     border: 1px solid var(--border);
     cursor: ew-resize;
+    box-shadow: var(--shadow);
+    touch-action: pan-y;
   }
   .bdc-{{ sid }}
   .bdc-before-after img {
@@ -1456,14 +1528,14 @@
   .bdc-ba-after {
     position: absolute;
     inset: 0;
-    clip-path: inset(0 0 0 50%);
+    clip-path: inset(0 0 0 var(--bdc-ba-position));
   }
   .bdc-{{ sid }}
   .bdc-ba-line {
     position: absolute;
     top: 0;
     bottom: 0;
-    left: 50%;
+    left: var(--bdc-ba-position);
     width: 2px;
     background: var(--gold-light);
   }
@@ -1471,7 +1543,7 @@
   .bdc-ba-handle {
     position: absolute;
     top: 50%;
-    left: 50%;
+    left: var(--bdc-ba-position);
     transform: translate(-50%, -50%);
     width: 60px;
     height: 60px;
@@ -1482,6 +1554,30 @@
     border: 1px solid var(--border);
     font-size: 11px;
     color: var(--white);
+    box-shadow: 0 10px 30px rgba(37,30,22,.18);
+    pointer-events: none;
+  }
+  .bdc-{{ sid }} .bdc-ba-label {
+    position: absolute;
+    top: 18px;
+    z-index: 3;
+    padding: 7px 11px;
+    border: 1px solid rgba(255,255,255,.55);
+    border-radius: 999px;
+    background: rgba(37,30,22,.7);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    backdrop-filter: blur(8px);
+    pointer-events: none;
+  }
+  .bdc-{{ sid }} .bdc-ba-label--before {
+    left: 18px;
+  }
+  .bdc-{{ sid }} .bdc-ba-label--after {
+    right: 18px;
   }
 
   .bdc-{{ sid }}
@@ -1491,14 +1587,20 @@
     grid-auto-columns: minmax(300px, 420px);
     gap: 22px;
     overflow-x: auto;
-    padding: 42px max(20px, calc((100vw -;
+    padding: 42px max(20px, calc((100vw - 1180px) / 2)) 10px;
     scrollbar-width: none;
+    scroll-snap-type: x proximity;
+    overscroll-behavior-inline: contain;
+  }
+  .bdc-{{ sid }} .bdc-testimonial-track::-webkit-scrollbar {
+    display: none;
   }
   .bdc-{{ sid }}
   .bdc-testimonial {
     border-radius: 26px;
     padding: 28px;
     min-height: 250px;
+    scroll-snap-align: start;
   }
   .bdc-{{ sid }}
   .bdc-stars {
@@ -1542,7 +1644,7 @@
     height: 100%;
     object-fit: cover;
   }
-  .bdc-{{ sid }}.bdc-video-frame:after {
+  .bdc-{{ sid }} .bdc-video-frame:after {
     content: "";
     position: absolute;
     inset: 0;
@@ -1693,7 +1795,7 @@
     text-align: left;
     color: var(--white);
   }
-  .bdc-{{ sid }}.bdc-faq-q span:first-child {
+  .bdc-{{ sid }} .bdc-faq-q span:first-child {
     font-size: 24px;
   }
   .bdc-{{ sid }}
@@ -1747,7 +1849,7 @@
     color: var(--white);
     text-shadow: none;
   }
-  .bdc-{{ sid }}.bdc-final-content p:not(.bdc-eyebrow) {
+  .bdc-{{ sid }} .bdc-final-content p:not(.bdc-eyebrow) {
     color: var(--readable-muted);
     max-width: 620px;
     margin: 24px auto 0;
@@ -1867,7 +1969,7 @@
     , border-color 0.25s var(--ease)
     , background 0.25s var(--ease);
   }
-  .bdc-{{ sid }}.bdc-copy-code:hover {
+  .bdc-{{ sid }} .bdc-copy-code:hover {
     transform: translateY(-2px);
     border-color: var(--gold);
   }
@@ -2101,6 +2203,9 @@
     .bdc-hero-copy {
       text-align: center;
     }
+    .bdc-{{ sid }} .bdc-hero-copy > p:not(.bdc-eyebrow) {
+      margin-inline: auto;
+    }
     .bdc-{{ sid }}
     .bdc-buttons {
       justify-content: center;
@@ -2151,7 +2256,7 @@
     .bdc-{{ sid }} .bdc-container
     , .bdc-{{ sid }}
     .bdc-hero-shell {
-      width: min(100% - 28px, 1180px);
+      width: min(calc(100% - 28px), 1180px);
     }
     .bdc-{{ sid }}
     .bdc-hero {
@@ -2195,8 +2300,8 @@
     }
     .bdc-{{ sid }}
     .bdc-before-after {
-      height: 80vh;
-      min-height: 380px;
+      height: min(68vh, 560px);
+      min-height: 360px;
     }
     .bdc-{{ sid }}
     .bdc-before-after img {
@@ -2312,6 +2417,20 @@
       white-space: nowrap;
     }
   }
+  @media (max-width: 480px) {
+    .bdc-{{ sid }} .bdc-buttons {
+      width: 100%;
+    }
+    .bdc-{{ sid }} .bdc-buttons .bdc-btn {
+      width: 100%;
+    }
+    .bdc-{{ sid }} .bdc-hero-product-wrap {
+      min-height: min(108vw, 420px);
+    }
+    .bdc-{{ sid }} .bdc-testimonial-track {
+      grid-auto-columns: minmax(270px, 86vw);
+    }
+  }
 
   .bdc-{{ sid }} {
     --bdc-body: 16px;
@@ -2347,9 +2466,9 @@
   .bdc-{{ sid }}
   .bdc-section-copy
   , .bdc-{{ sid }}
-  .bdc-hero-copy > p: not(.bdc-eyebrow)
+  .bdc-hero-copy > p:not(.bdc-eyebrow)
   , .bdc-{{ sid }}
-  .bdc-final-content p: not(.bdc-eyebrow)
+  .bdc-final-content p:not(.bdc-eyebrow)
   , .bdc-{{ sid }}
   .bdc-video-content p
   , .bdc-{{ sid }}
@@ -2400,8 +2519,6 @@
   }
 </style>
 
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script>
   (() => {
     const root = document.getElementById('BigDaddyCustom-{{ sid }}');
@@ -2413,58 +2530,71 @@
 
     const story = root.querySelector('[data-bdc-story]');
     const storyLiquid = root.querySelector('[data-bdc-story-liquid]');
-    if (story && storyLiquid && window.gsap && window.ScrollTrigger) {
-      gsap.registerPlugin(ScrollTrigger);
-
-      if (prefersReduced) {
-        gsap.set(storyLiquid, { scaleY: 1 });
-      } else {
-        gsap.fromTo(storyLiquid,
-          { scaleY: 0 },
-          {
-            scaleY: 1,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: story,
-              start: 'top 78%',
-              end: 'bottom 30%',
-              scrub: .55,
-              invalidateOnRefresh: true
-            }
-          }
-        );
-      }
-    }
-
     const stickyAtc = root.querySelector('[data-bdc-sticky-atc]');
-    const onScroll = () => {
+    let scrollFrame = 0;
+    const updateScrollEffects = () => {
+      scrollFrame = 0;
+
+      if (story && storyLiquid) {
+        if (prefersReduced) {
+          storyLiquid.style.transform = 'scaleY(1)';
+        } else {
+          const storyRect = story.getBoundingClientRect();
+          const startPoint = window.innerHeight * .78;
+          const scrollDistance = storyRect.height + window.innerHeight * .48;
+          const progress = clamp((startPoint - storyRect.top) / scrollDistance, 0, 1);
+          storyLiquid.style.transform = `scaleY(${progress})`;
+        }
+      }
+
       const rect = root.getBoundingClientRect();
       const inSectionY = Math.max(0, -rect.top);
       stickyAtc?.classList.toggle('is-visible', inSectionY > window.innerHeight * .75 && rect.bottom > window.innerHeight);
     };
+    const onScroll = () => {
+      if (!scrollFrame) scrollFrame = window.requestAnimationFrame(updateScrollEffects);
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
     onScroll();
 
 
     const revealEls = root.querySelectorAll('[data-bdc-reveal]');
+    let revealObserver;
     if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver(entries => {
+      revealObserver = new IntersectionObserver(entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
+            revealObserver.unobserve(entry.target);
           }
         });
       }, { rootMargin: '0px 0px -12% 0px' });
-      revealEls.forEach(el => observer.observe(el));
-      setTimeout(() => revealEls.forEach(el => el.classList.add('is-visible')), 1500);
+      revealEls.forEach(el => revealObserver.observe(el));
     } else {
       revealEls.forEach(el => el.classList.add('is-visible'));
     }
 
+    const storyVideo = root.querySelector('[data-bdc-video]');
+    let videoObserver;
+    if (storyVideo && 'IntersectionObserver' in window && !prefersReduced) {
+      videoObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            storyVideo.play().catch(() => {});
+          } else {
+            storyVideo.pause();
+          }
+        });
+      }, { rootMargin: '180px 0px' });
+      videoObserver.observe(storyVideo);
+    } else if (storyVideo && !prefersReduced) {
+      storyVideo.play().catch(() => {});
+    }
+
     const tiltWrap = root.querySelector('[data-bdc-tilt-wrap]');
     const tilt = root.querySelector('[data-bdc-tilt]');
-    if (tiltWrap && tilt && !prefersReduced) {
+    if (tiltWrap && tilt && !prefersReduced && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
       tiltWrap.addEventListener('pointermove', event => {
         const rect = tiltWrap.getBoundingClientRect();
         const x = (event.clientX - rect.left) / rect.width - .5;
@@ -2476,17 +2606,20 @@
 
     root.querySelectorAll('.bdc-faq-item').forEach(item => {
       const answer = item.querySelector('.bdc-faq-a');
+      const question = item.querySelector('.bdc-faq-q');
       const setHeight = () => { if (answer) answer.style.height = item.classList.contains('is-active') ? answer.scrollHeight + 'px' : '0px'; };
       setHeight();
-      item.querySelector('.bdc-faq-q')?.addEventListener('click', () => {
+      question?.addEventListener('click', () => {
         const isActive = item.classList.contains('is-active');
         root.querySelectorAll('.bdc-faq-item').forEach(other => {
           other.classList.remove('is-active');
+          other.querySelector('.bdc-faq-q')?.setAttribute('aria-expanded', 'false');
           const panel = other.querySelector('.bdc-faq-a');
           if (panel) panel.style.height = '0px';
         });
         if (!isActive) {
           item.classList.add('is-active');
+          question.setAttribute('aria-expanded', 'true');
           setHeight();
         }
       });
@@ -2494,18 +2627,23 @@
 
     const beforeAfter = root.querySelector('[data-bdc-before-after]');
     if (beforeAfter) {
-      const after = beforeAfter.querySelector('.bdc-ba-after');
-      const line = beforeAfter.querySelector('.bdc-ba-line');
-      const handle = beforeAfter.querySelector('.bdc-ba-handle');
-      const setPos = clientX => {
-        const rect = beforeAfter.getBoundingClientRect();
-        const pct = clamp(((clientX - rect.left) / rect.width) * 100, 3, 97);
-        if (after) after.style.clipPath = `inset(0 0 0 ${pct}%)`;
-        if (line) line.style.left = pct + '%';
-        if (handle) handle.style.left = pct + '%';
+      let comparisonPosition = 50;
+      const setPercent = value => {
+        comparisonPosition = clamp(value, 3, 97);
+        beforeAfter.style.setProperty('--bdc-ba-position', comparisonPosition + '%');
+        beforeAfter.setAttribute('aria-valuenow', Math.round(comparisonPosition));
       };
-      beforeAfter.addEventListener('pointermove', event => setPos(event.clientX));
-      beforeAfter.addEventListener('pointerdown', event => setPos(event.clientX));
+      const setPositionFromPointer = clientX => {
+        const rect = beforeAfter.getBoundingClientRect();
+        setPercent(((clientX - rect.left) / rect.width) * 100);
+      };
+      beforeAfter.addEventListener('pointermove', event => setPositionFromPointer(event.clientX));
+      beforeAfter.addEventListener('pointerdown', event => setPositionFromPointer(event.clientX));
+      beforeAfter.addEventListener('keydown', event => {
+        if (event.key !== 'ArrowLeft' && event.key !== 'ArrowRight') return;
+        event.preventDefault();
+        setPercent(comparisonPosition + (event.key === 'ArrowRight' ? 3 : -3));
+      });
     }
 
     const variantSelect = root.querySelector('[data-bdc-variant]');
@@ -2616,6 +2754,17 @@
     }
     root.querySelectorAll('[data-bdc-add]').forEach(button => button.addEventListener('click', () => addToCart(false)));
     root.querySelectorAll('[data-bdc-buy-now]').forEach(button => button.addEventListener('click', () => addToCart(true)));
+
+    const handleSectionUnload = event => {
+      if (!event.target.contains(root)) return;
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      if (scrollFrame) window.cancelAnimationFrame(scrollFrame);
+      revealObserver?.disconnect();
+      videoObserver?.disconnect();
+      document.removeEventListener('shopify:section:unload', handleSectionUnload);
+    };
+    document.addEventListener('shopify:section:unload', handleSectionUnload);
 
   })();
 </script>
