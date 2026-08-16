@@ -176,7 +176,7 @@
         "show_arrows": true,
         "show_pagination": true,
         "pagination_type": "dots",
-        "show_text_below_mob": true,
+        "show_text_below_mob": false,
         "sec_bg_color": "#ffffff",
         "dots_color": "#121212",
         "arrow_color": "#121212",
@@ -425,7 +425,7 @@
         "section.bdc-stats {display: none;}",
         "section.bdc-gallery.bdc-padded {display: none;}",
         ".bdc-offer-box {display: none !important;}",
-        ".bdc-hero{display: none;}",
+        ".bdc-hero {display: none;}",
         "@media (max-width: 749px) {img.bdc-final-product {display: none; }}"
       ],
       "name": "Big Daddy Custom Home",
