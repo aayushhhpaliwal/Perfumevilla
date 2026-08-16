@@ -28,13 +28,6 @@
   endif
 %}
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link
-  rel="preconnect"
-  href="https://fonts.gstatic.com"
-  crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;600;700;800&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
-
 <section
   id="BigDaddyLuxury-{{ sid }}"
   class="bdp bdp-{{ sid }}"
@@ -868,7 +861,7 @@
     position: relative;
     background: var(--bd-black);
     color: var(--bd-white);
-    font-family: Inter
+    font-family: var(--font-body-family)
     , system-ui
     , sans-serif;
     overflow: hidden;
@@ -926,7 +919,7 @@
   }
   .bdp-{{ sid }}
   .bdp-kicker {
-    font-family: Poppins
+    font-family: var(--font-body-family)
     , sans-serif;
     text-transform: uppercase;
     letter-spacing: 0.28em;
@@ -935,7 +928,7 @@
     margin: 0 0 18px
   }.bdp-{{ sid }}
   .bdp-h2 {
-    font-family: "Playfair Display"
+    font-family: var(--font-heading-family)
     , serif;
     font-size: clamp(40px, 7vw, 104px);
     line-height: .92;
@@ -967,7 +960,7 @@
     padding: 0 30px;
     border-radius: 999px;
     border: 1px solid var(--bd-border);
-    font-family: Poppins
+    font-family: var(--font-body-family)
     , sans-serif;
     font-size: 12px;
     font-weight: 700;
@@ -1030,7 +1023,7 @@
     width: min(420px, 82vw)
   }.bdp-{{ sid }}
   .bdp-preloader__logo {
-    font-family: Playfair Display
+    font-family: var(--font-heading-family)
     , serif;
     font-size: clamp(26px, 5vw, 50px);
     letter-spacing: 0.02em;
@@ -1058,7 +1051,7 @@
     box-shadow: 0 0 24px rgba(200, 161, 90, .6)
   }.bdp-{{ sid }}
   .bdp-preloader__percent {
-    font-family: Poppins
+    font-family: var(--font-body-family)
     , sans-serif;
     color: var(--bd-muted);
     font-size: 11px;
@@ -1176,7 +1169,7 @@
     pointer-events: none
   }.bdp-{{ sid }}
   .bdp-hero__title {
-    font-family: "Playfair Display"
+    font-family: var(--font-heading-family)
     , serif;
     font-weight: 800;
     font-size: clamp(54px, 10vw, 158px);
@@ -1272,7 +1265,7 @@
     text-transform: uppercase
   }.bdp-{{ sid }}
   .bdp-bottle-fallback b {
-    font-family: Playfair Display
+    font-family: var(--font-heading-family)
     , serif;
     color: var(--bd-gold);
     font-size: 54px;
@@ -1380,13 +1373,13 @@
     display: grid;
     place-items: center;
     color: var(--bd-gold2);
-    font-family: Playfair Display
+    font-family: var(--font-heading-family)
     , serif;
     font-size: 24px;
     margin-bottom: 34px
   }.bdp-{{ sid }}
   .bdp-feature-card h3 {
-    font-family: Playfair Display
+    font-family: var(--font-heading-family)
     , serif;
     font-size: 28px;
     line-height: 1.02;
@@ -1500,7 +1493,7 @@
     flex-wrap: wrap
   }.bdp-{{ sid }}
   .bdp-price {
-    font-family: Playfair Display
+    font-family: var(--font-heading-family)
     , serif;
     font-size: 36px;
     color: var(--bd-gold2);
@@ -1720,7 +1713,7 @@
   .bdp-hotspot span b {
     display: block;
     color: var(--bd-gold2);
-    font-family: Playfair Display
+    font-family: var(--font-heading-family)
     , serif;
     font-size: 22px;
     margin-bottom: 4px
@@ -1775,7 +1768,7 @@
     overflow: hidden
   }.bdp-{{ sid }}
   .bdp-note-stage span {
-    font-family: Playfair Display
+    font-family: var(--font-heading-family)
     , serif;
     color: var(--bd-gold);
     font-size: 64px;
@@ -1783,7 +1776,7 @@
     opacity: .35
   }.bdp-{{ sid }}
   .bdp-note-stage h3 {
-    font-family: Playfair Display
+    font-family: var(--font-heading-family)
     , serif;
     font-size: 34px;
     line-height: 1;
@@ -1907,7 +1900,7 @@
     text-transform: uppercase
   }.bdp-{{ sid }}
   .bdp-story__label b {
-    font-family: Playfair Display
+    font-family: var(--font-heading-family)
     , serif;
     color: var(--bd-gold);
     font-size: clamp(32px, 5vw, 60px);
@@ -2028,7 +2021,7 @@
     display: grid;
     place-items: center;
     color: var(--bd-gold2);
-    font-family: Playfair Display
+    font-family: var(--font-heading-family)
     , serif;
     font-size: 60px
   }.bdp-{{ sid }}
@@ -2132,7 +2125,7 @@
     background: linear-gradient(135deg,var(--bd-gold3),var(--bd-ruby));
     display: grid;
     place-items: center;
-    font-family: Playfair Display
+    font-family: var(--font-heading-family)
     , serif;
     font-size: 34px;
     color: var(--bd-white);
@@ -2151,7 +2144,7 @@
   }.bdp-{{ sid }}
   .bdp-tcard h3 {
     margin: 0;
-    font-family: Playfair Display
+    font-family: var(--font-heading-family)
     , serif;
     font-size: 24px
   }.bdp-{{ sid }}
@@ -2189,7 +2182,7 @@
     background: linear-gradient(transparent,rgba(0,0,0,.82))
   }.bdp-{{ sid }}
   .bdp-video__overlay h2 {
-    font-family: Playfair Display
+    font-family: var(--font-heading-family)
     , serif;
     font-size: clamp(42px, 7vw, 100px);
     line-height: .92;
@@ -2218,7 +2211,7 @@
     box-shadow: 0 0 34px rgba(200, 161, 90, .24)
   }.bdp-{{ sid }}
   .bdp-usp-card b {
-    font-family: Playfair Display
+    font-family: var(--font-heading-family)
     , serif;
     font-size: 24px;
     font-weight: 600
@@ -2239,7 +2232,7 @@
     padding: 42px 22px
   }.bdp-{{ sid }}
   .bdp-stat b {
-    font-family: Playfair Display
+    font-family: var(--font-heading-family)
     , serif;
     font-size: clamp(52px, 7vw, 96px);
     line-height: 1;
@@ -2272,7 +2265,7 @@
     filter:drop-shadow(0 26px 42px #000)
   }.bdp-{{ sid }}
   .bdp-bundle-card h3 {
-    font-family: Playfair Display
+    font-family: var(--font-heading-family)
     , serif;
     font-size: 28px;
     margin: 0 0 8px
@@ -2345,7 +2338,7 @@
     text-align: left
   }.bdp-{{ sid }}
   .bdp-acc-item button span {
-    font-family: Playfair Display
+    font-family: var(--font-heading-family)
     , serif;
     font-size: clamp(24px, 3vw, 38px);
     line-height: 1.05
@@ -2411,7 +2404,7 @@
     gap: 36px
   }.bdp-{{ sid }}
   .bdp-footer__brand h2 {
-    font-family: Playfair Display
+    font-family: var(--font-heading-family)
     , serif;
     font-size: 44px;
     margin: 0 0 12px
@@ -2557,7 +2550,7 @@
     padding: 28px
   }.bdp-{{ sid }}
   .bdp-email-popup h3 {
-    font-family: Playfair Display
+    font-family: var(--font-heading-family)
     , serif;
     font-size: 32px;
     line-height: 1;
