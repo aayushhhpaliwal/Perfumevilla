@@ -354,6 +354,7 @@
         "faq_JJ6Cwc",
         "faq_dFD8cA"
       ],
+      "disabled": true,
       "custom_css": [
         "section.bdc-stats {display: none;}",
         "section.bdc-gallery.bdc-padded {display: none;}",
