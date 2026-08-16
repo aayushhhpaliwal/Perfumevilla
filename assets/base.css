@@ -254,7 +254,7 @@ body:has(.section-header .drawer-menu) .announcement-bar-section .page-width {
 }
 
 .text-body {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   letter-spacing: 0.06rem;
   line-height: calc(1 + 0.8 / var(--font-body-scale));
   font-family: var(--font-body-family);
@@ -310,37 +310,37 @@ h5,
 
 h1,
 .h1 {
-  font-size: calc(var(--font-heading-scale) * 3rem);
+  font-size: calc(var(--font-heading-scale) * 3.2rem);
 }
 
 @media only screen and (min-width: 750px) {
   h1,
   .h1 {
-    font-size: calc(var(--font-heading-scale) * 4rem);
+    font-size: calc(var(--font-heading-scale) * 4.4rem);
   }
 }
 
 h2,
 .h2 {
-  font-size: calc(var(--font-heading-scale) * 2rem);
+  font-size: calc(var(--font-heading-scale) * 2.2rem);
 }
 
 @media only screen and (min-width: 750px) {
   h2,
   .h2 {
-    font-size: calc(var(--font-heading-scale) * 2.4rem);
+    font-size: calc(var(--font-heading-scale) * 2.8rem);
   }
 }
 
 h3,
 .h3 {
-  font-size: calc(var(--font-heading-scale) * 1.7rem);
+  font-size: calc(var(--font-heading-scale) * 1.9rem);
 }
 
 @media only screen and (min-width: 750px) {
   h3,
   .h3 {
-    font-size: calc(var(--font-heading-scale) * 1.8rem);
+    font-size: calc(var(--font-heading-scale) * 2.1rem);
   }
 }
 
@@ -348,18 +348,18 @@ h4,
 .h4 {
   font-family: var(--font-heading-family);
   font-style: var(--font-heading-style);
-  font-size: calc(var(--font-heading-scale) * 1.5rem);
+  font-size: calc(var(--font-heading-scale) * 1.7rem);
 }
 
 h5,
 .h5 {
-  font-size: calc(var(--font-heading-scale) * 1.2rem);
+  font-size: calc(var(--font-heading-scale) * 1.4rem);
 }
 
 @media only screen and (min-width: 750px) {
   h5,
   .h5 {
-    font-size: calc(var(--font-heading-scale) * 1.3rem);
+    font-size: calc(var(--font-heading-scale) * 1.5rem);
   }
 }
 
@@ -384,31 +384,31 @@ blockquote {
 }
 
 .caption {
-  font-size: 1rem;
+  font-size: 1.2rem;
   letter-spacing: 0.07rem;
   line-height: calc(1 + 0.7 / var(--font-body-scale));
 }
 
 @media screen and (min-width: 750px) {
   .caption {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
   }
 }
 
 .caption-with-letter-spacing {
-  font-size: 1rem;
+  font-size: 1.2rem;
   letter-spacing: 0.13rem;
   line-height: calc(1 + 0.2 / var(--font-body-scale));
   text-transform: uppercase;
 }
 
 .caption-with-letter-spacing--medium {
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   letter-spacing: 0.16rem;
 }
 
 .caption-with-letter-spacing--large {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   letter-spacing: 0.18rem;
 }
 
@@ -418,7 +418,7 @@ blockquote {
 .field__input,
 .form__label,
 .select__select {
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   line-height: calc(1 + 0.5 / var(--font-body-scale));
   letter-spacing: 0.04rem;
 }
@@ -430,7 +430,7 @@ blockquote {
 table:not([class]) {
   table-layout: fixed;
   border-collapse: collapse;
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   border-style: hidden;
   box-shadow: 0 0 0 0.1rem rgba(var(--color-foreground), 0.2);
   /* draws the table border  */
