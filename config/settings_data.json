@@ -153,6 +153,11 @@
         "type": "shopify://apps/sectionhub/blocks/app-embed/9b74df56-d9a0-4a6f-8248-1a8825110996",
         "disabled": false,
         "settings": {}
+      },
+      "1219337400145039034": {
+        "type": "shopify://apps/kwikpass/blocks/kp_login/603e209b-d585-47ff-8592-837a4faa325b",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {
