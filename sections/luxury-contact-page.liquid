@@ -118,8 +118,10 @@
   #{{ section_id }} .pv-contact__detail-icon {
     width: 46px;
     height: 46px;
-    display: grid;
-    place-items: center;
+    display: flex;
+    flex: 0 0 46px;
+    align-items: center;
+    justify-content: center;
     border: 1px solid rgba(155, 116, 54, 0.42);
     border-radius: 50%;
     color: var(--contact-gold);
@@ -133,8 +135,10 @@
   }
 
   #{{ section_id }} .pv-contact__detail-icon svg {
+    display: block;
     width: 23px;
     height: 23px;
+    margin: 0;
     fill: none;
     stroke: currentColor;
     stroke-linecap: round;
@@ -142,19 +146,24 @@
     stroke-width: 1.5;
   }
 
-  #{{ section_id }} .pv-contact__detail strong,
-  #{{ section_id }} .pv-contact__detail span {
+  #{{ section_id }} .pv-contact__detail-copy,
+  #{{ section_id }} .pv-contact__detail-copy strong,
+  #{{ section_id }} .pv-contact__detail-copy > span {
     display: block;
   }
 
-  #{{ section_id }} .pv-contact__detail strong {
+  #{{ section_id }} .pv-contact__detail-copy {
+    min-width: 0;
+  }
+
+  #{{ section_id }} .pv-contact__detail-copy strong {
     margin-bottom: 3px;
     font-size: 1.4rem;
     font-weight: 600;
     line-height: 1.25;
   }
 
-  #{{ section_id }} .pv-contact__detail span {
+  #{{ section_id }} .pv-contact__detail-copy > span {
     color: var(--contact-muted);
     font-size: 1.3rem;
     line-height: 1.45;
@@ -297,6 +306,7 @@
     #{{ section_id }} .pv-contact__detail-icon {
       width: 38px;
       height: 38px;
+      flex-basis: 38px;
     }
 
     #{{ section_id }} .pv-contact__detail-icon svg {
@@ -386,13 +396,14 @@
     #{{ section_id }} .pv-contact__detail-icon {
       width: 44px;
       height: 44px;
+      flex-basis: 44px;
     }
 
-    #{{ section_id }} .pv-contact__detail strong {
+    #{{ section_id }} .pv-contact__detail-copy strong {
       font-size: 1.5rem;
     }
 
-    #{{ section_id }} .pv-contact__detail span {
+    #{{ section_id }} .pv-contact__detail-copy > span {
       font-size: 1.4rem;
     }
   }
@@ -407,7 +418,7 @@
             <span class="pv-contact__detail-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><rect x="2.5" y="4.5" width="19" height="15" rx="1.5"></rect><path d="m3.5 6 8.5 7 8.5-7"></path></svg>
             </span>
-            <span>
+            <span class="pv-contact__detail-copy">
               <strong>{{ section.settings.email_label | escape }}</strong>
               <span>{{ section.settings.email | escape }}</span>
             </span>
@@ -419,7 +430,7 @@
             <span class="pv-contact__detail-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><path d="M8.1 3.1 5.6 2.5c-.8-.2-1.7.2-2.1 1C1.2 7.3 3 13 6.8 16.8s9.5 5.6 13.3 3.3c.8-.5 1.2-1.3 1-2.1l-.6-2.5c-.2-.8-.9-1.4-1.7-1.4l-3.1-.1c-.7 0-1.3.4-1.6 1l-.6 1.4a12.8 12.8 0 0 1-5.9-5.9L9 9.9c.6-.3 1-.9 1-1.6l-.1-3.1c0-1-.8-1.8-1.8-2.1Z"></path></svg>
             </span>
-            <span>
+            <span class="pv-contact__detail-copy">
               <strong>{{ section.settings.phone_label | escape }}</strong>
               <span>{{ section.settings.phone | escape }}</span>
             </span>
@@ -431,7 +442,7 @@
             <span class="pv-contact__detail-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"></circle><path d="M12 6.5V12l3.7 2.2"></path></svg>
             </span>
-            <span>
+            <span class="pv-contact__detail-copy">
               <strong>{{ section.settings.hours_label | escape }}</strong>
               <span>{{ section.settings.hours | escape }}</span>
             </span>
