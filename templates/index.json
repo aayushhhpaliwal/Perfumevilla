@@ -161,7 +161,7 @@
             "btn_hover_bg_color": "#ffffff",
             "btn_hover_text_color": "#121212",
             "btn_hover_border_color": "#121212",
-            "outline_btn_shadow_color": "transparent"
+            "outline_btn_shadow_color": "rgba(0,0,0,0)"
           }
         }
       },
@@ -425,7 +425,7 @@
         "section.bdc-stats {display: none;}",
         "section.bdc-gallery.bdc-padded {display: none;}",
         ".bdc-offer-box {display: none !important;}",
-        ".bdc-hero {display: none;}",
+        ".bdc-hero,.bdc-notes, .bdc-video-story {display: none;}",
         "@media (max-width: 749px) {img.bdc-final-product {display: none; }}"
       ],
       "name": "Big Daddy Custom Home",
