@@ -23,6 +23,10 @@
           "type": "title",
           "settings": {}
         },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
         "inventory_9RVVjG": {
           "type": "inventory",
           "settings": {
@@ -30,10 +34,6 @@
             "inventory_threshold": 10,
             "show_inventory_quantity": true
           }
-        },
-        "price": {
-          "type": "price",
-          "settings": {}
         },
         "variant_picker": {
           "type": "variant_picker",
@@ -115,8 +115,8 @@
       "block_order": [
         "vendor",
         "title",
-        "inventory_9RVVjG",
         "price",
+        "inventory_9RVVjG",
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
