@@ -201,7 +201,7 @@
           "type": "feature",
           "settings": {
             "icon": "01",
-            "title": "3 Hours Performance",
+            "title": "Long Performance",
             "text": "A long-lasting trail designed for office, evenings, parties, and special occasions."
           }
         },
@@ -425,7 +425,7 @@
         "section.bdc-stats {display: none;}",
         "section.bdc-gallery.bdc-padded {display: none;}",
         ".bdc-offer-box {display: none !important;}",
-        ".bdc-hero,.bdc-notes, .bdc-video-story {display: none;}",
+        ".bdc-hero,.bdc-notes,.bdc-video-story {display: none;}",
         "@media (max-width: 749px) {img.bdc-final-product {display: none; }}"
       ],
       "name": "Big Daddy Custom Home",
