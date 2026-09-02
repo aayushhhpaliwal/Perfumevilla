@@ -526,6 +526,25 @@
         "card_radius": 28
       }
     },
+    "178836933464782958": {
+      "type": "apps",
+      "blocks": {
+        "judge_me_reviews_review_widget_homepage_BTbG9H": {
+          "type": "shopify://apps/judge-me-reviews/blocks/review_widget_homepage/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+          "settings": {
+            "product": "",
+            "review_data": "sample_data",
+            "max_width": 1200
+          }
+        }
+      },
+      "block_order": [
+        "judge_me_reviews_review_widget_homepage_BTbG9H"
+      ],
+      "settings": {
+        "include_margins": true
+      }
+    },
     "178491848692022992": {
       "type": "apps",
       "blocks": {
@@ -606,10 +625,6 @@
         "ai_gen_block_d4ffbc0_JAfBQN"
       ],
       "settings": {}
-    },
-    "1788349638b4cd19ba": {
-      "type": "_blocks",
-      "settings": {}
     }
   },
   "order": [
@@ -618,9 +633,9 @@
     "big_daddy_luxury_homepage_NYqCHr",
     "sh_hero_slideshow_w84RNa",
     "big_daddy_customizable_homepage_PPezNC",
+    "178836933464782958",
     "178491848692022992",
     "17883482861d55cb2f",
-    "1788348745ffbfc9ac",
-    "1788349638b4cd19ba"
+    "1788348745ffbfc9ac"
   ]
 }
