@@ -554,6 +554,62 @@
       "settings": {
         "include_margins": true
       }
+    },
+    "17883482861d55cb2f": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_1be5368_QnmPH7": {
+          "type": "ai_gen_block_1be5368",
+          "disabled": true,
+          "settings": {
+            "whatsapp_number": "+91 7648946041",
+            "display_text": "",
+            "icon_size": 20,
+            "text_size": 14
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_1be5368_QnmPH7"
+      ],
+      "settings": {}
+    },
+    "1788348745ffbfc9ac": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_d4ffbc0_JAfBQN": {
+          "type": "ai_gen_block_d4ffbc0",
+          "settings": {
+            "show_instagram": true,
+            "instagram_link": "https://www.instagram.com/theperfumevilla_official/",
+            "show_whatsapp": true,
+            "whatsapp_number": "+917648946041",
+            "show_email": true,
+            "email_address": "Theperfumevilla01@gmail.com",
+            "icon_size": 40,
+            "icon_spacing": 16,
+            "alignment": "center",
+            "desktop_width_percent": 100,
+            "icon_background_color": "#121212",
+            "icon_color": "#ffffff",
+            "icon_border_width": 0,
+            "icon_border_color": "#121212",
+            "icon_hover_background_color": "#ffffff",
+            "icon_hover_color": "#121212",
+            "icon_hover_border_color": "#121212"
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_d4ffbc0_JAfBQN"
+      ],
+      "settings": {}
+    },
+    "1788349638b4cd19ba": {
+      "type": "_blocks",
+      "settings": {}
     }
   },
   "order": [
@@ -562,6 +618,9 @@
     "big_daddy_luxury_homepage_NYqCHr",
     "sh_hero_slideshow_w84RNa",
     "big_daddy_customizable_homepage_PPezNC",
-    "178491848692022992"
+    "178491848692022992",
+    "17883482861d55cb2f",
+    "1788348745ffbfc9ac",
+    "1788349638b4cd19ba"
   ]
 }
