@@ -133,6 +133,10 @@
         "how_to_use",
         "share"
       ],
+      "custom_css": [
+        ".button--full-width {display: flex; width: calc(100% - 150px) !important; margin-top: -72px; margin-left: 150px;}",
+        ".product-form__buttons {max-width: 100%;}"
+      ],
       "settings": {
         "enable_sticky_info": true,
         "color_scheme": "scheme-1",
