@@ -115,6 +115,16 @@
             "page": ""
           }
         },
+        "reelfy_videos_reelfy_product_RXz7Qn": {
+          "type": "shopify://apps/reelfy-videos/blocks/reelfy-product/4022ffb0-05c3-4ef3-a409-6df51f4b1b3f",
+          "settings": {
+            "title": "",
+            "heading_size": "1",
+            "heading_align": "left",
+            "heading_color": "",
+            "custom_class": ""
+          }
+        },
         "share": {
           "type": "share",
           "settings": {
@@ -138,6 +148,7 @@
         "fragrance_notes",
         "performance",
         "how_to_use",
+        "reelfy_videos_reelfy_product_RXz7Qn",
         "share"
       ],
       "custom_css": [
