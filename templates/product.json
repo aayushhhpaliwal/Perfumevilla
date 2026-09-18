@@ -46,6 +46,12 @@
             "swatch_shape": "circle"
           }
         },
+        "custom_liquid_qkJDak": {
+          "type": "custom_liquid",
+          "settings": {
+            "custom_liquid": "<div class=\"vlora-usp-image\">\n  <img\n    src=\"https://cdn.shopify.com/s/files/1/0734/0290/8783/files/09ed8ff0-9793-48b5-af08-b6743c11595d.png?v=1789755701\"\n    alt=\"Vlora product benefits\"\n    loading=\"lazy\"\n  >\n</div>\n\n<style>\n  .vlora-usp-image {\n    margin: 12px 0;\n    text-align: center;\n  }\n\n  .vlora-usp-image img {\n    width: 100%;\n    max-width: 520px;\n    height: auto;\n    display: inline-block;\n    border-radius: 8px;\n  }\n\n  @media screen and (max-width: 749px) {\n    .vlora-usp-image {\n      margin: 10px 0;\n    }\n\n    .vlora-usp-image img {\n      width: 100%;\n      max-width: 100%;\n    }\n  }\n</style>"
+          }
+        },
         "quantity_selector": {
           "type": "quantity_selector",
           "settings": {}
@@ -123,6 +129,7 @@
         "judge_me_reviews_preview_badge_7PgiR4",
         "inventory_9RVVjG",
         "variant_picker",
+        "custom_liquid_qkJDak",
         "quantity_selector",
         "buy_buttons",
         "description",
@@ -149,7 +156,7 @@
         "image_zoom": "lightbox",
         "hide_variants": true,
         "enable_video_looping": false,
-        "padding_top": 36,
+        "padding_top": 24,
         "padding_bottom": 40
       }
     },
