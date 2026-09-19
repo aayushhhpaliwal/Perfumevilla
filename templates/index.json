@@ -290,6 +290,24 @@
             "meta": "Verified Customer"
           }
         },
+        "testimonial_YgrdYd": {
+          "type": "testimonial",
+          "settings": {
+            "rating": "★★★★★",
+            "review": "Big Daddy smells premium, masculine, and very long lasting. The bottle also feels gift-worthy.",
+            "name": "Arjun Mehta",
+            "meta": "Verified Customer"
+          }
+        },
+        "testimonial_UCeKng": {
+          "type": "testimonial",
+          "settings": {
+            "rating": "★★★★★",
+            "review": "Big Daddy smells premium, masculine, and very long lasting. The bottle also feels gift-worthy.",
+            "name": "Arjun Mehta",
+            "meta": "Verified Customer"
+          }
+        },
         "reel_product_R1": {
           "type": "reel",
           "settings": {
@@ -450,6 +468,8 @@
         "note_h99fy7",
         "testimonial_h7X6Ew",
         "testimonial_qTNMDm",
+        "testimonial_YgrdYd",
+        "testimonial_UCeKng",
         "reel_product_R1",
         "reel_unboxing_R2",
         "reel_EdUzUG",
