@@ -293,7 +293,6 @@
         "reel_product_R1": {
           "type": "reel",
           "settings": {
-            "cover_image": "",
             "badge": "Customer Favourite",
             "title": "Luxury in every spray",
             "caption": "See the bottle, texture, and premium presentation up close.",
@@ -304,7 +303,6 @@
         "reel_unboxing_R2": {
           "type": "reel",
           "settings": {
-            "cover_image": "",
             "badge": "Unboxing",
             "title": "Made to feel premium",
             "caption": "From the first look to the final spray.",
@@ -312,15 +310,34 @@
             "link": "shopify://products/big-daddy"
           }
         },
-        "reel_daily_R3": {
+        "reel_EdUzUG": {
           "type": "reel",
           "settings": {
-            "cover_image": "",
-            "badge": "Daily Wear",
-            "title": "Your new signature scent",
-            "caption": "A bold trail for work, evenings, and everything after.",
+            "badge": "Customer favourite",
+            "title": "Luxury in every spray",
+            "caption": "See the bottle, texture, and premium presentation up close.",
             "link_label": "Shop now",
-            "link": "shopify://products/big-daddy"
+            "link": ""
+          }
+        },
+        "reel_diaNBG": {
+          "type": "reel",
+          "settings": {
+            "badge": "Customer favourite",
+            "title": "Luxury in every spray",
+            "caption": "See the bottle, texture, and premium presentation up close.",
+            "link_label": "Shop now",
+            "link": ""
+          }
+        },
+        "reel_Trj9Fz": {
+          "type": "reel",
+          "settings": {
+            "badge": "Customer favourite",
+            "title": "Luxury in every spray",
+            "caption": "See the bottle, texture, and premium presentation up close.",
+            "link_label": "Shop now",
+            "link": ""
           }
         },
         "usp_gAATpK": {
@@ -441,7 +458,9 @@
         "testimonial_qTNMDm",
         "reel_product_R1",
         "reel_unboxing_R2",
-        "reel_daily_R3",
+        "reel_EdUzUG",
+        "reel_diaNBG",
+        "reel_Trj9Fz",
         "usp_gAATpK",
         "usp_3L4yLi",
         "usp_eUEzNn",
