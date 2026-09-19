@@ -290,6 +290,39 @@
             "meta": "Verified Customer"
           }
         },
+        "reel_product_R1": {
+          "type": "reel",
+          "settings": {
+            "cover_image": "",
+            "badge": "Customer Favourite",
+            "title": "Luxury in every spray",
+            "caption": "See the bottle, texture, and premium presentation up close.",
+            "link_label": "Shop now",
+            "link": "shopify://products/big-daddy"
+          }
+        },
+        "reel_unboxing_R2": {
+          "type": "reel",
+          "settings": {
+            "cover_image": "",
+            "badge": "Unboxing",
+            "title": "Made to feel premium",
+            "caption": "From the first look to the final spray.",
+            "link_label": "Shop now",
+            "link": "shopify://products/big-daddy"
+          }
+        },
+        "reel_daily_R3": {
+          "type": "reel",
+          "settings": {
+            "cover_image": "",
+            "badge": "Daily Wear",
+            "title": "Your new signature scent",
+            "caption": "A bold trail for work, evenings, and everything after.",
+            "link_label": "Shop now",
+            "link": "shopify://products/big-daddy"
+          }
+        },
         "usp_gAATpK": {
           "type": "usp",
           "settings": {
@@ -406,6 +439,9 @@
         "note_h99fy7",
         "testimonial_h7X6Ew",
         "testimonial_qTNMDm",
+        "reel_product_R1",
+        "reel_unboxing_R2",
+        "reel_daily_R3",
         "usp_gAATpK",
         "usp_3L4yLi",
         "usp_eUEzNn",
@@ -501,6 +537,9 @@
         "compare_after_alt": "Luxury dark cinematic perfume visual",
         "reviews_eyebrow": "Verified Reviews",
         "reviews_heading": "Loved by men who like their fragrance bold.",
+        "reels_eyebrow": "Watch The Experience",
+        "reels_heading": "Big Daddy, in real life.",
+        "reels_text": "Swipe through quick product moments, reactions, and the details that make every spray feel premium.",
         "video_heading": "A cinematic ritual in every spray.",
         "video_text": "Use this block for an autoplay muted product video: bottle closeups, ruby liquid reflections, smoke, gold shimmer, and slow luxury camera motion.",
         "usp_eyebrow": "Premium USP Grid",

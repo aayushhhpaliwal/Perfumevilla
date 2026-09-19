@@ -389,6 +389,67 @@
       </div>
     </section>
 
+    {% assign reel_blocks = section.blocks | where: 'type', 'reel' %}
+    {% if reel_blocks.size > 0 %}
+      <section class="bdc-reels bdc-padded" id="bdc-reels-{{ sid }}" aria-labelledby="bdcReelsTitle-{{ sid }}">
+        <div class="bdc-container bdc-reels-heading">
+          <div>
+            <p class="bdc-eyebrow" data-bdc-reveal>{{ section.settings.reels_eyebrow }}</p>
+            <h2 class="bdc-section-title" id="bdcReelsTitle-{{ sid }}" data-bdc-reveal>{{ section.settings.reels_heading }}</h2>
+          </div>
+          {% if section.settings.reels_text != blank %}
+            <p class="bdc-section-copy" data-bdc-reveal>{{ section.settings.reels_text }}</p>
+          {% endif %}
+        </div>
+
+        <div class="bdc-reels-track" aria-label="Product reels">
+          {% for block in reel_blocks %}
+            {% liquid
+              assign reel_cover = block.settings.cover_image
+              if reel_cover == blank
+                assign reel_cover = hero_image
+              endif
+            %}
+            <article class="bdc-reel-card" data-bdc-reveal {{ block.shopify_attributes }}>
+              <div class="bdc-reel-media">
+                {% if block.settings.video != blank %}
+                  {{ block.settings.video | video_tag: image_size: '720x', autoplay: false, loop: true, muted: true, controls: false, playsinline: true, preload: 'metadata', class: 'bdc-reel-video' }}
+                {% elsif reel_cover != blank %}
+                  <img
+                    src="{{ reel_cover | image_url: width: 720 }}"
+                    srcset="{{ reel_cover | image_url: width: 360 }} 360w, {{ reel_cover | image_url: width: 540 }} 540w, {{ reel_cover | image_url: width: 720 }} 720w"
+                    sizes="(max-width: 749px) 76vw, 300px"
+                    width="720"
+                    height="1280"
+                    alt="{{ block.settings.title | escape }}"
+                    loading="lazy"
+                    decoding="async">
+                {% else %}
+                  {{ 'image' | placeholder_svg_tag: 'bdc-reel-placeholder' }}
+                {% endif %}
+
+                {% if block.settings.video != blank %}
+                  <button class="bdc-reel-sound" type="button" data-bdc-reel-sound aria-label="Unmute reel" aria-pressed="false">
+                    <svg class="bdc-reel-muted-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5Zm5.4 4.2 4.4 4.4m0-4.4-4.4 4.4"/></svg>
+                    <svg class="bdc-reel-sound-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5Zm4 3.5a5 5 0 0 1 0 7M17.8 6a8.5 8.5 0 0 1 0 12"/></svg>
+                  </button>
+                {% endif %}
+
+                <div class="bdc-reel-overlay">
+                  {% if block.settings.badge != blank %}<span>{{ block.settings.badge }}</span>{% endif %}
+                  {% if block.settings.title != blank %}<h3>{{ block.settings.title }}</h3>{% endif %}
+                  {% if block.settings.caption != blank %}<p>{{ block.settings.caption }}</p>{% endif %}
+                  {% if block.settings.link != blank and block.settings.link_label != blank %}
+                    <a href="{{ block.settings.link }}">{{ block.settings.link_label }}</a>
+                  {% endif %}
+                </div>
+              </div>
+            </article>
+          {% endfor %}
+        </div>
+      </section>
+    {% endif %}
+
     <section class="bdc-video-story bdc-padded">
       <div class="bdc-container">
         <div
@@ -1627,6 +1688,145 @@
     color: var(--gold-light);
   }
 
+  .bdc-{{ sid }} .bdc-reels {
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 12% 18%, rgba(139,30,45,.18), transparent 32%),
+      var(--bg-2);
+  }
+  .bdc-{{ sid }} .bdc-reels-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(260px, .8fr);
+    align-items: end;
+    gap: 36px;
+  }
+  .bdc-{{ sid }} .bdc-reels-heading .bdc-section-copy {
+    margin: 0 0 8px;
+  }
+  .bdc-{{ sid }} .bdc-reels-track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(250px, 310px);
+    gap: 18px;
+    overflow-x: auto;
+    padding: 42px max(20px, calc((100vw - 1180px) / 2)) 12px;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+    overscroll-behavior-inline: contain;
+  }
+  .bdc-{{ sid }} .bdc-reels-track::-webkit-scrollbar {
+    display: none;
+  }
+  .bdc-{{ sid }} .bdc-reel-card {
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+  .bdc-{{ sid }} .bdc-reel-media {
+    position: relative;
+    aspect-ratio: 9 / 16;
+    overflow: hidden;
+    border: 1px solid rgba(228,200,138,.24);
+    border-radius: calc(var(--radius) - 6px);
+    background: #15110f;
+    box-shadow: 0 22px 50px rgba(0,0,0,.34);
+    isolation: isolate;
+  }
+  .bdc-{{ sid }} .bdc-reel-media:after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(180deg, rgba(0,0,0,.06) 38%, rgba(0,0,0,.82) 100%);
+    pointer-events: none;
+  }
+  .bdc-{{ sid }} .bdc-reel-video,
+  .bdc-{{ sid }} .bdc-reel-media > img,
+  .bdc-{{ sid }} .bdc-reel-placeholder {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition: transform .6s cubic-bezier(.2,.75,.25,1);
+  }
+  .bdc-{{ sid }} .bdc-reel-card:hover .bdc-reel-video,
+  .bdc-{{ sid }} .bdc-reel-card:hover .bdc-reel-media > img {
+    transform: scale(1.035);
+  }
+  .bdc-{{ sid }} .bdc-reel-sound {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    z-index: 3;
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    padding: 0;
+    border: 1px solid rgba(255,255,255,.34);
+    border-radius: 50%;
+    color: #fff;
+    background: rgba(0,0,0,.42);
+    backdrop-filter: blur(10px);
+    cursor: pointer;
+  }
+  .bdc-{{ sid }} .bdc-reel-sound svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  .bdc-{{ sid }} .bdc-reel-sound-icon,
+  .bdc-{{ sid }} .bdc-reel-sound[aria-pressed="true"] .bdc-reel-muted-icon {
+    display: none;
+  }
+  .bdc-{{ sid }} .bdc-reel-sound[aria-pressed="true"] .bdc-reel-sound-icon {
+    display: block;
+  }
+  .bdc-{{ sid }} .bdc-reel-overlay {
+    position: absolute;
+    inset: auto 0 0;
+    z-index: 2;
+    padding: 26px 22px 22px;
+    color: #fff;
+  }
+  .bdc-{{ sid }} .bdc-reel-overlay span {
+    display: inline-flex;
+    margin-bottom: 10px;
+    padding: 5px 9px;
+    border: 1px solid rgba(255,255,255,.35);
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    background: rgba(0,0,0,.28);
+  }
+  .bdc-{{ sid }} .bdc-reel-overlay h3 {
+    margin: 0;
+    color: #fff;
+    font-size: 22px;
+    line-height: 1.08;
+  }
+  .bdc-{{ sid }} .bdc-reel-overlay p {
+    margin: 8px 0 0;
+    color: rgba(255,255,255,.78);
+    font-size: 13px;
+    line-height: 1.5;
+  }
+  .bdc-{{ sid }} .bdc-reel-overlay a {
+    display: inline-flex;
+    margin-top: 15px;
+    color: var(--gold-light);
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: .08em;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+
   .bdc-{{ sid }}
   .bdc-video-frame {
     height: 620px;
@@ -2449,6 +2649,14 @@
     .bdc-{{ sid }} .bdc-testimonial-track {
       grid-auto-columns: minmax(270px, 86vw);
     }
+    .bdc-{{ sid }} .bdc-reels-heading {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .bdc-{{ sid }} .bdc-reels-track {
+      grid-auto-columns: minmax(245px, 76vw);
+      padding-top: 30px;
+    }
   }
 
   .bdc-{{ sid }} {
@@ -2610,6 +2818,33 @@
     } else if (storyVideo && !prefersReduced) {
       storyVideo.play().catch(() => {});
     }
+
+    const reelVideos = root.querySelectorAll('.bdc-reel-video');
+    let reelsObserver;
+    if (reelVideos.length && 'IntersectionObserver' in window && !prefersReduced) {
+      reelsObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          const reel = entry.target;
+          if (entry.isIntersecting && entry.intersectionRatio >= .55) {
+            reel.play().catch(() => {});
+          } else {
+            reel.pause();
+          }
+        });
+      }, { threshold: [.15, .55, .85] });
+      reelVideos.forEach(video => reelsObserver.observe(video));
+    }
+
+    root.querySelectorAll('[data-bdc-reel-sound]').forEach(button => {
+      const video = button.closest('.bdc-reel-media')?.querySelector('.bdc-reel-video');
+      if (!video) return;
+      button.addEventListener('click', () => {
+        video.muted = !video.muted;
+        button.setAttribute('aria-pressed', String(!video.muted));
+        button.setAttribute('aria-label', video.muted ? 'Unmute reel' : 'Mute reel');
+        if (video.paused) video.play().catch(() => {});
+      });
+    });
 
     const tiltWrap = root.querySelector('[data-bdc-tilt-wrap]');
     const tilt = root.querySelector('[data-bdc-tilt]');
@@ -2781,6 +3016,7 @@
       if (scrollFrame) window.cancelAnimationFrame(scrollFrame);
       revealObserver?.disconnect();
       videoObserver?.disconnect();
+      reelsObserver?.disconnect();
       document.removeEventListener('shopify:section:unload', handleSectionUnload);
     };
     document.addEventListener('shopify:section:unload', handleSectionUnload);
@@ -3165,6 +3401,21 @@
         "default": "Loved by men who like their fragrance bold."
       }, {
         "type": "text",
+        "id": "reels_eyebrow",
+        "label": "Reels eyebrow",
+        "default": "Watch The Experience"
+      }, {
+        "type": "text",
+        "id": "reels_heading",
+        "label": "Reels heading",
+        "default": "Big Daddy, in real life."
+      }, {
+        "type": "textarea",
+        "id": "reels_text",
+        "label": "Reels text",
+        "default": "Swipe through quick product moments, reactions, and the details that make every spray feel premium."
+      }, {
+        "type": "text",
         "id": "video_heading",
         "label": "Video heading",
         "default": "A cinematic ritual in every spray."
@@ -3372,6 +3623,44 @@
           }
         ]
       }, {
+        "type": "reel",
+        "name": "Reel video",
+        "settings": [
+          {
+            "type": "video",
+            "id": "video",
+            "label": "Vertical video"
+          }, {
+            "type": "image_picker",
+            "id": "cover_image",
+            "label": "Cover image (optional)"
+          }, {
+            "type": "text",
+            "id": "badge",
+            "label": "Badge",
+            "default": "Customer favourite"
+          }, {
+            "type": "text",
+            "id": "title",
+            "label": "Title",
+            "default": "Luxury in every spray"
+          }, {
+            "type": "textarea",
+            "id": "caption",
+            "label": "Caption",
+            "default": "See the bottle, texture, and premium presentation up close."
+          }, {
+            "type": "text",
+            "id": "link_label",
+            "label": "Link label",
+            "default": "Shop now"
+          }, {
+            "type": "url",
+            "id": "link",
+            "label": "Link"
+          }
+        ]
+      }, {
         "type": "usp",
         "name": "USP",
         "settings": [
@@ -3524,6 +3813,22 @@
             "settings": {
               "name": "Rohit Sharma",
               "review": "The opening is bold and the dry-down feels expensive. Perfect perfume for evenings."
+            }
+          }, {
+            "type": "reel"
+          }, {
+            "type": "reel",
+            "settings": {
+              "badge": "Unboxing",
+              "title": "Made to feel premium",
+              "caption": "From the first look to the final spray."
+            }
+          }, {
+            "type": "reel",
+            "settings": {
+              "badge": "Daily wear",
+              "title": "Your new signature scent",
+              "caption": "A bold trail for work, evenings, and everything after."
             }
           }, {
             "type": "usp",
