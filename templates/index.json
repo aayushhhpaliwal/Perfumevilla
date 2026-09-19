@@ -293,9 +293,10 @@
         "reel_product_R1": {
           "type": "reel",
           "settings": {
-            "badge": "Customer Favourite",
-            "title": "Luxury in every spray",
-            "caption": "See the bottle, texture, and premium presentation up close.",
+            "video": "shopify://files/videos/THE WEBSITE IS LIVE\n\nYour favourite fragrance BIG.mp4",
+            "badge": "",
+            "title": "",
+            "caption": "",
             "link_label": "Shop now",
             "link": "shopify://products/big-daddy"
           }
@@ -303,9 +304,10 @@
         "reel_unboxing_R2": {
           "type": "reel",
           "settings": {
-            "badge": "Unboxing",
-            "title": "Made to feel premium",
-            "caption": "From the first look to the final spray.",
+            "video": "shopify://files/videos/इस Rakhi सरफ धग नह एक यदगर fragrance भ बध. \n\nA sis.mp4",
+            "badge": "",
+            "title": "",
+            "caption": "",
             "link_label": "Shop now",
             "link": "shopify://products/big-daddy"
           }
@@ -313,21 +315,23 @@
         "reel_EdUzUG": {
           "type": "reel",
           "settings": {
-            "badge": "Customer favourite",
-            "title": "Luxury in every spray",
-            "caption": "See the bottle, texture, and premium presentation up close.",
+            "video": "shopify://files/videos/Your perfumeshop now theperfumevilla \nfashionshow.mp4",
+            "badge": "",
+            "title": "",
+            "caption": "",
             "link_label": "Shop now",
-            "link": ""
+            "link": "shopify://products/big-daddy"
           }
         },
         "reel_diaNBG": {
           "type": "reel",
           "settings": {
-            "badge": "Customer favourite",
-            "title": "Luxury in every spray",
-            "caption": "See the bottle, texture, and premium presentation up close.",
+            "video": "shopify://files/videos/Some fragrances dont just smell expensive... they.mp4",
+            "badge": "",
+            "title": "",
+            "caption": "",
             "link_label": "Shop now",
-            "link": ""
+            "link": "shopify://products/big-daddy"
           }
         },
         "usp_gAATpK": {
